@@ -1,0 +1,27 @@
+%h1 Listing attractions
+
+%table
+  %tr
+    %th Region
+    %th Galery
+    %th Name
+    %th Description
+    %th Slug
+    %th
+    %th
+    %th
+
+  - @attractions.each do |attraction|
+    %tr
+      %td= attraction.region_id
+      %td= attraction.galery_id
+      %td= attraction.name
+      %td= attraction.description
+      %td= attraction.slug
+      %td= link_to 'Show', attraction
+      %td= link_to 'Edit', edit_attraction_path(attraction)
+      %td= link_to 'Destroy', attraction, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Attraction', new_attraction_path

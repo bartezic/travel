@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Region:
+  = @hotel.region_id
+%p
+  %b Galery:
+  = @hotel.galery_id
+%p
+  %b Name:
+  = @hotel.name
+%p
+  %b Description:
+  = @hotel.description
+%p
+  %b Slug:
+  = @hotel.slug
+
+= link_to 'Edit', edit_hotel_path(@hotel)
+\|
+= link_to 'Back', hotels_path

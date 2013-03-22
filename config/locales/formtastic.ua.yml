@@ -1,0 +1,8 @@
+ua:
+  formtastic:
+    yes: 'Так'
+    no: 'Ні'
+    create: 'Створити'
+    save: 'Зберегти'
+    submit: 'Відправити'
+    required: "Обов'язкове"

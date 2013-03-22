@@ -1,0 +1,27 @@
+%h1 Listing hotels
+
+%table
+  %tr
+    %th Region
+    %th Galery
+    %th Name
+    %th Description
+    %th Slug
+    %th
+    %th
+    %th
+
+  - @hotels.each do |hotel|
+    %tr
+      %td= hotel.region_id
+      %td= hotel.galery_id
+      %td= hotel.name
+      %td= hotel.description
+      %td= hotel.slug
+      %td= link_to 'Show', hotel
+      %td= link_to 'Edit', edit_hotel_path(hotel)
+      %td= link_to 'Destroy', hotel, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Hotel', new_hotel_path

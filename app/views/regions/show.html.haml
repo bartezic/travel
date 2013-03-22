@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Country:
+  = @region.country_id
+%p
+  %b Galery:
+  = @region.galery_id
+%p
+  %b Name:
+  = @region.name
+%p
+  %b Description:
+  = @region.description
+
+= link_to 'Edit', edit_region_path(@region)
+\|
+= link_to 'Back', regions_path

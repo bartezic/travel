@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @continent.name
+%p
+  %b Description:
+  = @continent.description
+
+= link_to 'Edit', edit_continent_path(@continent)
+\|
+= link_to 'Back', continents_path
