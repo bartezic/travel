@@ -1,20 +1,18 @@
 Travel::Application.routes.draw do
   resources :hotels
-
-
   resources :attractions
-
-
   resources :galeries
-
-
   resources :regions
-
-
   resources :countries
 
-
-  resources :continents
+  resources :continents do
+    resources :countries do
+      resources :regions do
+        resources :hotels
+        resources :attractions
+      end
+    end
+  end
 
 
   ActiveAdmin.routes(self)
@@ -70,7 +68,7 @@ Travel::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'static#home'
 
   # See how all your routes lay out with "rake routes"
 

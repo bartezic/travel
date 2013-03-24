@@ -1,4 +1,4 @@
-ua:
+uk:
   active_admin:
     dashboard: Dashboard
     dashboard_welcome:
@@ -88,4 +88,4 @@ ua:
       translations: Переклади
       language:
         ru: Російська
-        ua: Українська
+        uk: Українська

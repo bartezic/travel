@@ -1,0 +1,35 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -60px;
+}
+
+#wrap .container {
+  padding-top: 60px;
+}
+
+#push, #footer {
+  height: 60px;
+}
+
+#footer .container{
+  border-top: 1px solid silver;
+  padding-top: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+img.media-object {
+  width: 64px;
+  height: 64px;
+}

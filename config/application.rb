@@ -60,7 +60,7 @@ module Travel
     config.assets.version = '1.0'
 
     config.i18n.fallbacks = true
-    config.i18n.available_locales = [:ua, :ru]
-    config.i18n.default_locale = :ua
+    config.i18n.available_locales = [:uk, :ru]
+    config.i18n.default_locale = :uk
   end
 end

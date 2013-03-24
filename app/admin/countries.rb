@@ -12,6 +12,7 @@ ActiveAdmin.register Country do
     f.translated_inputs switch_locale: true do |t|
       t.input :name
       t.input :description
+      t.input :meta_description
       t.input :visa
       t.input :kitchen
       t.input :recomendation

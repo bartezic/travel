@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-ua:
+uk:
   devise:
     confirmations:
       confirmed: 'Ваша обліковий рахунок було успішно підтверджено. Ви успішно увійшли до системи.'
