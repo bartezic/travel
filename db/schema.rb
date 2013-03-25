@@ -28,6 +28,25 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
+  create_table "active_admin_seo_meta", :force => true do |t|
+    t.string   "slug"
+    t.string   "title"
+    t.string   "description"
+    t.string   "keywords"
+    t.string   "og_title"
+    t.string   "og_type"
+    t.string   "og_image_uid"
+    t.string   "og_url"
+    t.integer  "seoable_id"
+    t.string   "seoable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "og_description"
+    t.string   "og_site_name"
+  end
+
+  add_index "active_admin_seo_meta", ["seoable_id", "seoable_type"], :name => "active_admin_seo_meta_seoable"
+
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
