@@ -38,6 +38,17 @@
   border-bottom-color: white;
 }
 
+.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a:focus, 
+.dropdown-submenu:hover > a, 
+.dropdown-submenu:focus > a {
+  text-decoration: none;
+  color: white;
+  background-color: #f8991f;
+  background-image: none;
+  filter: none;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) { 
   .navbar-fixed-top .navbar-inner, 
