@@ -8,6 +8,7 @@ ActiveAdmin.register Country do
   form do |f|
     f.inputs do
       f.input :continent
+      f.input :logo
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name

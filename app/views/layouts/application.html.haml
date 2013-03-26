@@ -6,20 +6,30 @@
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
     %title= content_for?(:title) ? yield(:title) : "Travel"
     = csrf_meta_tags
-    / Le HTML5 shim, for IE6-8 support of HTML elements
-    /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", :media => "all"
-    %link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
-    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
-    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
-    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
-    %link(href="favicon.ico" rel="shortcut icon")
+    %link(href="/ico/favicon.ico" rel="shortcut icon")
 
 
   %body
     = render 'layouts/navigation'
     #wrap
+      - if request.path == root_path
+        .banner
+          %ul
+            %li 
+              %img{ src: '/assets/slider/Hilton-Hotel-Paris-France-1080x1920.jpg' }
+            %li 
+              %img{ src: '/assets/slider/plan-plan-your-trip-find-travel-agent.jpg' }
+            %li 
+              %img{ src: '/assets/slider/Sensoji-Temple-Tokyo-Japan-01-1080x1920.jpg' }
+            %li 
+              %img{ src: '/assets/slider/Sky-Tree-Christmas-Illuminations-Tokyo-Japan-1080x1920.jpg' }
+            %li 
+              %img{ src: '/assets/slider/Subway-Entrance-Paris-France-1080x1920.jpg' }
+            %li 
+              %img{ src: '/assets/slider/travel-business-hammock-beach-1080x1920.jpg' }
+            %li 
+              %img{ src: '/assets/slider/eiffel-tower-europe-travel-1080x1920.jpg' }
       .container
         = render 'layouts/flash'
         = yield
@@ -37,3 +47,4 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
+    %script(src="//unslider.com/unslider.min.js")

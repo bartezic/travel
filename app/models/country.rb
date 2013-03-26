@@ -25,8 +25,10 @@ class Country < ActiveRecord::Base
   end
 
   def change_file_name
-    extension = File.extname(asset_file_name).gsub(/^\.+/, '')
-    name = title.to_slug.normalize(transliterations: :ukrainian).to_s
-    asset.instance_write(:file_name, "#{name}.#{extension}")
+    if logo_file_name
+      extension = File.extname(logo_file_name).gsub(/^\.+/, '')
+      name = title.to_slug.normalize(transliterations: :ukrainian).to_s
+      asset.instance_write(:file_name, "#{name}.#{extension}")
+    end
   end
 end

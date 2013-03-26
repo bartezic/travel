@@ -14,3 +14,28 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$(function() {
+  if(window.chrome) {
+    $('.banner li').css({
+      'background-size': '100% 100%',
+      'min-height': ($(window).width()*1080)/1920+'px'
+    });
+  }
+
+  var slidey = $('.banner').unslider({
+    speed: 500,               //  The speed to animate each slide (in milliseconds)
+    delay: 7000,              //  The delay between slide animations (in milliseconds)
+    //complete: function() {},  //  A function that gets called after every slide animation
+    keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+    dots: true,               //  Display dot navigation
+    fluid: true              //  Support responsive design. May break non-responsive designs
+  });
+
+  if (slidey.length > 0) {
+    $(window).resize(function() {
+      slidey.data('unslider').next();
+      $('.banner li').css('min-height', '');
+    });
+  }
+});

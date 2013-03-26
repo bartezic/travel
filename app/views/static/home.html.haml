@@ -1,110 +1,111 @@
-.row
-  .span8
-    .well.well-small
-      %img{ src: 'assets/slider.jpeg', style: "heigth: 300px" }
-  .span4
-    .well.well-small
-      .form
-        .fieldset
-          %legend{style: 'text-align: center;'} Підпишіться на розсилки
-          %label{style: 'text-align: justify;'} Отримуйте на електронну пошту гарячі та цікаві пропозиції турів, а також гарячі новини та корисні поради для подорожуючих.
-          %label Оберіть типи розсилок:
-          %label.checkbox.inline
-            %input{ type:"checkbox" } всі
-          %label.checkbox.inline
-            %input{ type:"checkbox" } миттєва
-          %label.checkbox.inline
-            %input{ type:"checkbox" } щоденна
-          %label.checkbox.inline
-            %input{ type:"checkbox" } тижнева
-          %input.input-block-level{ type: "text", placeholder: "Введіть ваш e-mail..." }
-          %button.btn.btn-large.btn-block.btn-primary{ type: "submit" } Підписатись
-.row-fluid
-  %ul.thumbnails
-    %li.span4
-      %h4 Останні додані тури
-      .thumbnail
-        .caption
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://mongrasse.com.ua/images/bali_new_year.jpg" }
-            .media-body
-              %h5.media-heading Балі на Новий 2013 Рік!
-              %p Від 1999 USD з перельотом на 12 ночей!
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://mongrasse.com.ua/images/rimini2.jpg" }
-            .media-body
-              %h5.media-heading Ексклюзив! Відпочинок в Ріміні
-              %p Ріміні — місто та муніципалітет в Італії на узбережжі Адріатичного моря, у регіоні Емілія-Романья, столиця провінції Ріміні...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCt3xGLYmAlRXUopatP-5DQ17kkYf09giJZcrkmz4_XBawLhV-hw" }
-            .media-body
-              %h5.media-heading Барселона - Джазовий Фестиваль
-              %p 44 Voll-Damm Festival Internacional de Jazz de Barcelona...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://morena.com.ua/wp-content/uploads/2012/06/but_915.jpg" }
-            .media-body
-              %h5.media-heading о. Сардинія - відпочинок для гурманів
-              %p Унікальні апартаменти на Північній Сардинії...
-          %a.btn.pull-right{ href: "#" } Всі тури ...
-    %li.span4
-      %h4 Популярні напрямки
-      .thumbnail
-        .caption
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://altantour.com/images/tour/0090.jpg" }
-            .media-body
-              %h5.media-heading Санкт - Петербург
-              %p Екскурсійні тури в Санкт - Петербург користуються великим попитом серед українських туристів...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://mongrasse.com.ua/images/stories/israel.png" }
-            .media-body
-              %h5.media-heading Ізраїль
-              %p Країна контрастів - так лаконічно можна назвати цю Обітовану Землю однаково священну для християн, мусульман і іудеїв...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://mongrasse.com.ua/images/stories/bulgaria.png" }
-            .media-body
-              %h5.media-heading Болгарія
-              %p Найкращий, бюджетний вітпочинок на морі влітку...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://mongrasse.com.ua/images/stories/turkey.png" }
-            .media-body
-              %h5.media-heading Туреччина
-              %p Запашний пісочок і свіженький сочок...
-          %a.btn.pull-right{ href: "#" } Всі напрямки ...
-    %li.span4
-      %h4 Свіжі новини 
-      .thumbnail
-        .caption
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/11/question-mark2-180x160.jpg"}/
-            .media-body
-              %h5.media-heading Туристичний сленг – Живемо в DBL, їмо FB
-              %p Цей готельний словничок допоможе вам платити тільки за ті послуги, які вам дійсно потрібні...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/08/dery1-180x160.jpg" }
-            .media-body
-              %h5.media-heading 10 популярних схем обману туристів
-              %p На які тільки хитрощі не йдуть шахраї, щоб позбавити туриста його грошей...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/07/1.-180x160.jpg" }
-            .media-body
-              %h5.media-heading Любиш відпочивати з компанією?
-              %p …Отже ця стаття саме для тебе. Найбільш густонаселений відпочиваючими пляж...
-          .media
-            %a.pull-left{ href: "#" }
-              %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/07/20110617153944-180x160.jpg" }
-            .media-body
-              %h5.media-heading Безвізові країни
-              %p У цій статті представлена ​​інформація про безвізові країни і країни з відносно легким візовим режимом для громадян України...
-          %a.btn.pull-right{ href: "#" } Всі новини ...
+.container
+  .row
+    .span8
+      .well.well-small
+        %img{ src: 'assets/slider.jpeg', style: "heigth: 300px" }
+    .span4
+      .well.well-small
+        .form
+          .fieldset
+            %legend{style: 'text-align: center;'} Підпишіться на розсилки
+            %label{style: 'text-align: justify;'} Отримуйте на електронну пошту гарячі та цікаві пропозиції турів, а також гарячі новини та корисні поради для подорожуючих.
+            %label Оберіть типи розсилок:
+            %label.checkbox.inline
+              %input{ type:"checkbox" } всі
+            %label.checkbox.inline
+              %input{ type:"checkbox" } миттєва
+            %label.checkbox.inline
+              %input{ type:"checkbox" } щоденна
+            %label.checkbox.inline
+              %input{ type:"checkbox" } тижнева
+            %input.input-block-level{ type: "text", placeholder: "Введіть ваш e-mail..." }
+            %button.btn.btn-large.btn-block.btn-primary{ type: "submit" } Підписатись
+  .row-fluid
+    %ul.thumbnails
+      %li.span4
+        %h4 Останні додані тури
+        .thumbnail
+          .caption
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://mongrasse.com.ua/images/bali_new_year.jpg" }
+              .media-body
+                %h5.media-heading Балі на Новий 2013 Рік!
+                %p Від 1999 USD з перельотом на 12 ночей!
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://mongrasse.com.ua/images/rimini2.jpg" }
+              .media-body
+                %h5.media-heading Ексклюзив! Відпочинок в Ріміні
+                %p Ріміні — місто та муніципалітет в Італії на узбережжі Адріатичного моря, у регіоні Емілія-Романья, столиця провінції Ріміні...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCt3xGLYmAlRXUopatP-5DQ17kkYf09giJZcrkmz4_XBawLhV-hw" }
+              .media-body
+                %h5.media-heading Барселона - Джазовий Фестиваль
+                %p 44 Voll-Damm Festival Internacional de Jazz de Barcelona...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://morena.com.ua/wp-content/uploads/2012/06/but_915.jpg" }
+              .media-body
+                %h5.media-heading о. Сардинія - відпочинок для гурманів
+                %p Унікальні апартаменти на Північній Сардинії...
+            %a.btn.pull-right{ href: "#" } Всі тури ...
+      %li.span4
+        %h4 Популярні напрямки
+        .thumbnail
+          .caption
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://altantour.com/images/tour/0090.jpg" }
+              .media-body
+                %h5.media-heading Санкт - Петербург
+                %p Екскурсійні тури в Санкт - Петербург користуються великим попитом серед українських туристів...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://mongrasse.com.ua/images/stories/israel.png" }
+              .media-body
+                %h5.media-heading Ізраїль
+                %p Країна контрастів - так лаконічно можна назвати цю Обітовану Землю однаково священну для християн, мусульман і іудеїв...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://mongrasse.com.ua/images/stories/bulgaria.png" }
+              .media-body
+                %h5.media-heading Болгарія
+                %p Найкращий, бюджетний вітпочинок на морі влітку...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://mongrasse.com.ua/images/stories/turkey.png" }
+              .media-body
+                %h5.media-heading Туреччина
+                %p Запашний пісочок і свіженький сочок...
+            %a.btn.pull-right{ href: "#" } Всі напрямки ...
+      %li.span4
+        %h4 Свіжі новини 
+        .thumbnail
+          .caption
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/11/question-mark2-180x160.jpg"}/
+              .media-body
+                %h5.media-heading Туристичний сленг – Живемо в DBL, їмо FB
+                %p Цей готельний словничок допоможе вам платити тільки за ті послуги, які вам дійсно потрібні...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/08/dery1-180x160.jpg" }
+              .media-body
+                %h5.media-heading 10 популярних схем обману туристів
+                %p На які тільки хитрощі не йдуть шахраї, щоб позбавити туриста його грошей...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/07/1.-180x160.jpg" }
+              .media-body
+                %h5.media-heading Любиш відпочивати з компанією?
+                %p …Отже ця стаття саме для тебе. Найбільш густонаселений відпочиваючими пляж...
+            .media
+              %a.pull-left{ href: "#" }
+                %img.media-object{ src: "http://blog.mongrasse.com.ua/wp-content/uploads/2011/07/20110617153944-180x160.jpg" }
+              .media-body
+                %h5.media-heading Безвізові країни
+                %p У цій статті представлена ​​інформація про безвізові країни і країни з відносно легким візовим режимом для громадян України...
+            %a.btn.pull-right{ href: "#" } Всі новини ...

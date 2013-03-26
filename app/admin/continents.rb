@@ -1,6 +1,7 @@
 ActiveAdmin.register Continent do
   index do
     column :name
+    column :slug
     translation_status
     default_actions
   end

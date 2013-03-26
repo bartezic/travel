@@ -1,0 +1,63 @@
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+  ul { 
+    margin: 0;
+    padding: 0;
+    li { 
+      list-style: none; 
+      text-align: center;
+      float: left; 
+      margin: 0;
+      padding: 0;
+      display: block;
+      -o-background-size: 100% 100%;
+      -ms-background-size: 100% 100%;
+      -moz-background-size: 100% 100%;
+      -webkit-background-size: 100% 100%;
+      background-size: 100% 100%;
+      box-shadow: inset 0 -3px 6px rgba(0,0,0,.1);
+    }
+  }
+}
+
+.banner .dot {
+  -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+}
+
+.banner .dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+}
+
+.banner .dots li {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+
+  text-indent: -999em;
+
+  border: 2px solid #fff;
+  border-radius: 6px;
+
+  cursor: pointer;
+  opacity: .4;
+
+  -webkit-transition: background .5s, opacity .5s;
+  -moz-transition: background .5s, opacity .5s;
+  transition: background .5s, opacity .5s;
+}
+
+.banner .dots li.active {
+  background: #fff;
+  opacity: 1;
+}

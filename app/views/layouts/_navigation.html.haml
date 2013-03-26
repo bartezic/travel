@@ -12,7 +12,22 @@
         %ul.nav
           %li{class: request.path != '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
           %li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
-          %li{class: request.path == countries_path && 'active'}= link_to "Країни світу", "/countries"
+          %li.dropdown{class: request.path == countries_path && 'active'}
+            %a.dropdown-toggle(data-toggle="dropdown" href="#")
+              Країни світу
+              %b.caret
+            %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+              - Continent.includes(:countries).all.sort_by(&:slug).each do |continent|
+                - if continent.countries.any?
+                  %li.dropdown-submenu
+                    %a(data-toggle="dropdown" href="#")
+                      = continent.name
+                    %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+                      - continent.countries.sort_by(&:slug).each do |country|
+                        %li= link_to country.name, country
+                - else
+                  %li= link_to continent.name, continent
+
           %li{class: request.path == '/visas' && 'active'}= link_to "Візова інформація", "/visas"
           /%li{class: request.path == '/news' && 'active'}= link_to "Туристичний блог", "/news"
           %li{class: request.path == '/contacts' && 'active'}= link_to "Контакти", "/contacts"
