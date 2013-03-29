@@ -51,6 +51,10 @@
 
 /* Large desktop */
 @media (min-width: 1200px) { 
+  #wrap .container {
+    padding-top: 140px;
+  }
+
   .navbar-fixed-top .navbar-inner, 
   .navbar-static-top .navbar-inner {
     border-width: 1px 0;
@@ -123,6 +127,10 @@
 
 /* Default desctop */
 @media (min-width: 980px) and (max-width: 1199px) { 
+  #wrap .container {
+    padding-top: 100px;
+  }
+
   .navbar-fixed-top .navbar-inner, 
   .navbar-static-top .navbar-inner {
     border-width: 1px 0;
@@ -193,7 +201,6 @@
 
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) { 
-
   .nav-collapse .nav > li > a, 
   .nav-collapse .dropdown-menu a {
     -webkit-border-radius: 0;

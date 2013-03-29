@@ -3,3 +3,6 @@
 
 uk:
   hello: "Привіт світ"
+  menu:
+    continents: Континенти
+    countries_of_world: Країни світу

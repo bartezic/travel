@@ -14,7 +14,7 @@ ActiveAdmin.register Hotel do
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name
-      t.input :description
+      t.input :description, as: :html_editor
       t.input :meta_description
     end
     f.buttons

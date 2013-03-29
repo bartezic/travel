@@ -1,2 +1,5 @@
 ru:
   hello: "Привет мир"
+  menu:
+    continents: Континенты
+    countries_of_world: Cтраны мира

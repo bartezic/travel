@@ -1,25 +1,5 @@
-%h1 Listing countries
+%h1= t 'menu.countries_of_world'
 
-%table
-  %tr
-    %th Continent
-    %th Name
-    %th Description
-    %th Visa
-    %th
-    %th
-    %th
+- @countries.each do |country|
+  %p= link_to country.name, country
 
-  - @countries.each do |country|
-    %tr
-      %td= country.continent_id
-      %td= country.name
-      %td= country.description
-      %td= country.visa
-      %td= link_to 'Show', country
-      %td= link_to 'Edit', edit_country_path(country)
-      %td= link_to 'Destroy', country, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Country', new_country_path

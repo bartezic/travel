@@ -1,18 +1,8 @@
-%p#notice= notice
+%h1= @country.name
+%p= link_to @country.continent.name, @country.continent
+%p= raw @country.description
+%p= raw @country.visa
+%p= raw @country.kitchen
+%p= raw @country.recomendation
 
-%p
-  %b Continent:
-  = @country.continent_id
-%p
-  %b Name:
-  = @country.name
-%p
-  %b Title:
-  = @country.title
-%p
-  %b Content:
-  = @country.content
-
-= link_to 'Edit', edit_country_path(@country)
-\|
 = link_to 'Back', countries_path

@@ -1,6 +1,7 @@
 ActiveAdmin.register Country do
   index do
     column :name
+    column :slug
     translation_status
     default_actions
   end
@@ -12,11 +13,11 @@ ActiveAdmin.register Country do
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name
-      t.input :description
+      t.input :description, as: :html_editor
+      t.input :visa, as: :html_editor
+      t.input :kitchen, as: :html_editor
+      t.input :recomendation, as: :html_editor
       t.input :meta_description
-      t.input :visa
-      t.input :kitchen
-      t.input :recomendation
     end
     f.buttons
   end
