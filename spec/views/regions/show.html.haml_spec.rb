@@ -4,7 +4,7 @@ describe "regions/show" do
   before(:each) do
     @region = assign(:region, stub_model(Region,
       :country_id => 1,
-      :galery_id => 2,
+      :gallery_id => 2,
       :name => "Name",
       :description => "MyText"
     ))

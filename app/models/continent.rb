@@ -1,7 +1,7 @@
 class Continent < ActiveRecord::Base
   has_many :countries
   
-  translates :description, :name
+  translates :description, :name, :seo_meta
   attr_accessible :description, :name
 
   active_admin_translates :name, :description do

@@ -4,7 +4,7 @@ describe "hotels/show" do
   before(:each) do
     @hotel = assign(:hotel, stub_model(Hotel,
       :region_id => "",
-      :galery_id => "",
+      :gallery_id => "",
       :name => "Name",
       :description => "Description",
       :slug => "Slug"

@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
-  belongs_to :galery
-  attr_accessible :galery_id, :title, :asset
+  belongs_to :gallery
+  attr_accessible :gallery_id, :title, :asset
   translates :title
 
   active_admin_translates :title do

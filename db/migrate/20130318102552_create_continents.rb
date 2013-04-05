@@ -3,12 +3,17 @@ class CreateContinents < ActiveRecord::Migration
     create_table :continents do |t|
       t.string :name
       t.text :description
+      t.text :seo_meta
       t.string :slug, unique: true
 
       t.timestamps
     end
     add_index :continents, :slug, unique: true
-    Continent.create_translation_table! :name => :string, :description => :text
+    Continent.create_translation_table!({
+      name: :string, 
+      description: :text,
+      seo_meta: :text
+    })
   end
   def down
     remove_index :continents, :slug

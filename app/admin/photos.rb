@@ -1,14 +1,14 @@
 ActiveAdmin.register Photo do
   index do
     column :title
-    column :galery
+    column :gallery
     translation_status
     default_actions
   end
 
   form do |f|
     f.inputs do
-      f.input :galery
+      f.input :gallery
       f.input :asset
     end
     f.translated_inputs switch_locale: true do |t|

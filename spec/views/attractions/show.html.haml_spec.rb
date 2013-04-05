@@ -4,7 +4,7 @@ describe "attractions/show" do
   before(:each) do
     @attraction = assign(:attraction, stub_model(Attraction,
       :region_id => "",
-      :galery_id => "",
+      :gallery_id => "",
       :name => "Name",
       :description => "MyText",
       :slug => "Slug"

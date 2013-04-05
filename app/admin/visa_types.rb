@@ -1,16 +1,13 @@
-ActiveAdmin.register Continent do
+ActiveAdmin.register VisaType do
   index do
-    column :name
-    column :slug
+    column :title
     translation_status
     default_actions
   end
 
   form do |f|
     f.translated_inputs switch_locale: true do |t|
-      t.input :name
-      t.input :description, as: :html_editor
-      t.input :seo_meta
+      t.input :title
     end
     f.buttons
   end

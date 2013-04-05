@@ -5,14 +5,14 @@ describe "attractions/index" do
     assign(:attractions, [
       stub_model(Attraction,
         :region_id => "",
-        :galery_id => "",
+        :gallery_id => "",
         :name => "Name",
         :description => "MyText",
         :slug => "Slug"
       ),
       stub_model(Attraction,
         :region_id => "",
-        :galery_id => "",
+        :gallery_id => "",
         :name => "Name",
         :description => "MyText",
         :slug => "Slug"

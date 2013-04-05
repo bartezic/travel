@@ -5,14 +5,14 @@ describe "hotels/index" do
     assign(:hotels, [
       stub_model(Hotel,
         :region_id => "",
-        :galery_id => "",
+        :gallery_id => "",
         :name => "Name",
         :description => "Description",
         :slug => "Slug"
       ),
       stub_model(Hotel,
         :region_id => "",
-        :galery_id => "",
+        :gallery_id => "",
         :name => "Name",
         :description => "Description",
         :slug => "Slug"

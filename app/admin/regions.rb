@@ -8,13 +8,15 @@ ActiveAdmin.register Region do
 
   form do |f|
     f.inputs do
-      f.input :galery
+      f.input :gallery
       f.input :country
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name
       t.input :description, as: :html_editor
-      t.input :meta_description
+      t.input :recomendation, as: :html_editor
+      t.input :infrastructure, as: :html_editor
+      t.input :seo_meta
     end
     f.buttons
   end

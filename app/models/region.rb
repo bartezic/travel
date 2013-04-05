@@ -1,12 +1,12 @@
 class Region < ActiveRecord::Base
-  belongs_to :galery
+  belongs_to :gallery
   belongs_to :country
   has_many :attractions
   has_many :hotels
-  attr_accessible :country_id, :description, :galery_id, :name, :meta_description
-  translates :name, :description, :meta_description
+  attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, :infrastructure
+  translates :name, :description, :seo_meta, :recomendation, :infrastructure
 
-  active_admin_translates :name, :description, :meta_description do
+  active_admin_translates :name, :description, :recomendation, :infrastructure, :seo_meta do
     validates_presence_of :name
   end
 

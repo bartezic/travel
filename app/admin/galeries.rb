@@ -1,4 +1,4 @@
-ActiveAdmin.register Galery do
+ActiveAdmin.register Gallery do
   index do
     column :title
     translation_status

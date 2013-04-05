@@ -13,23 +13,24 @@
   %body
     = render 'layouts/navigation'
     #wrap
-      - if request.path == root_path
-        .banner
-          %ul
-            %li 
-              %img{ src: '/assets/slider/Hilton-Hotel-Paris-France-1080x1920.jpg' }
-            %li 
-              %img{ src: '/assets/slider/plan-plan-your-trip-find-travel-agent.jpg' }
-            %li 
-              %img{ src: '/assets/slider/Sensoji-Temple-Tokyo-Japan-01-1080x1920.jpg' }
-            %li 
-              %img{ src: '/assets/slider/Sky-Tree-Christmas-Illuminations-Tokyo-Japan-1080x1920.jpg' }
-            %li 
-              %img{ src: '/assets/slider/Subway-Entrance-Paris-France-1080x1920.jpg' }
-            %li 
-              %img{ src: '/assets/slider/travel-business-hammock-beach-1080x1920.jpg' }
-            %li 
-              %img{ src: '/assets/slider/eiffel-tower-europe-travel-1080x1920.jpg' }
+      / .container
+      /   - if request.path == root_path
+      /     .banner
+      /       %ul
+      /         %li 
+      /           %img{ src: '/assets/slider/Hilton-Hotel-Paris-France-1080x1920.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/plan-plan-your-trip-find-travel-agent.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/Sensoji-Temple-Tokyo-Japan-01-1080x1920.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/Sky-Tree-Christmas-Illuminations-Tokyo-Japan-1080x1920.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/Subway-Entrance-Paris-France-1080x1920.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/travel-business-hammock-beach-1080x1920.jpg' }
+      /         %li 
+      /           %img{ src: '/assets/slider/eiffel-tower-europe-travel-1080x1920.jpg' }
       .container
         = render 'layouts/flash'
         = yield

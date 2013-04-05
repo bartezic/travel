@@ -2,10 +2,10 @@ class Country < ActiveRecord::Base
   belongs_to :continent
   has_many :regions
   
-  translates :name, :visa, :description, :meta_description, :kitchen, :recomendation
-  attr_accessible :continent_id, :name, :visa, :description, :meta_description, :kitchen, :recomendation
+  translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
+  attr_accessible :continent_id, :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
 
-  active_admin_translates :name, :visa, :description, :meta_description, :kitchen, :recomendation do
+  active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
   end
 

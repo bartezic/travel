@@ -1,36 +1,37 @@
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container
-      %a.btn.btn-navbar(data-target=".nav-collapse-cog" data-toggle="collapse")
-        %span.icon-cog
-      %a.btn.btn-navbar(data-target=".nav-collapse-menu" data-toggle="collapse")
-        %span.icon-th-list
-      %a.brand{ href: '/' }
-        .bg-logo
-          .logo
-      .nav-collapse.nav-collapse-menu
-        %ul.nav
-          %li{class: request.path != '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
-          %li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
-          %li.dropdown{class: request.path == countries_path && 'active'}
-            %a.dropdown-toggle(data-toggle="dropdown" href="#")
-              = t 'menu.countries_of_world'
-              %b.caret
-            %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
-              - Continent.includes(:countries).all.sort_by(&:slug).each do |continent|
-                - if continent.countries.any?
-                  %li.dropdown-submenu
-                    = link_to continent.name, continent
-                    %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
-                      - continent.countries.sort_by(&:slug).each do |country|
-                        %li= link_to country.name, [continent, country]
-                - else
-                  %li= link_to continent.name, continent
+.custom 
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a.btn.btn-navbar(data-target=".nav-collapse-cog" data-toggle="collapse")
+          %span.icon-cog
+        %a.btn.btn-navbar(data-target=".nav-collapse-menu" data-toggle="collapse")
+          %span.icon-th-list
+        %a.brand{ href: '/' }
+          .bg-logo
+            .logo
+        .nav-collapse.nav-collapse-menu
+          %ul.nav
+            %li{class: request.path != '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
+            %li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
+            %li.dropdown{class: request.path == countries_path && 'active'}
+              %a.dropdown-toggle(data-toggle="dropdown" href="#")
+                = t 'menu.countries_of_world'
+                %b.caret
+              %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+                - Continent.includes(:countries).all.sort_by(&:slug).each do |continent|
+                  - if continent.countries.any?
+                    %li.dropdown-submenu
+                      = link_to continent.name, continent
+                      %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+                        - continent.countries.sort_by(&:slug).each do |country|
+                          %li= link_to country.name, [continent, country]
+                  - else
+                    %li= link_to continent.name, continent
 
-          %li{class: request.path == '/visas' && 'active'}= link_to "Візова інформація", "/visas"
-          /%li{class: request.path == '/news' && 'active'}= link_to "Туристичний блог", "/news"
-          %li{class: request.path == '/contacts' && 'active'}= link_to "Контакти", "/contacts"
-      .nav-collapse.nav-collapse-cog
-        %ul.nav.pull-right
-          %li{class: locale == :uk && 'active'}= link_to "Укр", "?locale=uk"
-          %li{class: locale == :ru && 'active'}= link_to "Рус", "?locale=ru"
+            %li{class: request.path == '/visas' && 'active'}= link_to "Візова інформація", "/visas"
+            /%li{class: request.path == '/news' && 'active'}= link_to "Туристичний блог", "/news"
+            %li{class: request.path == '/contacts' && 'active'}= link_to "Контакти", "/contacts"
+        .nav-collapse.nav-collapse-cog
+          %ul.nav.pull-right
+            %li{class: locale == :uk && 'active'}= link_to "Укр", "?locale=uk"
+            %li{class: locale == :ru && 'active'}= link_to "Рус", "?locale=ru"

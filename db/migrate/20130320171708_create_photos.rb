@@ -1,13 +1,13 @@
 class CreatePhotos < ActiveRecord::Migration
   def up
     create_table :photos do |t|
-      t.integer :galery_id
+      t.integer :gallery_id
       t.string :title
       t.attachment :asset
 
       t.timestamps
     end
-    Photo.create_translation_table! :title => :string
+    Photo.create_translation_table!({ title: :string })
   end
 
   def down

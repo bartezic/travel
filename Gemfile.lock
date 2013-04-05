@@ -73,9 +73,6 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
-    flatui-rails (0.0.2)
-      railties (~> 3.1)
-      sass-rails (~> 3.2.0)
     formtastic (2.2.1)
       actionpack (>= 3.0)
     friendly_id (4.0.9)
@@ -207,7 +204,6 @@ DEPENDENCIES
   activeadmin-globalize3
   babosa
   bootstrap-sass (~> 2.3.1.0)
-  flatui-rails
   friendly_id (~> 4.0.9)
   globalize3
   haml

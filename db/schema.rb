@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320171708) do
+ActiveRecord::Schema.define(:version => 20130405165755) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -27,25 +27,6 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
-
-  create_table "active_admin_seo_meta", :force => true do |t|
-    t.string   "slug"
-    t.string   "title"
-    t.string   "description"
-    t.string   "keywords"
-    t.string   "og_title"
-    t.string   "og_type"
-    t.string   "og_image_uid"
-    t.string   "og_url"
-    t.integer  "seoable_id"
-    t.string   "seoable_type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.string   "og_description"
-    t.string   "og_site_name"
-  end
-
-  add_index "active_admin_seo_meta", ["seoable_id", "seoable_type"], :name => "active_admin_seo_meta_seoable"
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -70,9 +51,9 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
     t.string   "locale"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.text     "seo_meta"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "attraction_translations", ["attraction_id"], :name => "index_attraction_translations_on_attraction_id"
@@ -80,13 +61,13 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
 
   create_table "attractions", :force => true do |t|
     t.integer  "region_id"
-    t.integer  "galery_id"
+    t.integer  "gallery_id"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
+    t.text     "seo_meta"
     t.string   "slug"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "attractions", ["slug"], :name => "index_attractions_on_slug", :unique => true
@@ -96,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
     t.string   "locale"
     t.string   "name"
     t.text     "description"
+    t.text     "seo_meta"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -106,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
   create_table "continents", :force => true do |t|
     t.string   "name"
     t.text     "description"
+    t.text     "seo_meta"
     t.string   "slug"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -116,11 +99,13 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
   create_table "countries", :force => true do |t|
     t.integer  "continent_id"
     t.string   "name"
-    t.text     "visa"
     t.text     "kitchen"
     t.text     "description"
     t.text     "recomendation"
-    t.text     "meta_description"
+    t.text     "seo_meta"
+    t.text     "climate"
+    t.text     "culture"
+    t.text     "infrastructure"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -136,46 +121,50 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
     t.integer  "country_id"
     t.string   "locale"
     t.string   "name"
-    t.text     "visa"
-    t.text     "description"
     t.text     "kitchen"
+    t.text     "climate"
+    t.text     "culture"
+    t.text     "description"
     t.text     "recomendation"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.text     "infrastructure"
+    t.text     "seo_meta"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "country_translations", ["country_id"], :name => "index_country_translations_on_country_id"
   add_index "country_translations", ["locale"], :name => "index_country_translations_on_locale"
 
-  create_table "galeries", :force => true do |t|
+  create_table "galleries", :force => true do |t|
     t.string   "title"
     t.string   "slug"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "galeries", ["slug"], :name => "index_galeries_on_slug", :unique => true
+  add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
 
-  create_table "galery_translations", :force => true do |t|
-    t.integer  "galery_id"
+  create_table "gallery_translations", :force => true do |t|
+    t.integer  "gallery_id"
     t.string   "locale"
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "galery_translations", ["galery_id"], :name => "index_galery_translations_on_galery_id"
-  add_index "galery_translations", ["locale"], :name => "index_galery_translations_on_locale"
+  add_index "gallery_translations", ["gallery_id"], :name => "index_gallery_translations_on_gallery_id"
+  add_index "gallery_translations", ["locale"], :name => "index_gallery_translations_on_locale"
 
   create_table "hotel_translations", :force => true do |t|
     t.integer  "hotel_id"
     t.string   "locale"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.text     "amenities"
+    t.text     "policies"
+    t.text     "seo_meta"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "hotel_translations", ["hotel_id"], :name => "index_hotel_translations_on_hotel_id"
@@ -183,13 +172,15 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
 
   create_table "hotels", :force => true do |t|
     t.integer  "region_id"
-    t.integer  "galery_id"
+    t.integer  "gallery_id"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
+    t.text     "amenities"
+    t.text     "policies"
+    t.text     "seo_meta"
     t.string   "slug"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "hotels", ["slug"], :name => "index_hotels_on_slug", :unique => true
@@ -206,7 +197,7 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
   add_index "photo_translations", ["photo_id"], :name => "index_photo_translations_on_photo_id"
 
   create_table "photos", :force => true do |t|
-    t.integer  "galery_id"
+    t.integer  "gallery_id"
     t.string   "title"
     t.string   "asset_file_name"
     t.string   "asset_content_type"
@@ -221,9 +212,11 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
     t.string   "locale"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.text     "seo_meta"
+    t.text     "recomendation"
+    t.text     "infrastructure"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "region_translations", ["locale"], :name => "index_region_translations_on_locale"
@@ -231,15 +224,53 @@ ActiveRecord::Schema.define(:version => 20130320171708) do
 
   create_table "regions", :force => true do |t|
     t.integer  "country_id"
-    t.integer  "galery_id"
+    t.integer  "gallery_id"
     t.string   "name"
     t.text     "description"
-    t.text     "meta_description"
+    t.text     "seo_meta"
+    t.text     "recomendation"
+    t.text     "infrastructure"
     t.string   "slug"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
+
+  create_table "visa_translations", :force => true do |t|
+    t.integer  "visa_id"
+    t.string   "locale"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "visa_translations", ["locale"], :name => "index_visa_translations_on_locale"
+  add_index "visa_translations", ["visa_id"], :name => "index_visa_translations_on_visa_id"
+
+  create_table "visa_type_translations", :force => true do |t|
+    t.integer  "visa_type_id"
+    t.string   "locale"
+    t.string   "title"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "visa_type_translations", ["locale"], :name => "index_visa_type_translations_on_locale"
+  add_index "visa_type_translations", ["visa_type_id"], :name => "index_visa_type_translations_on_visa_type_id"
+
+  create_table "visa_types", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "visas", :force => true do |t|
+    t.integer  "country_id"
+    t.integer  "visa_type_id"
+    t.text     "description"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
 end

@@ -5,13 +5,13 @@ describe "regions/index" do
     assign(:regions, [
       stub_model(Region,
         :country_id => 1,
-        :galery_id => 2,
+        :gallery_id => 2,
         :name => "Name",
         :description => "MyText"
       ),
       stub_model(Region,
         :country_id => 1,
-        :galery_id => 2,
+        :gallery_id => 2,
         :name => "Name",
         :description => "MyText"
       )
