@@ -28,19 +28,21 @@
 
 
 # $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-# set :rvm_ruby_string, '2.0.0@travel_mongrasse' 
-# set :rvm_type, :user
+set :rvm_ruby_string, '2.0.0@travel_mongrasse' 
+set :rvm_type, :user
 
-# before 'deploy:setup', 'rvm:install_rvm'
-# before 'deploy:setup', 'rvm:install_ruby'
+before 'deploy:setup', 'rvm:install_rvm'
+before 'deploy:setup', 'rvm:install_ruby'
 
 load "config/recipes/base"
-load "config/recipes/nginx"
-load "config/recipes/unicorn"
-load "config/recipes/postgresql"
-load "config/recipes/nodejs"
+# load "config/recipes/nginx"
+# load "config/recipes/unicorn"
+# load "config/recipes/postgresql"
+# load "config/recipes/nodejs"
+# load "config/recipes/imagemagick"
 # load "config/recipes/rbenv"
 # load "config/recipes/check"
+# load "config/recipes/git"
 
 server "192.34.57.66", :web, :app, :db, primary: true
 
@@ -54,8 +56,8 @@ set :scm, "git"
 set :repository, "git@github.com:bartezic/travel.git"
 set :branch, "master"
 
-# default_run_options[:pty] = true
-# ssh_options[:forward_agent] = true
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
 
 # after "deploy:assets:precompile", "deploy:restart_workers"
 # after "deploy:restart_workers", "deploy:restart_scheduler"
@@ -82,4 +84,4 @@ set :branch, "master"
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
-# require "rvm/capistrano"  
+require "rvm/capistrano"  
