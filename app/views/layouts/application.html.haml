@@ -2,8 +2,7 @@
 %html(lang="en")
   %head
     %meta(charset="utf-8")
-    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
-    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %meta{name: :description, content: yield(:seo_meta) }
     %title= content_for?(:title) ? yield(:title) : "Travel"
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
@@ -39,7 +38,7 @@
     #footer
       .container
         %p.pull-left
-          &copy; 2012 Всі права не збережено. Файна туристична компанія. 
+          &copy; 2010-2013. Монграссе. 
         %p.pull-right
           Розробка та підтримка
           %a{ href: '#' } Олексин Віктор

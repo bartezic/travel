@@ -1,4 +1,39 @@
 .custom {
+
+  a {
+    color: #f8991f;
+  }
+
+  .nav-tabs {
+    border-bottom: 4px solid #f8991f;
+  }
+
+  .nav-tabs > li {
+    margin-bottom: 0;
+  }
+
+  .nav > li > a:hover, 
+  .nav > li > a:focus {
+    color: white;
+    background-color: #f8991f;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+
+  .nav-tabs > li:not(.active) > a:hover, 
+  .nav-tabs > li:not(.active) > a:focus {
+    border-color: #f8991f;
+  }
+  
+  .nav-tabs > .active > a, 
+  .nav-tabs > .active > a:hover, 
+  .nav-tabs > .active > a:focus {
+    color: #f8991f;
+    background-color: white;
+  }
+
   .navbar .nav {
     &> .active, &> .open {
       &> a, &> a:hover, &> a:focus {
@@ -35,6 +70,7 @@
   .nav-collapse .dropdown-menu a:hover, 
   .nav-collapse .dropdown-menu a:focus {
     background-color: #f8991f;
+    color: white;
   }
 
   .navbar .nav li.dropdown.open > .dropdown-toggle .caret, 
@@ -44,6 +80,7 @@
   .navbar .nav li.dropdown > a:focus .caret {
     border-top-color: white;
     border-bottom-color: white;
+    color: white;
   }
 
   .dropdown-menu > li > a:hover, 

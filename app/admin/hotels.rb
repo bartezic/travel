@@ -1,6 +1,8 @@
 ActiveAdmin.register Hotel do
   index do
     column :name
+    column :star
+    column :site
     column :region
     column :gallery
     translation_status
@@ -11,6 +13,11 @@ ActiveAdmin.register Hotel do
     f.inputs do
       f.input :gallery
       f.input :region
+      f.input :star
+      f.input :address
+      f.input :phone
+      f.input :email
+      f.input :site
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name

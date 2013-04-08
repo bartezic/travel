@@ -1,7 +1,7 @@
 class Hotel < ActiveRecord::Base
   belongs_to :gallery
   belongs_to :region
-  attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, :policies, :amenities
+  attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, :policies, :amenities, :star, :address, :phone, :email, :site
   translates :name, :description, :seo_meta, :policies, :amenities
 
   extend FriendlyId

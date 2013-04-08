@@ -1,9 +1,10 @@
 class Country < ActiveRecord::Base
   belongs_to :continent
   has_many :regions
+  has_one :visa
   
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
-  attr_accessible :continent_id, :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
+  attr_accessible :continent_id, :name, :description, :logo, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
 
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
@@ -27,8 +28,8 @@ class Country < ActiveRecord::Base
   def change_file_name
     if logo_file_name
       extension = File.extname(logo_file_name).gsub(/^\.+/, '')
-      name = title.to_slug.normalize(transliterations: :ukrainian).to_s
-      asset.instance_write(:file_name, "#{name}.#{extension}")
+      logo_name = name.to_slug.normalize(transliterations: :ukrainian).to_s
+      logo.instance_write(:file_name, "#{logo_name}.#{extension}")
     end
   end
 end

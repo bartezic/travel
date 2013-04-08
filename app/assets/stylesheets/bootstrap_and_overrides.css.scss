@@ -33,3 +33,20 @@ img.media-object {
   width: 64px;
   height: 64px;
 }
+
+.div-block {
+  text-align: justify;
+  padding-left: 10px; 
+}
+
+.country {
+  .div-block:nth-child(3n) {
+    border-left: 4px solid #f8991f;
+  }
+  .div-block:nth-child(3n+1) {
+    border-left: 4px solid #afce37;
+  }
+  .div-block:nth-child(3n+2) {
+    border-left: 4px solid #21562f;
+  }
+}

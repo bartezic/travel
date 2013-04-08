@@ -1,7 +1,7 @@
 class Visa < ActiveRecord::Base
-  attr_accessible :description, :country_ti, :visa_type_id
-  has_one :country
+  attr_accessible :description, :country_id, :visa_type_id
   belongs_to :visa_type
+  belongs_to :country
 
   translates :description
 

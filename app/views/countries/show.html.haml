@@ -1,8 +1,46 @@
-%h1= @country.name
-%p= link_to @country.continent.name, @country.continent
-%p= raw @country.description
-%p= raw @country.visa
-%p= raw @country.kitchen
-%p= raw @country.recomendation
+- content_for :seo_meta do
+  = @country.seo_meta
 
-= link_to 'Back', countries_path
+.row.country.custom
+  .span12
+    %h2
+      = @country.name
+      %small
+        %em= link_to @country.continent.name, @country.continent
+
+
+    /= link_to 'Back', countries_path
+
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tours"} Тури
+        %li
+          %a{"data-toggle" => "tab", :href => "#about"} Про країну
+        %li
+          %a{"data-toggle" => "tab", :href => "#regions"} Регіони
+        %li
+          %a{"data-toggle" => "tab", :href => "#hotels"} Готелі
+        %li
+          %a{"data-toggle" => "tab", :href => "#visa"} Візова інформація
+      .tab-content
+        #tours.tab-pane.active
+          %p Тут будуть тури.
+        #about.tab-pane
+          %h4 Загальна інформація
+          .div-block= raw @country.description
+          %h4 Кухня
+          .div-block= raw @country.kitchen
+          %h4 Клімат
+          .div-block= raw @country.climate
+          %h4 Культура
+          .div-block= raw @country.culture
+          %h4 Поради
+          .div-block= raw @country.recomendation
+          %h4 Інфраструктура
+          .div-block= raw @country.infrastructure
+        #regions.tab-pane
+        #hotels.tab-pane
+        #visa.tab-pane
+          %h4= raw @country.visa.visa_type.title
+          %p= raw @country.visa.description

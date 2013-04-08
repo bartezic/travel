@@ -3,7 +3,12 @@ class CreateHotels < ActiveRecord::Migration
     create_table :hotels do |t|
       t.integer :region_id
       t.integer :gallery_id
+      t.integer :star
       t.string :name
+      t.string :address
+      t.string :phone
+      t.string :email
+      t.string :site
       t.text :description
       t.text :amenities
       t.text :policies
