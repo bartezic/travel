@@ -24,7 +24,7 @@
 #   end
 # end
 
-# require "bundler/capistrano"
+require "bundler/capistrano"
 
 
 # $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
