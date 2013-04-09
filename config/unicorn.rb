@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 
 # Set your full path to application.
-app_path = "#{current_path}"
+app_path = "/home/deployer/apps/travel_mongrasse/current"
 
 # Set unicorn options
 worker_processes 2
