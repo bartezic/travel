@@ -6,21 +6,21 @@ set :rbenv_ruby_version, "2.0.0-p0"
 # set :rvm_ruby_string, '2.0.0@travel_mongrasse' 
 # set :rvm_type, :user
 
-before 'deploy:setup', 'rvm:install_rvm'
-before 'deploy:setup', 'deploy:install_requirements'
-before 'deploy:setup', 'rvm:install_ruby'
-after 'deploy:setup', "deploy:set_rvm_version"
+# before 'deploy:setup', 'rvm:install_rvm'
+# before 'deploy:setup', 'deploy:install_requirements'
+# before 'deploy:setup', 'rvm:install_ruby'
+# after 'deploy:setup', "deploy:set_rvm_version"
 
-after 'deploy:restart', 'unicorn:reload' # app IS NOT preloaded
-after 'deploy:restart', 'unicorn:restart'  # app preloaded
+# after 'deploy:restart', 'unicorn:reload' # app IS NOT preloaded
+# after 'deploy:restart', 'unicorn:restart'  # app preloaded
 
-# load "config/recipes/base"
-# load "config/recipes/nginx"
-# load "config/recipes/unicorn"
-# load "config/recipes/postgresql"
-# load "config/recipes/nodejs"
-# load "config/recipes/imagemagick"
-load "config/recipes/rbenv"
+load "config/recipes/base"
+load "config/recipes/nginx"
+load "config/recipes/unicorn"
+load "config/recipes/postgresql"
+load "config/recipes/nodejs"
+load "config/recipes/imagemagick"
+# load "config/recipes/rbenv"
 # load "config/recipes/check"
 # load "config/recipes/git"
 
