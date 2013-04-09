@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 
 # Set your full path to application.
-app_path = "/path/to/app"
+app_path = "#{current_path}"
 
 # Set unicorn options
 worker_processes 2
