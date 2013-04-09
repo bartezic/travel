@@ -1,48 +1,27 @@
-# set :application, "set your application name here"
-# set :repository,  "set your repository location here"
-
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-# role :app, "your app-server here"                          # This may be the same as your `Web` server
-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
-
 require "bundler/capistrano"
-
+require 'capistrano-unicorn'
 
 # $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 set :rvm_ruby_string, '2.0.0@travel_mongrasse' 
 set :rvm_type, :user
 
 before 'deploy:setup', 'rvm:install_rvm'
+before 'deploy:setup', 'deploy:install_requirements'
 before 'deploy:setup', 'rvm:install_ruby'
+after 'deploy:setup', "deploy:set_rvm_version"
+
+after 'deploy:restart', 'unicorn:reload' # app IS NOT preloaded
+after 'deploy:restart', 'unicorn:restart'  # app preloaded
 
 load "config/recipes/base"
-# load "config/recipes/nginx"
+load "config/recipes/nginx"
 # load "config/recipes/unicorn"
 # load "config/recipes/postgresql"
-# load "config/recipes/nodejs"
-# load "config/recipes/imagemagick"
+load "config/recipes/nodejs"
+load "config/recipes/imagemagick"
 # load "config/recipes/rbenv"
 # load "config/recipes/check"
-# load "config/recipes/git"
+load "config/recipes/git"
 
 server "192.34.57.66", :web, :app, :db, primary: true
 
@@ -51,6 +30,7 @@ set :application, "travel_mongrasse"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
+set :rails_env, :production
 
 set :scm, "git"
 set :repository, "git@github.com:bartezic/travel.git"
@@ -59,29 +39,22 @@ set :branch, "master"
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
-# after "deploy:assets:precompile", "deploy:restart_workers"
-# after "deploy:restart_workers", "deploy:restart_scheduler"
+# Apply default RVM version for the current account
+# after "deploy:setup", "deploy:set_rvm_version"
+namespace :deploy do
+  task :set_rvm_version do
+    run "source /etc/profile.d/rvm.sh && rvm use #{rvm_ruby_string} --default"
+  end
+  task :install_requirements do
+    # sudo "rvm --autolibs=4 requirements #{rvm_ruby_string}"
+    # run "#{sudo} apt-get -y --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev"
+    run "#{sudo} apt-get -y --no-install-recommends install make libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 libxslt1-dev autoconf libgdbm-dev libncurses5-dev automake bison libffi-dev"
+  end
+  task :install_ruby do
+    run "rvm --autolibs=1 install #{rvm_ruby_string}"
+  end
+end
 
-# def run_remote_rake(rake_cmd)
-#   rake_args = ENV['RAKE_ARGS'].to_s.split(',')
-#   cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
-#   cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
-#   run cmd
-#   set :rakefile, nil if exists?(:rakefile)
-# end
+after "deploy", "deploy:cleanup"
 
-# namespace :deploy do
-#   desc "Restart Resque Workers"
-#   task :restart_workers, :roles => :db do
-#     run_remote_rake "resque:restart_workers"
-#   end
-
-#   desc "Restart Resque scheduler"
-#   task :restart_scheduler, :roles => :db do
-#      run_remote_rake "resque:restart_scheduler"
-#   end
-# end
-
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
-
-require "rvm/capistrano"  
+require "rvm/capistrano" 
