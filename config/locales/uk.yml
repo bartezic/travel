@@ -6,3 +6,21 @@ uk:
   menu:
     continents: Континенти
     countries_of_world: Країни світу
+  country:
+    tours: Тури
+    about: 
+      title: Про країну
+      description: Загальна інформація
+      kitchen: Кухня
+      climate: Клімат
+      culture: Культура
+      recomendation: Поради туристам
+      infrastructure: Інфраструктура
+    visa: Візова інформація
+    regions: Регіони
+    hotels: Готелі
+    sorry:
+      tours: Нажаль тури тимчасово відсутні.
+      regions: Нажаль регіони тимчасово відсутні.
+      hotels: Нажаль готелі тимчасово відсутні.
+      visa: Нажаль візова інформація про дану країну тимчасово відсутня.

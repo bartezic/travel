@@ -3,3 +3,21 @@ ru:
   menu:
     continents: Континенты
     countries_of_world: Cтраны мира
+  country:
+    tours: Туры
+    about: 
+      title: О стране
+      description: Общая информация
+      kitchen: Кухня
+      climate: Климат
+      culture: Культура
+      recomendation: Советы туристам
+      infrastructure: Инфраструктура
+    visa: Визовая информация
+    regions: Регионы
+    hotels: Гостиницы
+    sorry:
+      tours: К сожалению туры временно отсутствуют.
+      regions: К сожалению регионы временно отсутствуют.
+      hotels: К сожалению гостиницы временно отсутствуют.
+      visa: К сожалению визовая информация о данной стране временно отсутствует.

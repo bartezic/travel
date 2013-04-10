@@ -1,16 +1,33 @@
 .custom {
 
+  &.country {
+    .nav {
+      margin: 0 0 0 10px;
+    }
+    .nav-tabs {
+      border-bottom: 0;
+    }
+    .tab-content {
+      border: 1px solid rgb(221, 221, 221);
+      padding: 15px;
+      background-color: white;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+  }
+
   a {
     color: #f8991f;
   }
 
-  .nav-tabs {
+/*  .nav-tabs {
     border-bottom: 4px solid #f8991f;
   }
 
   .nav-tabs > li {
     margin-bottom: 0;
-  }
+  }*/
 
   .nav > li > a:hover, 
   .nav > li > a:focus {
@@ -103,8 +120,8 @@
   .custom {
     .navbar-fixed-top .navbar-inner, 
     .navbar-static-top .navbar-inner {
-      border-width: 1px 0;
-      margin-top: 10px;
+      //border-width: 1px 0;
+      //margin-top: 10px;
     }
 
 
@@ -180,13 +197,14 @@
   .custom {
     .navbar-fixed-top .navbar-inner, 
     .navbar-static-top .navbar-inner {
-      border-width: 1px 0;
-      margin-top: 10px;
+      //border-width: 1px 0;
+      //margin-top: 10px;
     }
 
     .navbar {
       .nav > li {
         &> a{
+          padding: 6px 15px 10px;
           border-top: 4px solid transparent;
           text-shadow: none;
         }

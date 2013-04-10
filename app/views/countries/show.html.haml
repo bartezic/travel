@@ -14,33 +14,53 @@
     .tabbable
       %ul.nav.nav-tabs
         %li.active
-          %a{"data-toggle" => "tab", :href => "#tours"} Тури
+          %a{"data-toggle" => "tab", :href => "#tours"}= t 'country.tours'
         %li
-          %a{"data-toggle" => "tab", :href => "#about"} Про країну
+          %a{"data-toggle" => "tab", :href => "#about"}= t 'country.about.title'
         %li
-          %a{"data-toggle" => "tab", :href => "#regions"} Регіони
+          %a{"data-toggle" => "tab", :href => "#regions"}= t 'country.regions'
         %li
-          %a{"data-toggle" => "tab", :href => "#hotels"} Готелі
+          %a{"data-toggle" => "tab", :href => "#hotels"}= t 'country.hotels' 
         %li
-          %a{"data-toggle" => "tab", :href => "#visa"} Візова інформація
+          %a{"data-toggle" => "tab", :href => "#visa"}= t 'country.visa'
       .tab-content
         #tours.tab-pane.active
-          %p Тут будуть тури.
+          - if false
+
+          - else
+            %p.muted.text-center= t 'country.sorry.tours'
         #about.tab-pane
-          %h4 Загальна інформація
-          .div-block= raw @country.description
-          %h4 Кухня
-          .div-block= raw @country.kitchen
-          %h4 Клімат
-          .div-block= raw @country.climate
-          %h4 Культура
-          .div-block= raw @country.culture
-          %h4 Поради
-          .div-block= raw @country.recomendation
-          %h4 Інфраструктура
-          .div-block= raw @country.infrastructure
+          - unless @country.description.empty?
+            %h4= t 'country.about.description'
+            .div-block= raw @country.description
+          - unless @country.kitchen.empty?
+            %h4= t 'country.about.kitchen'
+            .div-block= raw @country.kitchen
+          - unless @country.climate.empty?
+            %h4= t 'country.about.climate'
+            .div-block= raw @country.climate
+          - unless @country.culture.empty?
+            %h4= t 'country.about.culture'
+            .div-block= raw @country.culture
+          - unless @country.recomendation.empty?
+            %h4= t 'country.about.recomendation'
+            .div-block= raw @country.recomendation
+          - unless @country.infrastructure.empty?
+            %h4= t 'country.about.infrastructure'
+            .div-block= raw @country.infrastructure
         #regions.tab-pane
+          - if @country.regions.any?
+
+          - else
+            %p.muted.text-center= t 'country.sorry.regions'
         #hotels.tab-pane
+          - if @country.regions.any?
+
+          - else
+            %p.muted.text-center= t 'country.sorry.hotels'
         #visa.tab-pane
-          %h4= raw @country.visa.visa_type.title
-          %p= raw @country.visa.description
+          - if @country.visa && @country.visa.visa_type
+            %h4= raw @country.visa.visa_type.title 
+            %p= raw @country.visa.description
+          - else
+            %p.muted.text-center= t 'country.sorry.visa'
