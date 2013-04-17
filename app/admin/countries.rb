@@ -2,14 +2,18 @@ ActiveAdmin.register Country do
   index do
     column :name
     column :slug
+    column :continents do |a|
+      a.continents.map(&:name).join(', ')
+    end 
     translation_status
     default_actions
   end
 
   form do |f|
     f.inputs do
-      f.input :continent
+      f.input :continents
       f.input :logo
+      f.input :code
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name

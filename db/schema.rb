@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405165755) do
+ActiveRecord::Schema.define(:version => 20130417183806) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -96,8 +96,12 @@ ActiveRecord::Schema.define(:version => 20130405165755) do
 
   add_index "continents", ["slug"], :name => "index_continents_on_slug", :unique => true
 
+  create_table "continents_countries", :force => true do |t|
+    t.integer "continent_id"
+    t.integer "country_id"
+  end
+
   create_table "countries", :force => true do |t|
-    t.integer  "continent_id"
     t.string   "name"
     t.text     "kitchen"
     t.text     "description"
@@ -113,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20130405165755) do
     t.string   "slug"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
@@ -246,8 +251,13 @@ ActiveRecord::Schema.define(:version => 20130405165755) do
     t.integer  "visa_id"
     t.string   "locale"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.text     "foreign_pas"
+    t.string   "foreign_pas_duration"
+    t.string   "foreign_pas_additional"
+    t.string   "service_pas"
+    t.string   "diplomatic_pas"
   end
 
   add_index "visa_translations", ["locale"], :name => "index_visa_translations_on_locale"
@@ -274,8 +284,13 @@ ActiveRecord::Schema.define(:version => 20130405165755) do
     t.integer  "country_id"
     t.integer  "visa_type_id"
     t.text     "description"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.text     "foreign_pas"
+    t.string   "foreign_pas_duration"
+    t.string   "foreign_pas_additional"
+    t.string   "service_pas"
+    t.string   "diplomatic_pas"
   end
 
 end

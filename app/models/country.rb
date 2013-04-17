@@ -1,10 +1,10 @@
 class Country < ActiveRecord::Base
-  belongs_to :continent
+  has_and_belongs_to_many :continents, :join_table => :continents_countries
   has_many :regions
   has_one :visa
   
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
-  attr_accessible :continent_id, :name, :description, :logo, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
+  attr_accessible :continent_ids, :name, :description, :logo, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure, :code
 
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
@@ -14,7 +14,7 @@ class Country < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   has_attached_file :logo,
-    :styles => { :thumb => 'x100', :croppable => '600x600>', :big => '1000x1000>' },
+    :styles => { :thumb => '250x', :croppable => '600x', :big => '1170x' },
     :default_url => "/images/ph/:attachment_:style.png", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"

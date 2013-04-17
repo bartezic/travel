@@ -11,7 +11,7 @@
             .logo
         .nav-collapse.nav-collapse-menu
           %ul.nav
-            %li{class: request.path != '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
+            %li{class: request.path == '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
             %li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
             %li.dropdown{class: request.path.include?('countries') && 'active'}
               %a.dropdown-toggle(data-toggle="dropdown" href="#")
@@ -22,7 +22,7 @@
                   - if continent.countries.any?
                     %li.dropdown-submenu
                       = link_to continent.name, continent
-                      %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+                      %ul.dropdown-menu.f16{"aria-labelledby" => "dLabel", :role => "menu"}
                         - continent.countries.sort_by(&:slug).each do |country|
                           %li= link_to country.name, [continent, country]
                   - else

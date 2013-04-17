@@ -14,6 +14,7 @@ Travel::Application.routes.draw do
     end
   end
 
+  match 'contacts' => 'static#contacts'
 
   ActiveAdmin.routes(self)
 

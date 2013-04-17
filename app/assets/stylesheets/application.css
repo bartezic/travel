@@ -12,4 +12,5 @@
  *= require bootstrap_and_overrides
  *= require navigation
  *= require slider
+ *= require flags16
  */

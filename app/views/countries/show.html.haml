@@ -3,10 +3,18 @@
 
 .row.country.custom
   .span12
+    - if @country.logo.url(:big) != '/images/ph/logos_big.png'
+      = image_tag @country.logo.url(:big)
+    - else 
+      #push-nav
     %h2
       = @country.name
-      %small
-        %em= link_to @country.continent.name, @country.continent
+      - @country.continents.each_with_index do |continent, i|
+        %small
+          %em
+            = ', ' if i != 0
+            = link_to continent.name, continent
+
 
 
     /= link_to 'Back', countries_path

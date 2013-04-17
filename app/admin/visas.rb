@@ -12,6 +12,11 @@ ActiveAdmin.register Visa do
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :description
+      t.input :foreign_pas
+      t.input :foreign_pas_duration
+      t.input :foreign_pas_additional
+      t.input :service_pas
+      t.input :diplomatic_pas
     end
     f.buttons
   end

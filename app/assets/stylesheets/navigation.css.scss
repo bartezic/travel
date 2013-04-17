@@ -101,6 +101,7 @@
   .nav-collapse .dropdown-menu a:focus {
     background-color: #f8991f;
     color: white;
+    border-color: #f8991f;
   }
 
   .navbar .nav li.dropdown > a.dropdown-toggle .caret {
@@ -108,6 +109,8 @@
     border-bottom-color: #f8991f;
     color: #f8991f;
   }
+  .navbar .nav li.dropdown.open > .dropdown-toggle .caret,
+  .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret,
   .navbar .nav li.dropdown > a:hover .caret, 
   .navbar .nav li.dropdown > a:focus .caret {
     border-top-color: white;
@@ -130,7 +133,10 @@
 /* Large desktop */
 @media (min-width: 1200px) { 
   #wrap .container {
-    padding-top: 140px;
+    padding-top: 60px;
+  }
+  #push-nav {
+    height: 80px;
   }
   .custom {
     .navbar-fixed-top .navbar-inner, 
@@ -207,7 +213,10 @@
 /* Default desctop */
 @media (min-width: 980px) and (max-width: 1199px) { 
   #wrap .container {
-    padding-top: 100px;
+    padding-top: 40px;
+  }
+  #push-nav {
+    height: 60px;
   }
   .custom {
     .navbar-fixed-top .navbar-inner, 
