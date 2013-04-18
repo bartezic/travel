@@ -2,6 +2,7 @@ ActiveAdmin.register Country do
   index do
     column :name
     column :slug
+    column :code
     column :continents do |a|
       a.continents.map(&:name).join(', ')
     end 

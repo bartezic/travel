@@ -89,8 +89,7 @@
     color: #f8991f;
   }
 
-  li.dropdown.open > .dropdown-toggle:focus, 
-  .navbar .nav li.dropdown.active > .dropdown-toggle:focus, 
+
   .navbar .nav li.dropdown.open.active > .dropdown-toggle:focus,  
   li.dropdown.open > .dropdown-toggle:hover, 
   .navbar .nav li.dropdown.active > .dropdown-toggle:hover, 
@@ -105,12 +104,23 @@
   }
 
   .navbar .nav li.dropdown > a.dropdown-toggle .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+    color: #777;
+  }
+
+  .navbar .nav li.dropdown.active > a.dropdown-toggle .caret {
     border-top-color: #f8991f;
     border-bottom-color: #f8991f;
     color: #f8991f;
   }
-  .navbar .nav li.dropdown.open > .dropdown-toggle .caret,
-  .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret,
+  .navbar .nav li.dropdown.active > a.dropdown-toggle:hover .caret,
+  .navbar .nav li.dropdown.open > a.dropdown-toggle:focus .caret,
+  .navbar .nav li.dropdown.open.active > a.dropdown-toggle:focus .caret,
+  .navbar .nav li.dropdown.open > a.dropdown-toggle:hover .caret,
+  .navbar .nav li.dropdown.open.active > a.dropdown-toggle:hover .caret,
+  .navbar .nav li.dropdown.open > a.dropdown-toggle .caret,
+  .navbar .nav li.dropdown.open.active > a.dropdown-toggle .caret,
   .navbar .nav li.dropdown > a:hover .caret, 
   .navbar .nav li.dropdown > a:focus .caret {
     border-top-color: white;
