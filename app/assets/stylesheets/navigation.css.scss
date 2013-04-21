@@ -1,5 +1,4 @@
 .custom {
-
   &.country {
     .nav {
       margin: 0 0 0 10px;
@@ -20,14 +19,6 @@
   a {
     color: #f8991f;
   }
-
-/*  .nav-tabs {
-    border-bottom: 4px solid #f8991f;
-  }
-
-  .nav-tabs > li {
-    margin-bottom: 0;
-  }*/
 
   .nav > li > a:hover, 
   .nav > li > a:focus {
@@ -142,20 +133,49 @@
 
 /* Large desktop */
 @media (min-width: 1200px) { 
-  #wrap .container {
-    padding-top: 60px;
-  }
-  #push-nav {
-    height: 80px;
-  }
   .custom {
-    .navbar-fixed-top .navbar-inner, 
-    .navbar-static-top .navbar-inner {
-      //border-width: 1px 0;
-      //margin-top: 10px;
+    .navbar-inner.contacts  {
+      .social {
+        a > div {
+          float: right;
+          background-size: 40px 40px;
+          width: 40px;
+          height: 40px;
+          margin: 5px;
+        }
+        .facebook {
+          background: url(social/facebook_40.png) no-repeat center;
+        }
+        .vkontakte {
+          background: url(social/vkontakte_40.png) no-repeat center;
+        }
+        .twitter {
+          background: url(social/twitter_40.png) no-repeat center;
+        }
+      }
+
+      .nav {
+        padding-left: 10px;
+        .text {
+          float: left;
+          padding: 15px 15px 15px 10px;
+          color: #777777;
+        }
+        .phone, .email {
+          float: left;
+          background-size: 40px 40px;
+          width: 40px;
+          height: 40px;
+          margin: 5px;
+        }
+        .phone {
+          background: url(social/phone_40.png) no-repeat center;
+        }
+        .email {
+          background: url(social/email_40.png) no-repeat center;
+        }
+      }
     }
-
-
     .navbar {
       .nav > li {
         &> a{
@@ -222,19 +242,48 @@
 
 /* Default desctop */
 @media (min-width: 980px) and (max-width: 1199px) { 
-  #wrap .container {
-    padding-top: 40px;
-  }
-  #push-nav {
-    height: 60px;
-  }
   .custom {
-    .navbar-fixed-top .navbar-inner, 
-    .navbar-static-top .navbar-inner {
-      //border-width: 1px 0;
-      //margin-top: 10px;
+    .navbar-inner.contacts{
+      .social {
+        a > div {
+          float: right;
+          background-size: 30px 30px;
+          width: 30px;
+          height: 30px;
+          margin: 5px;
+        }
+        .facebook {
+          background: url(social/facebook_30.png) no-repeat center;
+        }
+        .vkontakte {
+          background: url(social/vkontakte_30.png) no-repeat center;
+        }
+        .twitter {
+          background: url(social/twitter_30.png) no-repeat center;
+        }
+      }
+      .nav {
+        padding-left: 10px;
+        .text {
+          float: left;
+          padding: 10px 10px 10px 5px;
+          color: #777777;
+        }
+        .phone, .email {
+          float: left;
+          background-size: 30px 30px;
+          width: 30px;
+          height: 30px;
+          margin: 5px;
+        }
+        .phone {
+          background: url(social/phone_30.png) no-repeat center;
+        }
+        .email {
+          background: url(social/email_30.png) no-repeat center;
+        }
+      }
     }
-
     .navbar {
       .nav > li {
         &> a{
@@ -302,13 +351,55 @@
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) { 
   .custom {
+    .navbar-inner.contacts {
+      .brand {
+        display: hidden;
+      }
+      .social {
+        a > div {
+          float: right;
+          background-size: 30px 30px;
+          width: 30px;
+          height: 30px;
+          margin: 5px;
+        }
+        .facebook {
+          background: url(social/facebook_30.png) no-repeat center;
+        }
+        .vkontakte {
+          background: url(social/vkontakte_30.png) no-repeat center;
+        }
+        .twitter {
+          background: url(social/twitter_30.png) no-repeat center;
+        }
+      }
+      .nav {
+        .text {
+          float: left;
+          padding: 10px 10px 10px 5px;
+          color: #777777;
+        }
+        .phone, .email {
+          float: left;
+          background-size: 30px 30px;
+          width: 30px;
+          height: 30px;
+          margin: 5px;
+        }
+        .phone {
+          background: url(social/phone_30.png) no-repeat center;
+        }
+        .email {
+          background: url(social/email_30.png) no-repeat center;
+        }
+      }
+    }
     .nav-collapse .nav > li > a, 
     .nav-collapse .dropdown-menu a {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
     }
-
     .navbar {
       .nav > li {
         &> a{

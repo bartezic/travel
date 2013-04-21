@@ -1,6 +1,9 @@
 class Photo < ActiveRecord::Base
+  has_and_belongs_to_many :galleries, :join_table => :galleries_photos
   belongs_to :gallery
-  attr_accessible :gallery_id, :title, :asset
+  has_many :countries
+
+  attr_accessible :title, :asset, :gallery_ids
   translates :title
 
   active_admin_translates :title do
@@ -8,7 +11,11 @@ class Photo < ActiveRecord::Base
   end
 
   has_attached_file :asset,
-    :styles => { :thumb => 'x100', :croppable => '600x600>', :big => '1000x1000>' },
+    :styles => { 
+      :thumb_150x => '150x', 
+      :thumb_250x => '250x',
+      :big_1170x => '1170x' 
+    },
     :default_url => "/images/ph/:attachment_:style.png", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"

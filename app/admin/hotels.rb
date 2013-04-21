@@ -1,5 +1,8 @@
 ActiveAdmin.register Hotel do
+  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.hotels') }
   index do
+    selectable_column
+    id_column
     column :name
     column :star
     column :site

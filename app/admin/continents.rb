@@ -1,5 +1,8 @@
 ActiveAdmin.register Continent do
+  menu :priority => 3, :label => proc{ I18n.t('active_admin.menu.continents') }
   index do
+    selectable_column
+    id_column
     column :name
     column :slug
     translation_status

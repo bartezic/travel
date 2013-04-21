@@ -1,5 +1,8 @@
 ActiveAdmin.register Region do
+  menu :priority => 5, :label => proc{ I18n.t('active_admin.menu.regions') }
   index do
+    selectable_column
+    id_column
     column :name
     column :country
     translation_status

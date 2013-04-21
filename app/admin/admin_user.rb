@@ -1,5 +1,8 @@
 ActiveAdmin.register AdminUser do     
-  index do                            
+  menu :label => proc{ I18n.t('active_admin.menu.users') }
+  index do
+    selectable_column
+    id_column                            
     column :email                     
     column :current_sign_in_at        
     column :last_sign_in_at           

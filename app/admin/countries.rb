@@ -1,5 +1,18 @@
 ActiveAdmin.register Country do
+  menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }
+  
+  scope :all, :default => true
+  proc{ 
+    Continent.all.each do |continent|
+      scope continent.slug do |countries|
+        continent.countries
+      end
+    end
+  }.call
+
   index do
+    selectable_column
+    id_column
     column :name
     column :slug
     column :code
@@ -13,7 +26,7 @@ ActiveAdmin.register Country do
   form do |f|
     f.inputs do
       f.input :continents
-      f.input :logo
+      f.input :photo
       f.input :code
     end
     f.translated_inputs switch_locale: true do |t|

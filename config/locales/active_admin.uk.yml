@@ -1,5 +1,25 @@
 uk:
   active_admin:
+    menu:
+      users: Користувачі
+      attractions: Екскурсії
+      continents: Континенти
+      countries: Країни
+      currencies: Валюта
+      dashboard: Панель
+      days: Дні
+      durations: Тривалості
+      food_types: Харчування
+      galleries: Галареї
+      hotels: Готелі
+      photos: Фото
+      regions: Регіони
+      tour_programs: Програми турів
+      tour_types: Типи турів
+      tours: Тури
+      transports: Транспорт
+      visa_types: Типи віз
+      visas: Візи
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."

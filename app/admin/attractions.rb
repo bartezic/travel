@@ -1,5 +1,8 @@
 ActiveAdmin.register Attraction do
+  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.attractions') }
   index do
+    selectable_column
+    id_column
     column :name
     column :region
     column :gallery

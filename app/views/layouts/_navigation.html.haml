@@ -1,5 +1,23 @@
 .custom 
-  .navbar.navbar-fixed-top
+  /.navbar.navbar-fixed-top
+  .navbar.navbar-static-top
+    .navbar-inner.contacts
+      .container
+        .brand
+        .social
+          %a{ href: 'http://vk.com/mongrasse' }
+            .vkontakte
+          %a{ href: '#' }
+            .twitter
+          %a{ href: 'http://www.facebook.com/pages/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D0%B0-%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D1%96%D1%8F-%D0%9C%D0%BE%D0%BD%D0%93%D1%80%D0%B0%D1%81%D1%81%D0%B5/188624577866386' }
+            .facebook
+        .nav
+          .email 
+          .text 
+            %a{ href: 'mailto:mongresse@ukr.net', target: :_blank } mongresse@ukr.net
+          .phone 
+          .text +38 098 036 55 35
+
     .navbar-inner
       .container
         %a.btn.btn-navbar(data-target=".nav-collapse-cog" data-toggle="collapse")
@@ -12,7 +30,7 @@
         .nav-collapse.nav-collapse-menu
           %ul.nav
             %li{class: request.path == '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
-            %li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
+            /%li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
             %li.dropdown{class: request.path.include?('countries') && 'active'}
               %a.dropdown-toggle(data-toggle="dropdown" href="#")
                 = t 'menu.countries_of_world'
@@ -27,10 +45,9 @@
                           %li= link_to country.name, [continent, country]
                   - else
                     %li= link_to continent.name, continent
-
-            %li{class: request.path == '/visas' && 'active'}= link_to "Візова інформація", "/visas"
+            %li{class: request.path == visas_path && 'active'}= link_to t('menu.visas'), visas_path
             /%li{class: request.path == '/news' && 'active'}= link_to "Туристичний блог", "/news"
-            %li{class: request.path == '/contacts' && 'active'}= link_to "Контакти", "/contacts"
+            %li{class: request.path == contacts_path && 'active'}= link_to "Контакти", contacts_path
         .nav-collapse.nav-collapse-cog
           %ul.nav.pull-right
             %li{class: locale == :uk && 'active'}= link_to "Укр", "?locale=uk"

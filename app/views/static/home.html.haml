@@ -1,4 +1,84 @@
 .row
+  #slider.span12
+    .row
+      #carousel-bounding-box.span8
+        #myCarousel.carousel.slide
+          .carousel-inner
+            .active.item{"data-slide-number" => "0"}
+              %img{:src => "http://placehold.it/770x300&text=one"}/
+            .item{"data-slide-number" => "1"}
+              %img{:src => "http://placehold.it/770x300&text=two"}/
+            .item{"data-slide-number" => "2"}
+              %img{:src => "http://placehold.it/770x300&text=three"}/
+            .item{"data-slide-number" => "3"}
+              %img{:src => "http://placehold.it/770x300&text=four"}/
+            .item{"data-slide-number" => "4"}
+              %img{:src => "http://placehold.it/770x300&text=five"}/
+            .item{"data-slide-number" => "5"}
+              %img{:src => "http://placehold.it/770x300&text=six"}/
+          %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
+          %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›
+      #carousel-text.span4
+      #slide-content{:style => "display: none;"}
+        #slide-content-0
+          %h2 Slider One
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+        #slide-content-1
+          %h2 Slider Two
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+        #slide-content-2
+          %h2 Slider Three
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+        #slide-content-3
+          %h2 Slider Four
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+        #slide-content-4
+          %h2 Slider Five
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+        #slide-content-5
+          %h2 Slider Six
+          %p Lorem Ipsum Dolor
+          %p.sub-text
+            October 24 2012 -
+            %a{:href => "#"} Read more
+#slider-thumbs.row.hidden-phone
+  .span12
+    %ul.thumbnails
+      %li.span2
+        %a#carousel-selector-0.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=one"}/
+      %li.span2
+        %a#carousel-selector-1.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=two"}/
+      %li.span2
+        %a#carousel-selector-2.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=three"}/
+      %li.span2
+        %a#carousel-selector-3.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=four"}/
+      %li.span2
+        %a#carousel-selector-4.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=five"}/
+      %li.span2
+        %a#carousel-selector-5.thumbnail
+          %img{:src => "http://placehold.it/170x100&text=six"}/
+
+.row
   .span8
     #push-nav
     .well.well-small

@@ -3,6 +3,8 @@ class Region < ActiveRecord::Base
   belongs_to :country
   has_many :attractions
   has_many :hotels
+  has_and_belongs_to_many :tours, :join_table => :tours_regions
+  has_and_belongs_to_many :tour_programs, :join_table => :tour_programs_regions
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, :infrastructure
   translates :name, :description, :seo_meta, :recomendation, :infrastructure
 

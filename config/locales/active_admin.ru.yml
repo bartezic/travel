@@ -1,5 +1,25 @@
 ru:
   active_admin:
+    menu:
+      users: Пользователи
+      attractions: Экскурсии
+      continents: Континенты
+      countries: Страны
+      currencies: Валюта
+      dashboard: Панель
+      days: Дни
+      durations: Длительности
+      food_types: Питание
+      galleries: Галарея
+      hotels: Гостиницы
+      photos: Фото
+      regions: Регионы
+      tour_programs: Программы туров
+      tour_types: Типы туров
+      tours: Туры
+      transports: Транспорт
+      visa_types: Типы виз
+      visas: Визы
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."

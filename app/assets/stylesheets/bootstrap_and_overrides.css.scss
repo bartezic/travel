@@ -20,6 +20,10 @@ body {
   height: 60px;
 }
 
+#footer {
+  margin-top: 10px;
+}
+
 #footer .container{
   border-top: 1px solid silver;
   padding-top: 10px;
@@ -27,11 +31,6 @@ body {
 
 .bold {
   font-weight: bold;
-}
-
-img.media-object {
-  width: 64px;
-  height: 64px;
 }
 
 .div-block {
@@ -49,4 +48,10 @@ img.media-object {
   .div-block:nth-child(3n+2) {
     border-left: 4px solid #21562f;
   }
+}
+
+.media:not(:first-child) {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 10px;
 }

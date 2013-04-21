@@ -1,6 +1,6 @@
 class Gallery < ActiveRecord::Base
-  has_many :photos
-  attr_accessible :title
+  has_and_belongs_to_many :photos, :join_table => :galleries_photos
+  attr_accessible :title, :photo_ids
   translates :title
 
   active_admin_translates :title do

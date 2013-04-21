@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417183806) do
+ActiveRecord::Schema.define(:version => 20130421150727) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -110,14 +110,11 @@ ActiveRecord::Schema.define(:version => 20130417183806) do
     t.text     "climate"
     t.text     "culture"
     t.text     "infrastructure"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string   "slug"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "code"
+    t.integer  "photo_id"
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
@@ -140,6 +137,54 @@ ActiveRecord::Schema.define(:version => 20130417183806) do
   add_index "country_translations", ["country_id"], :name => "index_country_translations_on_country_id"
   add_index "country_translations", ["locale"], :name => "index_country_translations_on_locale"
 
+  create_table "currencies", :force => true do |t|
+    t.string   "code"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "currency_translations", :force => true do |t|
+    t.integer  "currency_id"
+    t.string   "locale"
+    t.string   "title"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "currency_translations", ["currency_id"], :name => "index_currency_translations_on_currency_id"
+  add_index "currency_translations", ["locale"], :name => "index_currency_translations_on_locale"
+
+  create_table "days", :force => true do |t|
+    t.date     "day_of_life"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "durations", :force => true do |t|
+    t.integer  "count_of_night"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "food_type_translations", :force => true do |t|
+    t.integer  "food_type_id"
+    t.string   "locale"
+    t.string   "title"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "food_type_translations", ["food_type_id"], :name => "index_food_type_translations_on_food_type_id"
+  add_index "food_type_translations", ["locale"], :name => "index_food_type_translations_on_locale"
+
+  create_table "food_types", :force => true do |t|
+    t.string   "title"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "galleries", :force => true do |t|
     t.string   "title"
     t.string   "slug"
@@ -148,6 +193,11 @@ ActiveRecord::Schema.define(:version => 20130417183806) do
   end
 
   add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
+
+  create_table "galleries_photos", :force => true do |t|
+    t.integer "gallery_id"
+    t.integer "photo_id"
+  end
 
   create_table "gallery_translations", :force => true do |t|
     t.integer  "gallery_id"
@@ -207,7 +257,6 @@ ActiveRecord::Schema.define(:version => 20130417183806) do
   add_index "photo_translations", ["photo_id"], :name => "index_photo_translations_on_photo_id"
 
   create_table "photos", :force => true do |t|
-    t.integer  "gallery_id"
     t.string   "title"
     t.string   "asset_file_name"
     t.string   "asset_content_type"
@@ -246,6 +295,137 @@ ActiveRecord::Schema.define(:version => 20130417183806) do
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
+
+  create_table "tour_program_translations", :force => true do |t|
+    t.integer  "tour_program_id"
+    t.string   "locale"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "tour_program_translations", ["locale"], :name => "index_tour_program_translations_on_locale"
+  add_index "tour_program_translations", ["tour_program_id"], :name => "index_tour_program_translations_on_tour_program_id"
+
+  create_table "tour_programs", :force => true do |t|
+    t.integer  "tour_id"
+    t.string   "day_number"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "tour_programs_regions", :force => true do |t|
+    t.integer "tour_program_id"
+    t.integer "region_id"
+  end
+
+  create_table "tour_translations", :force => true do |t|
+    t.integer  "tour_id"
+    t.string   "locale"
+    t.string   "title"
+    t.text     "description"
+    t.text     "transport_description"
+    t.text     "price_list"
+    t.text     "price_included"
+    t.text     "price_excluded"
+    t.text     "note"
+    t.text     "excursions"
+    t.text     "seo_meta"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "tour_translations", ["locale"], :name => "index_tour_translations_on_locale"
+  add_index "tour_translations", ["tour_id"], :name => "index_tour_translations_on_tour_id"
+
+  create_table "tour_type_translations", :force => true do |t|
+    t.integer  "tour_type_id"
+    t.string   "locale"
+    t.string   "title"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "tour_type_translations", ["locale"], :name => "index_tour_type_translations_on_locale"
+  add_index "tour_type_translations", ["tour_type_id"], :name => "index_tour_type_translations_on_tour_type_id"
+
+  create_table "tour_types", :force => true do |t|
+    t.string   "title"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tours", :force => true do |t|
+    t.integer  "currency_id"
+    t.integer  "photo_id"
+    t.integer  "price_from"
+    t.integer  "price_to"
+    t.boolean  "active"
+    t.string   "title"
+    t.text     "description"
+    t.text     "transport_description"
+    t.text     "price_list"
+    t.text     "price_included"
+    t.text     "price_excluded"
+    t.text     "note"
+    t.text     "excursions"
+    t.text     "seo_meta"
+    t.string   "slug"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "tours", ["slug"], :name => "index_tours_on_slug", :unique => true
+
+  create_table "tours_days", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "day_id"
+  end
+
+  create_table "tours_durations", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "duration_id"
+  end
+
+  create_table "tours_food_types", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "food_type_id"
+  end
+
+  create_table "tours_regions", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "region_id"
+  end
+
+  create_table "tours_tour_types", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "tour_type_id"
+  end
+
+  create_table "tours_transports", :force => true do |t|
+    t.integer "tour_id"
+    t.integer "transport_id"
+  end
+
+  create_table "transport_translations", :force => true do |t|
+    t.integer  "transport_id"
+    t.string   "locale"
+    t.string   "title"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "transport_translations", ["locale"], :name => "index_transport_translations_on_locale"
+  add_index "transport_translations", ["transport_id"], :name => "index_transport_translations_on_transport_id"
+
+  create_table "transports", :force => true do |t|
+    t.string   "title"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "visa_translations", :force => true do |t|
     t.integer  "visa_id"

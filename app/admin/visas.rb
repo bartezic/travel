@@ -1,5 +1,10 @@
 ActiveAdmin.register Visa do
+  
+  menu :label => proc{ I18n.t('active_admin.menu.visas') }
   index do
+    selectable_column
+    id_column
+    column :country
     column :visa_type
     translation_status
     default_actions

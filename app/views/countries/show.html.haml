@@ -3,8 +3,8 @@
 
 .row.country.custom
   .span12
-    - if @country.logo.url(:big) != '/images/ph/logos_big.png'
-      = image_tag @country.logo.url(:big)
+    - if @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
+      = image_tag @country.photo.asset.url(:big_1170x)
     - else 
       #push-nav
     %h2
@@ -58,17 +58,49 @@
             .div-block= raw @country.infrastructure
         #regions.tab-pane
           - if @country.regions.any?
-
+            %ul.media-list
+              - @country.regions.each do |region|
+                %li.media
+                  %a.pull-left{:href => "#"}
+                    - if region.gallery.photos.first
+                      = image_tag region.gallery.photos.first.asset(:thumb_150x)
+                    - else
+                      
+                  .media-body
+                    %h4.media-heading= region.name
+                    %p= raw region.description
           - else
             %p.muted.text-center= t 'country.sorry.regions'
         #hotels.tab-pane
           - if @country.regions.any?
-
-          - else
+            - hotels_mis = true
+            - @country.regions.each do |region|
+              - region.hotels do |hotel|
+                - hotels_mis = false
+                %li.media
+                  %a.pull-left{:href => "#"}
+                    = image_tag hotel.gallery.photos.first.asset(:thumb_150x)
+                  .media-body
+                    %h4.media-heading= hotel.name
+                    %p= raw hotel.description
+          - if hotels_mis
             %p.muted.text-center= t 'country.sorry.hotels'
         #visa.tab-pane
           - if @country.visa && @country.visa.visa_type
-            %h4= raw @country.visa.visa_type.title 
-            %p= raw @country.visa.description
+            %h4= @country.visa.visa_type.title 
+            %p= @country.visa.description
+            %dl
+              %dt Допустимый вид паспорта, по которому можно въехать
+              %dd
+              %dt Заграничный паспорт
+              %dd= @country.visa.foreign_pas
+              %dt Требуемый срок действия стандартного заграничного паспорта
+              %dd= @country.visa.foreign_pas_duration
+              %dt Дополнительные требования
+              %dd= @country.visa.foreign_pas_additional
+              %dt Служебный паспорт
+              %dd= @country.visa.service_pas
+              %dt Дипломатический паспорт
+              %dd= @country.visa.diplomatic_pas
           - else
             %p.muted.text-center= t 'country.sorry.visa'
