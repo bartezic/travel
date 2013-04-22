@@ -1,16 +1,13 @@
 Travel::Application.routes.draw do
-  resources :tours
-  resources :hotels
-  resources :attractions
-  resources :galeries
-  resources :regions
-  resources :countries
+  resources :tours, :only => [:index, :show]
+  resources :hotels, :only => [:index, :show]
+  resources :regions, :only => [:index, :show]
+  resources :countries, :only => [:index, :show]
 
-  resources :continents do
-    resources :countries do
-      resources :regions do
-        resources :hotels
-        resources :attractions
+  resources :continents, :only => [:index, :show] do
+    resources :countries, :only => [:index, :show] do
+      resources :regions, :only => [:index, :show] do
+        resources :hotels, :only => [:index, :show]
       end
     end
   end

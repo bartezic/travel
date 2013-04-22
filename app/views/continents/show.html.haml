@@ -1,4 +1,6 @@
-#push-nav
+- content_for :seo_meta do
+  = @continent.seo_meta
+.push-20
 %h3= @continent.name
 %p= raw @continent.description
 .f16

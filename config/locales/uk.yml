@@ -1,8 +1,8 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 uk:
-  hello: "Привіт світ"
+  gen: 
+    from_to: "Від %{from} до %{to}"
+    from: Від
+    to: до
   menu:
     continents: Континенти
     countries_of_world: Країни світу
@@ -27,3 +27,36 @@ uk:
       visa: Нажаль візова інформація про дану країну тимчасово відсутня.
   flags:
     chexyya: cz
+  filters:
+    search_in_title: Пошук по назві та описі
+    search_by_params: Підбір за параметрами
+    transport: Транспорт
+    tour_type: Тип
+    food_type: Харчування
+    country: Країна
+  tours:
+    title: Підібрати тур
+    price: Ціна
+    price_v: "Ціна: від <b>%{from}</b> до %{to} <i>%{currency}</i>"
+    price_from: "від <b>%{from}</b> <i>%{currency}</i>"
+    price_to: "до <b>%{to}</b> <i>%{currency}</i>"
+    dates: Дати виїздів
+    dates_v: "Період: <b>%{count}</b> виїздів з <b>%{first}</b> до <b>%{last}</b>"
+    transport: Транспорт
+    duration: Тривалість(ночей)
+    food_type: Харчування
+    tour_type: Тип
+    departure: Виїзди із
+    related: Схожі тури
+    description: Опис
+    price_list: Ціни
+    price_inc: В ціну входить
+    price_exc: Додатково оплачується
+    note: Примітка
+    excursions: Екскурсії
+  home:
+    last_tours: Останні додані тури
+    popular_regions: Популярні напрямки
+    blog_sorry: Блог знаходиться у стадії розробки
+    news: Новини туризму
+    tours_count: "Турів: %{count}"

@@ -1,6 +1,5 @@
 ActiveAdmin.register Visa do
-  
-  menu :label => proc{ I18n.t('active_admin.menu.visas') }
+  menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visas') }
   index do
     selectable_column
     id_column
@@ -16,8 +15,8 @@ ActiveAdmin.register Visa do
       f.input :country
     end
     f.translated_inputs switch_locale: true do |t|
-      t.input :description
-      t.input :foreign_pas
+      t.input :description, as: :html_editor
+      t.input :foreign_pas, as: :html_editor
       t.input :foreign_pas_duration
       t.input :foreign_pas_additional
       t.input :service_pas

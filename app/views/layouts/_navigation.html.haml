@@ -7,7 +7,7 @@
         .social
           %a{ href: 'http://vk.com/mongrasse' }
             .vkontakte
-          %a{ href: '#' }
+          %a{ href: 'https://twitter.com/mongrasse' }
             .twitter
           %a{ href: 'http://www.facebook.com/pages/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D0%B0-%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D1%96%D1%8F-%D0%9C%D0%BE%D0%BD%D0%93%D1%80%D0%B0%D1%81%D1%81%D0%B5/188624577866386' }
             .facebook
@@ -29,7 +29,7 @@
             .logo
         .nav-collapse.nav-collapse-menu
           %ul.nav
-            %li{class: request.path == '/tours' && 'active'}= link_to "Підібрати тур", "/tours"
+            %li{class: request.path == tours_path && 'active'}= link_to t('tours.title'), tours_path
             /%li{class: request.path == '/hot_tours' && 'active'}= link_to "Гарячі пропозиції", "/hot_tours"
             %li.dropdown{class: request.path.include?('countries') && 'active'}
               %a.dropdown-toggle(data-toggle="dropdown" href="#")
