@@ -1,25 +1,5 @@
-%h1 Listing regions
-
-%table
-  %tr
-    %th Country
-    %th Galery
-    %th Name
-    %th Description
-    %th
-    %th
-    %th
-
-  - @regions.each do |region|
-    %tr
-      %td= region.country_id
-      %td= region.gallery_id
-      %td= region.name
-      %td= region.description
-      %td= link_to 'Show', region
-      %td= link_to 'Edit', edit_region_path(region)
-      %td= link_to 'Destroy', region, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Region', new_region_path
+.push-20
+.row
+  .span12
+    - @regions.each do |region|
+      %span= link_to region.name, region

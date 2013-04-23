@@ -1,4 +1,4 @@
-class CreateGalleriesPhotosTable < ActiveRecord::Migration
+class CreateGalleriesPhotos < ActiveRecord::Migration
   def change
     create_table :galleries_photos do |t|
       t.integer :gallery_id

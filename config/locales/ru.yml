@@ -1,5 +1,8 @@
 ru:
-  hello: "Привет мир"
+  gen: 
+    from_to: "От %{from} до %{to}"
+    from: От
+    to: до
   menu:
     continents: Континенты
     countries_of_world: Cтраны мира
@@ -22,5 +25,36 @@ ru:
       regions: К сожалению регионы временно отсутствуют.
       hotels: К сожалению гостиницы временно отсутствуют.
       visa: К сожалению визовая информация о данной стране временно отсутствует.
-  flags:
-    chexyya: cz
+  filters:
+    search_in_title: Поиск по названию и описании
+    search_by_params: Подбор по параметрам
+    transport: Транспорт
+    tour_type: Тип
+    food_type: Питание
+    country: Страна
+  tours:
+    title: Подобрать тур
+    price: Цена
+    price_v: "Цена: от <b>%{from}</b> до %{to} <i>%{currency}</i>"
+    price_from: "Цена: от <b>%{from}</b> <i>%{currency}</i>"
+    price_to: "Цена: до <b>%{to}</b> <i>%{currency}</i>"
+    dates: Даты выездов
+    dates_v: "Период: <b>%{count}</b> выездов с <b>%{first}</b> по <b>%{last}</b>"
+    transport: Транспорт
+    duration: Продолжительность (ночей)
+    food_type: Питание
+    tour_type: Тип
+    departure: Выезды с
+    related: Похожие туры
+    description: Описание
+    price_list: Подробная цена
+    price_inc: В цену входит
+    price_exc: Дополнительно оплачивается
+    note: Примечание
+    excursions: Экскурсии
+  home:
+    last_tours: Последние добавления туры
+    popular_regions: Популярные направления
+    blog_sorry: Блог находится в стадии разработки
+    news: Новости туризма
+    tours_count: "Туров: %{count}"

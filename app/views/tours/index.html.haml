@@ -1,19 +1,36 @@
-%h1 Listing tours
-
-%table
-  %tr
-    %th Currency
-    %th
-    %th
-    %th
-
-  - @tours.each do |tour|
-    %tr
-      %td= tour.currency_id
-      %td= link_to 'Show', tour
-      %td= link_to 'Edit', edit_tour_path(tour)
-      %td= link_to 'Destroy', tour, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Tour', new_tour_path
+- @filters = [:transport, :tour_type, :food_type, :country]
+.push-20
+.row.tours
+  .span3
+    .row-fluid
+      .span12
+        %h4= t 'filters.search_in_title'
+        .well.well-small 
+          .form-search
+            .input-append
+              %input.input-medium.centered.search-query{:type => "text", :value => params[:query]}
+              %button.btn.search{:type => "submit"} Шукати
+    .row-fluid
+      %form.span12.filters
+        %h4= t 'filters.search_by_params' 
+        - @filters.each do |filter|
+          .well.well-small 
+            %p.bold= t filter, :scope => :filters
+            - filter.to_s.classify.constantize.all.each do |a|
+              %label.checkbox
+                %input{ type: :checkbox, name: "#{filter}[]", value: a.id, checked: params[filter] && params[filter].include?(a.id.to_s) }= a.respond_to?(:title) ? a.title : a.name
+  .span9
+    .row-fluid
+      %ul.media-list
+        - @tours.each do |tour|
+          %li.media
+            = link_to image_tag(tour.photo.asset(:thumb_250x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
+            .media-body
+              %h4.media-heading= link_to tour.title, tour
+              %p= raw t('tours.price_v', from: tour.price_from, to: tour.price_to,  currency: tour.currency.code)
+              %p= raw t('tours.dates_v', first: l(tour.days.first.day_of_life, :format => :short), last: l(tour.days.last.day_of_life, :format => :short_w_y), count: tour.days.count)
+              %p= "#{t('tours.transport')}: #{tour.transports.map(&:title).join(', ')}"
+              %p= "#{t('tours.duration')}: #{tour.durations.map(&:count_of_night).join(', ')}"
+              %p= "#{t('tours.food_type')}: #{tour.food_types.map{ |t| t.code.upcase }.join(', ')}"
+              %p= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
+              %p= "#{t('tours.departure')}: #{tour.regions.map(&:name).join(', ')}"

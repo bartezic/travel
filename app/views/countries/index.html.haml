@@ -1,6 +1,12 @@
-#push-nav
+.push-20
 %h1= t 'menu.countries_of_world'
 
-- @countries.each do |country|
-  %p= link_to country.name, country
+- Continent.all.each do |continent|
+  %h3= link_to continent.name, continent
+  .f16
+    - continent.countries.each do |country|
+      %h5= link_to country.name, [continent, country], { class: "flag #{country.code}"}
+      - country.regions.each do |region|
+        %span= link_to region.name, [continent, country, region]
+
 

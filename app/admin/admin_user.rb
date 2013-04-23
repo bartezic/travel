@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do     
-  menu :label => proc{ I18n.t('active_admin.menu.users') }
+  menu :priority => 20, :label => proc{ I18n.t('active_admin.menu.users') }
   index do
     selectable_column
     id_column                            

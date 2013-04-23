@@ -28,16 +28,16 @@ ActiveAdmin.register Tour do
   form do |f|
     f.inputs do
       f.input :photo
-      f.input :currency
+      f.input :currency, as: :radio
       f.input :price_from
       f.input :price_to
       f.input :active
-      f.input :days, :member_label => :day_of_life
-      f.input :tour_types
-      f.input :food_types
-      f.input :durations, :member_label => :count_of_night
-      f.input :transports
-      f.input :regions
+      f.input :days, member_label: :day_of_life
+      f.input :tour_types, as: :check_boxes
+      f.input :food_types, as: :check_boxes
+      f.input :durations, member_label: :count_of_night, as: :check_boxes
+      f.input :transports, as: :check_boxes
+      f.input :regions, as: :check_boxes
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :title

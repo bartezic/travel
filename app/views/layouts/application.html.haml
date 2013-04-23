@@ -42,9 +42,35 @@
         %p.pull-right
           Розробка та підтримка
           %a{ href: '#' } Олексин Віктор
+          :javascript
+            (function(w,n,d,r,s){d.write('<div><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
+            ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+
+            ((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random()+
+            '" style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /><\/a><\/div>');})(window,navigator,document);
     /
       Javascripts
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
     %script(src="//unslider.com/unslider.min.js")
+
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23534542-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    
+
+
+
+      
+
+
+      
+

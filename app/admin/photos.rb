@@ -12,7 +12,7 @@ ActiveAdmin.register Photo do
   form do |f|
     f.inputs do
       f.input :asset
-      f.input :galleries
+      f.input :galleries, as: :check_boxes
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :title

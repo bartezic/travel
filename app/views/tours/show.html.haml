@@ -1,9 +1,46 @@
-%p#notice= notice
+- content_for :seo_meta do
+  = @tour.seo_meta
 
-%p
-  %b Currency:
-  = @tour.currency_id
+.push-20
+.row.tour
+  .span9
+    .row-fluid
+      .span12
+        %h2= @tour.title
+        %dl
+          %dt= t 'tours.price'
+          %dd= raw "#{t('gen.from_to', from: @tour.price_from, to: @tour.price_to)} #{@tour.currency.code}"
+          %dt= t('tours.transport')
+          %dd= @tour.transports.map(&:title).join(', ')
+          %dt= t('tours.duration')
+          %dd= @tour.durations.map(&:count_of_night).join(', ')
+          %dt= t('tours.food_type')
+          %dd= @tour.food_types.map{ |t| t.code.upcase }.join(', ')
+          %dt= t('tours.tour_type')
+          %dd= @tour.tour_types.map(&:title).join(', ')
+          %dt= t('tours.departure')
+          %dd= @tour.regions.map(&:name).join(', ')
+          %dt= t('tours.dates')
+          %dd= @tour.days.map{ |i| l(i.day_of_life, :format => :short_w_y) }.join(',')
+          %dt= t('tours.description')
+          %dd= raw @tour.description
+          %dt= t('tours.price_list')
+          %dd= raw @tour.price_list
+          %dt= t('tours.price_inc')
+          %dd= raw @tour.price_included
+          %dt= t('tours.price_exc')
+          %dd= raw @tour.price_excluded
+          %dt= t('tours.note')
+          %dd= raw @tour.note
+          %dt= t('tours.excursions')
+          %dd= raw @tour.excursions
 
-= link_to 'Edit', edit_tour_path(@tour)
-\|
-= link_to 'Back', tours_path
+  .span3
+    .row-fluid.well.well-small
+      %h4= t 'tours.related'
+      %ul.thumbnails
+        - Tour.all.each do |tour|
+          %li.span12
+            .thumbnail
+              = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
+              %h4= link_to tour.title, tour

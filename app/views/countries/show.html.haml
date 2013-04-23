@@ -3,10 +3,10 @@
 
 .row.country.custom
   .span12
-    - if @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
+    - if @country.photo && @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
       = image_tag @country.photo.asset.url(:big_1170x)
     - else 
-      #push-nav
+      .push-20
     %h2
       = @country.name
       - @country.continents.each_with_index do |continent, i|
