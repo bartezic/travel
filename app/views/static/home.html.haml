@@ -87,7 +87,8 @@
           %ul.media-list
             - Tour.order('id DESC').limit(5).each do |tour|
               %li.media
-                = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
+                - if tour.photo
+                  = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
                 .media-body
                   %h5.media-heading= link_to tour.title, tour
                   %p= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency.code)
@@ -100,7 +101,8 @@
           %ul.media-list
             - Region.order('id DESC').limit(5).each do |region|
               %li.media
-                = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region.country, {class: 'pull-left'}
+                - if region.gallery 
+                  = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region.country, {class: 'pull-left'}
                 .media-body
                   %h5.media-heading
                     = link_to region.name, region.country
