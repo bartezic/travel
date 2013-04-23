@@ -9,7 +9,7 @@ gem 'pg'
 
 gem 'haml'
 gem "haml-rails"
-gem 'activeadmin'
+gem 'activeadmin', "~> 0.6.0"
 gem 'active_admin_editor'
 gem "meta_search",    '>= 1.1.0.pre'
 gem 'globalize3'

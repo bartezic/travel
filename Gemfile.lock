@@ -226,7 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_editor
-  activeadmin
+  activeadmin (~> 0.6.0)
   activeadmin-globalize3
   babosa
   bootstrap-sass (~> 2.3.1.0)
