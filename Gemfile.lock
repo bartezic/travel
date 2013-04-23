@@ -235,7 +235,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   friendly_id (~> 4.0.9)
   globalize3
-  haml (= 4.0.0)
   haml-rails
   jquery-rails
   meta_search (>= 1.1.0.pre)
