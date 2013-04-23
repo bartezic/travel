@@ -7,7 +7,7 @@ gem 'rails'
 
 gem 'pg'
 
-gem 'haml'
+gem 'haml', "4.0.0"
 gem "haml-rails"
 gem 'activeadmin', "~> 0.6.0"
 gem 'active_admin_editor'
