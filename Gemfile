@@ -7,7 +7,7 @@ gem 'rails'
 
 gem 'pg'
 
-# gem 'haml', "4.0.0"
+gem 'haml'
 gem "haml-rails"
 gem 'activeadmin', "~> 0.6.0"
 gem 'active_admin_editor'
@@ -48,8 +48,8 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'capistrano-rbenv'
-# gem 'rvm-capistrano'
+# gem 'capistrano-rbenv'
+gem 'rvm-capistrano'
 # gem 'capistrano-unicorn', :require => false
 
 # To use debugger
