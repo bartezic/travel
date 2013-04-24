@@ -1,4 +1,3 @@
-.push-20
 / .row
 /   #slider.span12
 /     .row
@@ -78,41 +77,44 @@
 /       %li.span2
 /         %a#carousel-selector-5.thumbnail
 /           %img{:src => "http://placehold.it/170x100&text=six"}/
-
-.row-fluid.country
-  %ul.thumbnails
-    %li.span4
-      %h4= t 'home.last_tours'
-      .thumbnail
-        .caption
-          %ul.media-list
-            - Tour.order('id DESC').limit(5).each do |tour|
-              %li.media
-                - if tour.photo
-                  = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
-                .media-body
-                  %h5.media-heading= link_to tour.title, tour
-                  %p= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency.code)
-                  %p= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
-          %a.btn.pull-right{ href: tours_path } Всі тури ...
-    %li.span4
-      %h4= t 'home.popular_regions'
-      .thumbnail
-        .caption
-          %ul.media-list
-            - Region.order('id DESC').limit(5).each do |region|
-              %li.media
-                - if region.gallery 
-                  = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region.country, {class: 'pull-left'}
-                .media-body
-                  %h5.media-heading
-                    = link_to region.name, region.country
-                    %small= region.country.name
-                  %p= t 'home.tours_count', count: region.tour_programs.count
-          %a.btn.pull-right{ href: countries_path } Всі напрямки ...
-    %li.span4
-      %h4= t 'home.news' 
-      .thumbnail
-        .caption
-          %p.muted.text-center= t 'home.blog_sorry'
-          %a.btn.pull-right{ href: "#" } Всі новини ...
+.row
+  .span12
+    .push-20
+    .row-fluid.country
+      %ul.thumbnails
+        %li.span4
+          %h4= t 'home.last_tours'
+          .thumbnail
+            .caption
+              %ul.media-list
+                - Tour.order('id DESC').limit(5).each do |tour|
+                  %li.media
+                    - if tour.photo
+                      = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
+                    .media-body
+                      %h5.media-heading= link_to tour.title, tour
+                      %div= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency.code)
+                      %div= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
+              %a.btn.pull-right{ href: tours_path } Всі тури ...
+        %li.span4
+          %h4= t 'home.popular_regions'
+          .thumbnail
+            .caption
+              %ul.media-list
+                - Region.order('id DESC').limit(5).each do |region|
+                  %li.media
+                    - if region.gallery && region.gallery.photos.any?
+                      = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
+                    .media-body
+                      %h5.media-heading
+                        = link_to region.name, region
+                        %small= link_to region.country.name, region.country
+                      %div= t 'home.region.tours', count: region.tour_programs.count
+                      %div= t 'home.region.hotels', count: region.hotels.count
+              %a.btn.pull-right{ href: countries_path } Всі напрямки ...
+        %li.span4
+          %h4= t 'home.news' 
+          .thumbnail
+            .caption
+              %p.muted.text-center= t 'home.blog_sorry'
+              %a.btn.pull-right{ href: "#" } Всі новини ...

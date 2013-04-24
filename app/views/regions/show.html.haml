@@ -1,7 +1,22 @@
-.push-20
+- content_for :seo_meta do
+  = @region.seo_meta
+
 .row
   .span12
+    .push-20
     %h2
       = @region.name
       %small= link_to @region.country.name, @region.country
     %p= @region.description
+    - unless @region.recomendation.empty?
+      %h4= t 'country.about.recomendation'
+      %p= @region.recomendation
+    - unless @region.infrastructure.empty?
+      %h4= t 'country.about.infrastructure'
+      %p= @region.infrastructure
+    - if @region.gallery && @region.gallery.photos.any?
+      %h4= t 'region.gallery' 
+      %ul.thumbnails
+        - @region.gallery.photos.each do |photo|
+          %li.span2
+            = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:big_1170x), { class: :thumbnail }

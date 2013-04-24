@@ -5,6 +5,12 @@ ActiveAdmin.register Region do
     id_column
     column :name
     column :country
+    column :tours_to do |region|
+      region.tour_programs.count
+    end
+    column :tours_from do |region|
+      region.tours.count
+    end
     translation_status
     default_actions
   end

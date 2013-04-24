@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   has_and_belongs_to_many :galleries, :join_table => :galleries_photos
   belongs_to :gallery
   has_many :countries
+  has_many :tours
 
   attr_accessible :title, :asset, :gallery_ids
   translates :title
@@ -14,7 +15,7 @@ class Photo < ActiveRecord::Base
     :styles => { 
       :thumb_150x => '150x', 
       :thumb_250x => '250x',
-      :big_1170x => '1170x' 
+      :big_1170x => '1170x1000>' 
     },
     :default_url => "/images/ph/:attachment_:style.png", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",

@@ -1,2 +1,33 @@
-#push-nav
-%h3= t 'menu.visas'
+.row.visas
+  .span12
+    .push-20
+    %h2= t 'menu.visas'
+    %table.table.table-striped.table-bordered.table-condensed
+      %thead
+        %tr
+          %th{ rowspan: 3 }= t 'visa.countries'
+          %th{ colspan: 4 }= t 'visa.pas'
+        %tr
+          %th{ colspan: 3 }= t 'visa.f_pas'
+          %th{ rowspan: 2 }= t 'visa.s_pas'
+          %th{ rowspan: 2 }= t 'visa.d_pas'
+        %tr
+          %th= t 'visa.f_pas'
+          %th= t 'visa.f_pas_d'
+          %th= t 'visa.f_pas_a'
+      %tbody.f16
+        - Country.order('name ASC').each do |country|
+          - if country.visa
+            %tr
+              %td
+                = link_to country.name, country, { class: "flag #{country.code}"}
+                - country.continents.each_with_index do |continent, i|
+                  %small
+                    %em
+                      = ', ' if i != 0
+                      = link_to continent.name, continent
+              %td= country.visa.foreign_pas
+              %td= country.visa.foreign_pas_duration
+              %td= country.visa.foreign_pas_additional
+              %td= country.visa.service_pas
+              %td= country.visa.diplomatic_pas

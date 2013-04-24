@@ -4,7 +4,15 @@ ActiveAdmin.register Photo do
     selectable_column
     id_column
     column :title
-    # column :galleries
+    column :galleries do |photo|
+      photo.galleries.each{ |gallery| div { link_to gallery.title, [:admin, gallery] }}
+    end
+    column :countries do |photo|
+      photo.countries.each{ |country| div { link_to country.name, [:admin, country] }}
+    end
+    column :tours do |photo|
+      photo.tours.each{ |tour| div { link_to tour.title, [:admin, tour] }}
+    end
     translation_status
     default_actions
   end

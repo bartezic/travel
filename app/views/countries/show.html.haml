@@ -15,10 +15,6 @@
             = ', ' if i != 0
             = link_to continent.name, continent
 
-
-
-    /= link_to 'Back', countries_path
-
     .tabbable
       %ul.nav.nav-tabs
         %li.active
@@ -62,12 +58,10 @@
               - @country.regions.each do |region|
                 %li.media
                   %a.pull-left{:href => "#"}
-                    - if region.gallery.photos.first
-                      = image_tag region.gallery.photos.first.asset(:thumb_150x)
-                    - else
-                      
+                    - if region.gallery && region.gallery.photos.any?
+                      = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
                   .media-body
-                    %h4.media-heading= region.name
+                    %h5.media-heading= link_to region.name, region
                     %p= raw region.description
           - else
             %p.muted.text-center= t 'country.sorry.regions'
@@ -81,7 +75,7 @@
                   %a.pull-left{:href => "#"}
                     = image_tag hotel.gallery.photos.first.asset(:thumb_150x)
                   .media-body
-                    %h4.media-heading= hotel.name
+                    %h5.media-heading= hotel.name
                     %p= raw hotel.description
           - if hotels_mis
             %p.muted.text-center= t 'country.sorry.hotels'
