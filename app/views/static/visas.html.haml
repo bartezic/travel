@@ -26,7 +26,7 @@
                     %em
                       = ', ' if i != 0
                       = link_to continent.name, continent
-              %td= country.visa.foreign_pas
+              %td= raw country.visa.foreign_pas
               %td= country.visa.foreign_pas_duration
               %td= country.visa.foreign_pas_additional
               %td= country.visa.service_pas

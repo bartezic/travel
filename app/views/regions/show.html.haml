@@ -7,13 +7,13 @@
     %h2
       = @region.name
       %small= link_to @region.country.name, @region.country
-    %p= @region.description
+    %p= raw @region.description
     - unless @region.recomendation.empty?
       %h4= t 'country.about.recomendation'
-      %p= @region.recomendation
+      %p= raw @region.recomendation
     - unless @region.infrastructure.empty?
       %h4= t 'country.about.infrastructure'
-      %p= @region.infrastructure
+      %p= raw @region.infrastructure
     - if @region.gallery && @region.gallery.photos.any?
       %h4= t 'region.gallery' 
       %ul.thumbnails

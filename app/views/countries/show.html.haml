@@ -62,7 +62,7 @@
                       = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
                   .media-body
                     %h5.media-heading= link_to region.name, region
-                    %p= raw region.description
+                    %p= raw region.description.truncate(350)
           - else
             %p.muted.text-center= t 'country.sorry.regions'
         #hotels.tab-pane
