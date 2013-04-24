@@ -11,7 +11,7 @@ ActiveAdmin.register Visa do
 
   form do |f|
     f.inputs do
-      f.input :visa_type
+      f.input :visa_type, as: :radio
       f.input :country
     end
     f.translated_inputs switch_locale: true do |t|

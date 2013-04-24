@@ -89,18 +89,18 @@
           - if @country.visa && @country.visa.visa_type
             %h4= @country.visa.visa_type.title 
             %p= @country.visa.description
-            %dl
-              %dt Допустимый вид паспорта, по которому можно въехать
-              %dd
-              %dt Заграничный паспорт
-              %dd= @country.visa.foreign_pas
-              %dt Требуемый срок действия стандартного заграничного паспорта
-              %dd= @country.visa.foreign_pas_duration
-              %dt Дополнительные требования
-              %dd= @country.visa.foreign_pas_additional
-              %dt Служебный паспорт
-              %dd= @country.visa.service_pas
-              %dt Дипломатический паспорт
-              %dd= @country.visa.diplomatic_pas
+            - if @country.visa.foreign_pas 
+              %h5= t 'visa.pas'
+              %dl
+                %dt= t 'visa.f_pas'
+                %dd= @country.visa.foreign_pas
+                %dt= t 'visa.f_pas_d'
+                %dd= @country.visa.foreign_pas_duration
+                %dt= t 'visa.f_pas_a'
+                %dd= @country.visa.foreign_pas_additional
+                %dt= t 'visa.s_pas'
+                %dd= @country.visa.service_pas
+                %dt= t 'visa.d_pas'
+                %dd= @country.visa.diplomatic_pas
           - else
             %p.muted.text-center= t 'country.sorry.visa'
