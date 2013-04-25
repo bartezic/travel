@@ -61,4 +61,14 @@ $(function() {
   });
 
   $('.tour').find('table').addClass('table table-striped table-bordered table-condensed');
+
+});
+
+$('ul.grid').imagesLoaded(function() {
+  $('ul.grid li').wookmark({
+    autoResize: true, // This will auto-update the layout when the browser window is resized.
+    container: $('ul.grid'), // Optional, used for some extra CSS styling
+    offset: 5, // Optional, the distance between grid items
+    flexibleWidth: 250 // Optional, the maximum width of a grid item
+  });
 });

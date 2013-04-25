@@ -57,10 +57,10 @@
           .span12
             - if @tour.gallery && @tour.gallery.photos.any?
               %h4= t 'region.gallery' 
-              %ul.thumbnails
+              %ul.grid
                 - @tour.gallery.photos.each do |photo|
-                  %li.span3
-                    = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:original), { class: :thumbnail }
+                  %li
+                    = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:original), { class: :thumbnail}
 
   .span3
     .row-fluid.well.well-small
