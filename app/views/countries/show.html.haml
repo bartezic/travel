@@ -4,7 +4,7 @@
 .row.country.custom
   .span12
     - if @country.photo && @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
-      = image_tag @country.photo.asset.url(:big_1170x)
+      = image_tag @country.photo.asset.url(:big_1170x), { alt: @country.photo.title }
     - else 
       .push-20
     %h2
@@ -73,7 +73,7 @@
                 - hotels_mis = false
                 %li.media
                   %a.pull-left{:href => "#"}
-                    = image_tag hotel.gallery.photos.first.asset(:thumb_150x)
+                    = image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title})
                   .media-body
                     %h5.media-heading= hotel.name
                     %p= raw hotel.description

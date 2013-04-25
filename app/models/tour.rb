@@ -15,7 +15,7 @@ class Tour < ActiveRecord::Base
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
-                  :seo_meta, :departure_calendar
+                  :seo_meta, :departure_calendar, :tour_programs_attributes
 
   active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
     validates_presence_of :title
@@ -24,6 +24,7 @@ class Tour < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  accepts_nested_attributes_for :tour_programs
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s

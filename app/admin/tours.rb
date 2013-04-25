@@ -40,6 +40,17 @@ ActiveAdmin.register Tour do
       f.input :transports, as: :check_boxes
       f.input :regions, as: :check_boxes
     end
+    f.inputs "tour_programs" do
+      f.has_many :tour_programs do |program|
+        program.inputs do
+          program.input :day_number
+          program.input :regions
+        end
+        program.translated_inputs switch_locale: true do |t|
+          t.input :description, as: :html_editor
+        end
+      end
+    end
     f.translated_inputs switch_locale: true do |t|
       t.input :title
       t.input :description, as: :html_editor
