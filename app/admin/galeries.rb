@@ -4,7 +4,9 @@ ActiveAdmin.register Gallery do
     selectable_column
     id_column
     column :title
-    # column :photos
+    column :photos_count do |gallery| 
+      gallery.photos.count
+    end
     translation_status
     default_actions
   end

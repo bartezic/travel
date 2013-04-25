@@ -28,6 +28,7 @@ ActiveAdmin.register Tour do
   form do |f|
     f.inputs do
       f.input :photo
+      f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from
       f.input :price_to

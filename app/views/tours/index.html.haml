@@ -26,7 +26,13 @@
           %li.media
             = link_to image_tag(tour.photo.asset(:thumb_250x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
             .media-body
-              %h4.media-heading= link_to tour.title, tour
+              %h4.media-heading
+                = link_to tour.title, tour
+                - if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+                  - if tour.tour_programs.size == 1 && tour.tour_programs.first.regions.size == 1
+                    %small
+                      = link_to tour.tour_programs.first.regions.first.name, tour.tour_programs.first.regions.first
+                      = raw "(#{link_to tour.tour_programs.first.regions.first.country.name, tour.tour_programs.first.regions.first.country})"
               %p= raw t('tours.price_v', from: tour.price_from, to: tour.price_to,  currency: tour.currency && tour.currency.code)
               - if tour.days.any?
                 %p= raw t('tours.dates_v', first: l(tour.days.first.day_of_life, :format => :short), last: l(tour.days.last.day_of_life, :format => :short_w_y), count: tour.days.count)

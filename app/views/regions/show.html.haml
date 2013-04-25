@@ -19,4 +19,4 @@
       %ul.thumbnails
         - @region.gallery.photos.each do |photo|
           %li.span2
-            = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:big_1170x), { class: :thumbnail }
+            = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:original), { class: :thumbnail }

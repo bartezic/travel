@@ -92,7 +92,13 @@
                     - if tour.photo
                       = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
                     .media-body
-                      %h5.media-heading= link_to tour.title, tour
+                      %h5.media-heading
+                        = link_to tour.title, tour
+                        - if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+                          - if tour.tour_programs.size == 1 && tour.tour_programs.first.regions.size == 1
+                            %small
+                              = link_to tour.tour_programs.first.regions.first.name, tour.tour_programs.first.regions.first
+                              = raw "(#{link_to tour.tour_programs.first.regions.first.country.name, tour.tour_programs.first.regions.first.country})"
                       %div= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency && tour.currency.code)
                       %div= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
               %a.btn.pull-right{ href: tours_path } Всі тури ...

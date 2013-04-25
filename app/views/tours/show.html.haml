@@ -6,7 +6,13 @@
   .span9
     .row-fluid
       .span12
-        %h2= @tour.title
+        %h2
+          = @tour.title
+          - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
+            - if @tour.tour_programs.size == 1 && @tour.tour_programs.first.regions.size == 1
+              %small
+                = link_to @tour.tour_programs.first.regions.first.name, @tour.tour_programs.first.regions.first
+                = raw "(#{link_to @tour.tour_programs.first.regions.first.country.name, @tour.tour_programs.first.regions.first.country})"
         %dl
           - if @tour.price_from
             %dt= t 'tours.price'
@@ -28,7 +34,7 @@
             %dd= raw @tour.regions.map{ |r| link_to r.name, r }.join(', ')
           - if @tour.departure_calendar
             %dt= t('tours.callendar')
-            %dd= raw full_year_callendar(@tour.departure_calendar) #days.map{ |i| l(i.day_of_life, :format => :short_w_y) }.join(',')
+            %dd= raw full_year_callendar(@tour.departure_calendar)
           - unless @tour.description.empty?
             %dt= t('tours.description')
             %dd= raw @tour.description
@@ -47,6 +53,14 @@
           - unless @tour.excursions.empty?
             %dt= t('tours.excursions')
             %dd= raw @tour.excursions
+        .row-fluid
+          .span12
+            - if @tour.gallery && @tour.gallery.photos.any?
+              %h4= t 'region.gallery' 
+              %ul.thumbnails
+                - @tour.gallery.photos.each do |photo|
+                  %li.span3
+                    = link_to image_tag(photo.asset.url(:thumb_250x)), photo.asset.url(:original), { class: :thumbnail }
 
   .span3
     .row-fluid.well.well-small
