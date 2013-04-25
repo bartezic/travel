@@ -115,7 +115,7 @@
                       %h5.media-heading
                         = link_to region.name, region
                         %small= link_to region.country.name, region.country
-                      %div= t 'home.region.tours', count: region.tour_programs.count
+                      %div= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
                       %div= t 'home.region.hotels', count: region.hotels.count
               %a.btn.pull-right{ href: countries_path } Всі напрямки ...
         %li.span4

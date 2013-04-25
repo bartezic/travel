@@ -6,7 +6,7 @@ ActiveAdmin.register Region do
     column :name
     column :country
     column :tours_to do |region|
-      region.tour_programs.count
+      region.tour_programs.group_by(&:tour_id).count
     end
     column :tours_from do |region|
       region.tours.count
