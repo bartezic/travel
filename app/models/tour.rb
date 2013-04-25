@@ -12,7 +12,8 @@ class Tour < ActiveRecord::Base
               :note, :excursions, :seo_meta
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
                   :currency_id, :photo_id, :price_from, :price_to, :active, :title, :description, 
-                  :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta
+                  :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
+                  :seo_meta, :departure_calendar
 
   active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
     validates_presence_of :title
@@ -21,8 +22,19 @@ class Tour < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
+  end
+
+  def departure_calendar
+    mon = Date::MONTHNAMES.compact
+    b = {}
+    a = days.map { |p| p.day_of_life }
+    a.each {|i| b[i.year] = {}}
+    a.each {|i| b[i.year][i.mon] = []}
+    a.each {|i| b[i.year][i.mon] << i.day}
+    b if b.any?
   end
 end
 

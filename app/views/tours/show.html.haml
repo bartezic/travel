@@ -8,32 +8,45 @@
       .span12
         %h2= @tour.title
         %dl
-          %dt= t 'tours.price'
-          %dd= raw "#{t('gen.from_to', from: @tour.price_from, to: @tour.price_to)} #{@tour.currency.code}"
-          %dt= t('tours.transport')
-          %dd= @tour.transports.map(&:title).join(', ')
-          %dt= t('tours.duration')
-          %dd= @tour.durations.map(&:count_of_night).join(', ')
-          %dt= t('tours.food_type')
-          %dd= @tour.food_types.map{ |t| t.code.upcase }.join(', ')
-          %dt= t('tours.tour_type')
-          %dd= @tour.tour_types.map(&:title).join(', ')
-          %dt= t('tours.departure')
-          %dd= @tour.regions.map(&:name).join(', ')
-          %dt= t('tours.dates')
-          %dd= @tour.days.map{ |i| l(i.day_of_life, :format => :short_w_y) }.join(',')
-          %dt= t('tours.description')
-          %dd= raw @tour.description
-          %dt= t('tours.price_list')
-          %dd= raw @tour.price_list
-          %dt= t('tours.price_inc')
-          %dd= raw @tour.price_included
-          %dt= t('tours.price_exc')
-          %dd= raw @tour.price_excluded
-          %dt= t('tours.note')
-          %dd= raw @tour.note
-          %dt= t('tours.excursions')
-          %dd= raw @tour.excursions
+          - if @tour.price_from
+            %dt= t 'tours.price'
+            %dd= raw "#{t('gen.from_to', from: @tour.price_from, to: @tour.price_to)} #{@tour.currency && @tour.currency.code}"
+          - unless @tour.transports.empty?
+            %dt= t('tours.transport')
+            %dd= @tour.transports.map(&:title).join(', ')
+          - unless @tour.durations.empty?
+            %dt= t('tours.duration')
+            %dd= @tour.durations.map(&:count_of_night).join(', ')
+          - unless @tour.food_types.empty?
+            %dt= t('tours.food_type')
+            %dd= @tour.food_types.map{ |t| t.code.upcase }.join(', ')
+          - unless @tour.tour_types.empty?
+            %dt= t('tours.tour_type')
+            %dd= @tour.tour_types.map(&:title).join(', ')
+          - unless @tour.regions.empty?
+            %dt= t('tours.departure')
+            %dd= raw @tour.regions.map{ |r| link_to r.name, r }.join(', ')
+          - if @tour.departure_calendar
+            %dt= t('tours.callendar')
+            %dd= raw full_year_callendar(@tour.departure_calendar) #days.map{ |i| l(i.day_of_life, :format => :short_w_y) }.join(',')
+          - unless @tour.description.empty?
+            %dt= t('tours.description')
+            %dd= raw @tour.description
+          - unless @tour.price_list.empty?
+            %dt= t('tours.price_list')
+            %dd= raw @tour.price_list
+          - unless @tour.price_included.empty?
+            %dt= t('tours.price_inc')
+            %dd= raw @tour.price_included
+          - unless @tour.price_excluded.empty?
+            %dt= t('tours.price_exc')
+            %dd= raw @tour.price_excluded
+          - unless @tour.note.empty?
+            %dt= t('tours.note')
+            %dd= raw @tour.note
+          - unless @tour.excursions.empty?
+            %dt= t('tours.excursions')
+            %dd= raw @tour.excursions
 
   .span3
     .row-fluid.well.well-small

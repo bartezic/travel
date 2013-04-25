@@ -1,6 +1,6 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
-@import "active_admin/editor/wysiwyg";
+// @import "active_admin/editor/wysiwyg";
 
 html, body {
   height: 100%;
@@ -94,8 +94,20 @@ body {
   }
 }
 
-.visas {
+.visas, .tour {
   table{
     background-color: white;
+    th {
+      font-size: 0.9em;
+    }    
+    td {
+      font-size: 0.8em;
+    }
+    p {
+      margin: 0;
+    }
   }
 }
+
+
+

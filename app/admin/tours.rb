@@ -16,7 +16,7 @@ ActiveAdmin.register Tour do
     id_column
     column :title
     column :price do |tour|
-      "#{tour.currency.code} #{tour.price_from} - #{tour.price_to}"
+      "#{tour.currency && tour.currency.code} #{tour.price_from} - #{tour.price_to}"
     end
     column :active do |tour|
       status_tag(tour.active.to_s)

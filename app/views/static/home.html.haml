@@ -93,7 +93,7 @@
                       = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
                     .media-body
                       %h5.media-heading= link_to tour.title, tour
-                      %div= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency.code)
+                      %div= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency && tour.currency.code)
                       %div= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
               %a.btn.pull-right{ href: tours_path } Всі тури ...
         %li.span4
