@@ -1,6 +1,5 @@
 uk:
   gen: 
-    from_to: "Від %{from} до %{to}"
     from: Від
     to: до
   menu:
@@ -45,9 +44,6 @@ uk:
   tours:
     title: Підібрати тур
     price: Ціна
-    price_v: "Ціна: від <b>%{from}</b> до %{to} <i>%{currency}</i>"
-    price_from: "Ціна: від <b>%{from}</b> <i>%{currency}</i>"
-    price_to: "Ціна: до <b>%{to}</b> <i>%{currency}</i>"
     dates: Дати виїздів
     callendar: Календар виїздів
     dates_v: "Період: <b>%{count}</b> виїздів з <b>%{first}</b> до <b>%{last}</b>"

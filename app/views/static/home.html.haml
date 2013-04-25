@@ -99,7 +99,7 @@
                             %small
                               = link_to tour.tour_programs.first.regions.first.name, tour.tour_programs.first.regions.first
                               = raw "(#{link_to tour.tour_programs.first.regions.first.country.name, tour.tour_programs.first.regions.first.country})"
-                      %div= raw t('tours.price_from', from: tour.price_from,  currency: tour.currency && tour.currency.code)
+                      %div= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i>"
                       %div= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
               %a.btn.pull-right{ href: tours_path } Всі тури ...
         %li.span4

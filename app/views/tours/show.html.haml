@@ -16,7 +16,7 @@
         %dl
           - if @tour.price_from
             %dt= t 'tours.price'
-            %dd= raw "#{t('gen.from_to', from: @tour.price_from, to: @tour.price_to)} #{@tour.currency && @tour.currency.code}"
+            %dd= raw "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code}"
           - unless @tour.transports.empty?
             %dt= t('tours.transport')
             %dd= @tour.transports.map(&:title).join(', ')

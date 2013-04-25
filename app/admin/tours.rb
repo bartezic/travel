@@ -31,7 +31,7 @@ ActiveAdmin.register Tour do
       f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from
-      f.input :price_to
+      # f.input :price_to
       f.input :active
       f.input :days, member_label: :day_of_life
       f.input :tour_types, as: :check_boxes
