@@ -1,5 +1,7 @@
 - content_for :seo_meta do
   = @tour.seo_meta
+- content_for :title do
+  = "#{@tour.title} - #{tour_subtitle(@tour, true, true)}"
 
 .push-20
 .row.tour
@@ -37,11 +39,14 @@
             %dt= t('tours.description')
             %dd= raw @tour.description
 
-          - if @tour.tour_programs.any? && @tour.tour_programs.size > 1
+          - if temp = marshrut(@tour.tour_programs.order('day_number ASC'))
             %dt= t('tours.marshrut')
-            %dd= raw marshrut(@tour.tour_programs.order('day_number ASC'))
+            %dd= raw temp
+            
+          - if temp = tour_program(@tour.tour_programs.order('day_number ASC'))
             %dt= t('tours.tour_program')
-            %dd= raw tour_program(@tour.tour_programs.order('day_number ASC'))
+            %dd= raw temp
+
           - unless @tour.price_list.empty?
             %dt= t('tours.price_list')
             %dd= raw @tour.price_list

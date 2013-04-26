@@ -1,36 +1,17 @@
 !!! 5
 %html(lang="en")
   %head
-    %meta(charset="utf-8")
-    %meta{name: :description, content: yield(:seo_meta) }
-    %title= content_for?(:title) ? yield(:title) : "Travel"
+    %meta{ charset: "utf-8" }
+    %meta{ name: :description, content: content_for?(:seo_meta) ? yield(:seo_meta) : t('seo.descr') }
+    %meta{ name: :keywords, content: t('seo.keywords') }
+    %title= content_for?(:title) ? yield(:title).strip << t('seo.title_s') : t('seo.title')
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
     %link(href="/favicon.ico" rel="shortcut icon")
 
-
   %body
-    
     #wrap
       = render 'layouts/navigation'
-      / .container
-      /   - if request.path == root_path
-      /     .banner
-      /       %ul
-      /         %li 
-      /           %img{ src: '/assets/slider/Hilton-Hotel-Paris-France-1080x1920.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/plan-plan-your-trip-find-travel-agent.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/Sensoji-Temple-Tokyo-Japan-01-1080x1920.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/Sky-Tree-Christmas-Illuminations-Tokyo-Japan-1080x1920.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/Subway-Entrance-Paris-France-1080x1920.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/travel-business-hammock-beach-1080x1920.jpg' }
-      /         %li 
-      /           %img{ src: '/assets/slider/eiffel-tower-europe-travel-1080x1920.jpg' }
       .container.custom
         = render 'layouts/flash'
         = yield

@@ -1,6 +1,8 @@
 - content_for :seo_meta do
   = @region.seo_meta
-
+- content_for :title do
+  = "#{@region.name} - #{@region.country.name}"
+  
 .row
   .span12
     .push-20

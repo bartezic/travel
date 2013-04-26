@@ -37,44 +37,47 @@ module ApplicationHelper
     #   p << "<tr><td>#{program.description}</td></tr>"
     # }
     # p << '</tbody></table>'
+    if programs.any? && programs.size > 1
+      p = "<table class=tour_program>
+            <thead>
+              <tr>
+                <th><p class=text-center>#{t 'tours.day'}</p></th>
+                <th><p class=text-center>#{t 'tours.marshrut'}</p></th>
+              </tr>
+            </thead>
+          <tbody>"
+      programs.each { |program|
+        regions = program.regions.map {|region|
+          "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
+        }
 
-    p = "<table class=tour_program>
-          <thead>
-            <tr>
-              <th><p class=text-center>#{t 'tours.day'}</p></th>
-              <th><p class=text-center>#{t 'tours.marshrut'}</p></th>
-            </tr>
-          </thead>
-        <tbody>"
-    programs.each { |program|
-      regions = program.regions.map {|region|
-        "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
+        p << "<tr>
+                <td rowspan=2>
+                  <p class=text-center><b>#{program.day_number}</b></p>
+                </td>
+                <td>
+                  <p class='pull-right regions-links'>#{regions.join(', ')}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>#{program.description}</td>
+              </tr>"
       }
-
-      p << "<tr>
-              <td rowspan=2>
-                <p class=text-center><b>#{program.day_number}</b></p>
-              </td>
-              <td>
-                <p class='pull-right regions-links'>#{regions.join(', ')}</p>
-              </td>
-            </tr>
-            <tr>
-              <td>#{program.description}</td>
-            </tr>"
-    }
-    p << '</tbody></table>'
+      p << '</tbody></table>'
+    end
   end
 
   def marshrut(programs)
-    programs.map { |program|
-      program.regions.map {|region|
+    if programs.any? && programs.size > 1
+      regions = programs.map { |program| program.regions }.flatten
+      
+      regions.map {|region|
         "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
-      }.join(' - ')
-    }.join(' - ')
+      }.join(' - ') if regions.map(&:id).uniq.size > 1
+    end
   end
 
-  def tour_subtitle(tour, marshrut = false)
+  def tour_subtitle(tour, marshrut = false, seo = false)
     if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
       regions = tour.tour_programs.map { |program| program.regions }.flatten
       if regions.size == 1 || regions.map(&:id).uniq.size == 1
@@ -84,10 +87,8 @@ module ApplicationHelper
                 </small>
               </small>"
       elsif marshrut
-        cont = regions.map {|region|
-          "#{region.name} (#{region.country.name})"
-        }.join(' - ')
-        res = "<span class='label label-warning' data-toggle='tooltip' title='#{cont}'>#{t 'tours.marshrut'}</span>"
+        res = regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - ')
+        res = "<span class='label label-warning' data-toggle='tooltip' title='#{res}'>#{t 'tours.marshrut'}</span>" unless seo
       end
     end
     res 

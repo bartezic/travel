@@ -5,7 +5,7 @@ class Country < ActiveRecord::Base
   has_one :visa
   
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
-  attr_accessible :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure, :code
+  attr_accessible :id, :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure, :code
 
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name

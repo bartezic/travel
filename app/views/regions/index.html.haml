@@ -1,7 +1,10 @@
+- content_for :title do
+  = t 'menu.travel_regions'
+
 .row
   .span12
     .push-20
-    %h2= t 'menu.countries_of_world'
+    %h2= t 'menu.travel_regions'
 
     - Continent.all.each do |continent|
       %h3= link_to continent.name, continent

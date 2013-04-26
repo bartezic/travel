@@ -77,6 +77,23 @@
 /       %li.span2
 /         %a#carousel-selector-5.thumbnail
 /           %img{:src => "http://placehold.it/170x100&text=six"}/
+/   - if request.path == root_path
+/     .banner
+/       %ul
+/         %li 
+/           %img{ src: '/assets/slider/Hilton-Hotel-Paris-France-1080x1920.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/plan-plan-your-trip-find-travel-agent.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/Sensoji-Temple-Tokyo-Japan-01-1080x1920.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/Sky-Tree-Christmas-Illuminations-Tokyo-Japan-1080x1920.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/Subway-Entrance-Paris-France-1080x1920.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/travel-business-hammock-beach-1080x1920.jpg' }
+/         %li 
+/           %img{ src: '/assets/slider/eiffel-tower-europe-travel-1080x1920.jpg' }
 .row
   .span12
     .push-20
@@ -87,7 +104,7 @@
           .thumbnail
             .caption
               %ul.media-list
-                - Tour.order('id DESC').limit(5).each do |tour|
+                - @tours.each do |tour|
                   %li.media
                     - if tour.photo
                       = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
@@ -97,13 +114,13 @@
                         = raw tour_subtitle(tour, true)
                       %div= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i>"
                       %div= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
-              %a.btn.pull-right{ href: tours_path } Всі тури ...
+              %a.btn.pull-right{ href: tours_path }= t 'home.all_tours'
         %li.span4
           %h4= t 'home.popular_regions'
           .thumbnail
             .caption
               %ul.media-list
-                - Region.order('id DESC').limit(5).each do |region|
+                - @regions.each do |region|
                   %li.media
                     - if region.gallery && region.gallery.photos.any?
                       = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
@@ -113,10 +130,10 @@
                         %small= link_to region.country.name, region.country
                       %div= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
                       %div= t 'home.region.hotels', count: region.hotels.count
-              %a.btn.pull-right{ href: countries_path } Всі напрямки ...
+              %a.btn.pull-right{ href: countries_path }= t 'home.all_regions'
         %li.span4
           %h4= t 'home.news' 
           .thumbnail
             .caption
               %p.muted.text-center= t 'home.blog_sorry'
-              %a.btn.pull-right{ href: "#" } Всі новини ...
+              %a.btn.pull-right{ href: "#" }= t 'home.all_news'
