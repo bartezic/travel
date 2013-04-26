@@ -30,6 +30,15 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup"
 
+# sitemap generator
+after "deploy", "deploy:refresh_sitemaps"
+namespace :deploy do
+  desc "Generate sitemap"
+  task :refresh_sitemaps do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh CONFIG_FILE='config/sitemap_generator.rb'"
+  end
+end
+
 set :rvm_ruby_string, :local               # use the same ruby as used locally for deployment
 set :rvm_autolibs_flag, "read-only"        # more info: rvm help autolibs
 
