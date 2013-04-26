@@ -6,4 +6,4 @@ User-Agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: http://mongrasse.com.ua/sitemap_index.xml.gz
+Sitemap: http://mongrasse.com.ua/system/sitemap_index.xml.gz
