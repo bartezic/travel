@@ -8,11 +8,7 @@
       .span12
         %h2
           = @tour.title
-          - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
-            - if @tour.tour_programs.size == 1 && @tour.tour_programs.first.regions.size == 1
-              %small
-                = link_to @tour.tour_programs.first.regions.first.name, @tour.tour_programs.first.regions.first
-                = raw "(#{link_to @tour.tour_programs.first.regions.first.country.name, @tour.tour_programs.first.regions.first.country})"
+          = raw tour_subtitle(@tour)
         %dl
           - if @tour.price_from
             %dt= t 'tours.price'
@@ -32,12 +28,20 @@
           - unless @tour.regions.empty?
             %dt= t('tours.departure')
             %dd= raw @tour.regions.map{ |r| link_to r.name, r }.join(', ')
+          
           - if @tour.departure_calendar
             %dt= t('tours.callendar')
             %dd= raw full_year_callendar(@tour.departure_calendar)
+          
           - unless @tour.description.empty?
             %dt= t('tours.description')
             %dd= raw @tour.description
+
+          - if @tour.tour_programs.any? && @tour.tour_programs.size > 1
+            %dt= t('tours.marshrut')
+            %dd= raw marshrut(@tour.tour_programs.order('day_number ASC'))
+            %dt= t('tours.tour_program')
+            %dd= raw tour_program(@tour.tour_programs.order('day_number ASC'))
           - unless @tour.price_list.empty?
             %dt= t('tours.price_list')
             %dd= raw @tour.price_list
@@ -63,11 +67,12 @@
                     = link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
 
   .span3
-    .row-fluid.well.well-small
+    .row-fluid
       %h4= t 'tours.related'
       %ul.thumbnails
         - Tour.all.each do |tour|
           %li.span12
             .thumbnail
-              = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
-              %h4= link_to tour.title, tour
+              .caption
+                = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
+                %h4= link_to tour.title, tour

@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @country.seo_meta
 
-.row.country.custom
+.row.country
   .span12
     - if @country.photo && @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
       = image_tag @country.photo.asset.url(:big_1170x), { alt: @country.photo.title }
@@ -29,8 +29,8 @@
           %a{"data-toggle" => "tab", :href => "#visa"}= t 'country.visa'
       .tab-content
         #tours.tab-pane.active
-          - if false
-
+          - if @tours.any?
+            = render 'layouts/tours'
           - else
             %p.muted.text-center= t 'country.sorry.tours'
         #about.tab-pane

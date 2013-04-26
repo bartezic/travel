@@ -57,6 +57,9 @@ ru:
     price_exc: Дополнительно оплачивается
     note: Примечание
     excursions: Экскурсии
+    tour_program: Программа
+    marshrut: Маршрут
+    day: День
   region:
     gallery: Галерея изображений
   home:

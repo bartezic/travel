@@ -86,12 +86,17 @@ body {
   }
 }
 .tours {
+  //font-size: 0.9em;
   .media {
     border: 1px solid #DDD;
     padding: 10px;
     border-radius: 5px;
     background-color: #FDFDFD;
   }
+}
+
+.thumbnail {
+  background-color: #FDFDFD;
 }
 
 .visas, .tour {
@@ -109,8 +114,6 @@ body {
   }
 }
 
-
-
 /**
  * Grid container
  */
@@ -127,4 +130,20 @@ body {
       height: auto;
     }
   }
+}
+
+.tour_program {
+  .regions-links {
+    font-size: 1.1em;
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  small small {
+    font-size: 80%;
+  }
+}
+
+*[data-toggle=tooltip] {
+  cursor: pointer;
 }

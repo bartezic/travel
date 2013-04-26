@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require bootstrap-tooltip
+//= require bootstrap-popover
 //= require_tree .
 
 $(function() {
@@ -61,7 +63,6 @@ $(function() {
   });
 
   $('.tour').find('table').addClass('table table-striped table-bordered table-condensed');
-
 });
 
 $('ul.grid').imagesLoaded(function() {

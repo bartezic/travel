@@ -59,6 +59,9 @@ uk:
     price_exc: Додатково оплачується
     note: Примітка
     excursions: Екскурсії
+    tour_program: Програма
+    marshrut: Маршрут
+    day: День
   region:
     gallery: Галерея зображень
   home:
