@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @country.seo_meta
 - content_for :title do
-  = "#{@country.name} #{@country.continents.map{ |c| continent.name }.join(',')}"
+  = "#{@country.name} #{@country.continents.map{ |c| c.name }.join(',')}"
 
 .row.country
   .span12
