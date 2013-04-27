@@ -81,11 +81,15 @@ module ApplicationHelper
     if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
       regions = tour.tour_programs.map { |program| program.regions }.flatten
       if regions.size == 1 || regions.map(&:id).uniq.size == 1
-        res = "<small>#{link_to tour.tour_programs.first.regions.first.name, tour.tour_programs.first.regions.first}
-                <small>
-                  (#{link_to tour.tour_programs.first.regions.first.country.name, tour.tour_programs.first.regions.first.country})
-                </small>
-              </small>"
+        if seo 
+          res = "#{regions.first.name} (#{regions.first.country.name})"
+        else
+          res = "<small>#{link_to regions.first.name, regions.first}
+                  <small>
+                    (#{link_to regions.first.country.name, regions.first.country})
+                  </small>
+                </small>"
+        end
       elsif marshrut
         res = regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - ')
         res = "<span class='label label-warning' data-toggle='tooltip' title='#{res}'>#{t 'tours.marshrut'}</span>" unless seo
