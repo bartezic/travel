@@ -22,7 +22,7 @@
           %th= t 'visa.f_pas_a'
       %tbody.f16
         - Country.order('name ASC').each do |country|
-          - if country.visa
+          - if country.visa && country.code != 'ua'
             %tr
               %td
                 = link_to country.name, country, { class: "flag #{country.code}"}
