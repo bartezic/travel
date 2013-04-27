@@ -2,6 +2,7 @@ ru:
   gen: 
     from: От
     to: до
+    per_person: за человека
   menu:
     continents: Континенты
     countries_of_world: Cтраны мира
@@ -59,7 +60,7 @@ ru:
     departure: Выезды с
     related: Похожие туры
     description: Описание
-    price_list: Подробная цена
+    price_list: 'Цены в %{currency} за 1 человека в номере'
     price_inc: В цену входит
     price_exc: Дополнительно оплачивается
     note: Примечание

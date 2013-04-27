@@ -14,7 +14,7 @@
         %dl
           - if @tour.price_from
             %dt= t 'tours.price'
-            %dd= raw "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code}"
+            %dd= raw "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} #{t('gen.per_person')}"
           - unless @tour.transports.empty?
             %dt= t('tours.transport')
             %dd= @tour.transports.map(&:title).join(', ')
@@ -48,7 +48,7 @@
             %dd= raw temp
 
           - unless @tour.price_list.empty?
-            %dt= t('tours.price_list')
+            %dt= t('tours.price_list', currency: (@tour.currency && @tour.currency.code))
             %dd= raw @tour.price_list
           - unless @tour.price_included.empty?
             %dt= t('tours.price_inc')

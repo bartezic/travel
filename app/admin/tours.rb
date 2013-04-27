@@ -16,7 +16,7 @@ ActiveAdmin.register Tour do
     id_column
     column :title
     column :price do |tour|
-      "#{tour.currency && tour.currency.code} #{tour.price_from} - #{tour.price_to}"
+      "#{tour.currency && tour.currency.code} #{tour.price_from}+"
     end
     column :active do |tour|
       status_tag(tour.active.to_s)
@@ -54,12 +54,12 @@ ActiveAdmin.register Tour do
     f.translated_inputs switch_locale: true do |t|
       t.input :title
       t.input :description, as: :html_editor
-      t.input :transport_description, as: :html_editor
       t.input :price_list, as: :html_editor
       t.input :price_included, as: :html_editor
       t.input :price_excluded, as: :html_editor
       t.input :note, as: :html_editor
       t.input :excursions, as: :html_editor
+      t.input :transport_description, as: :html_editor
       t.input :seo_meta
     end
     f.buttons

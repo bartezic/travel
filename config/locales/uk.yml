@@ -2,6 +2,7 @@ uk:
   gen: 
     from: Від
     to: до
+    per_person: за особу
   menu:
     continents: Континенти
     countries_of_world: Країни світу
@@ -61,7 +62,7 @@ uk:
     departure: Виїзди із
     related: Схожі тури
     description: Опис
-    price_list: Ціни
+    price_list: 'Ціни в %{currency} за 1 особу в номері'
     price_inc: В ціну входить
     price_exc: Додатково оплачується
     note: Примітка
