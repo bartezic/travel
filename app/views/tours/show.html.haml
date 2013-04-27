@@ -23,7 +23,7 @@
             %dd= @tour.durations.map(&:count_of_night).join(', ')
           - unless @tour.food_types.empty?
             %dt= t('tours.food_type')
-            %dd= @tour.food_types.map{ |t| t.code.upcase }.join(', ')
+            %dd= raw @tour.food_types.map{ |t| "<span class='label label-warning' data-toggle='tooltip' title='#{t.title}'>#{t.code.upcase}</span>" }.join(' ')
           - unless @tour.tour_types.empty?
             %dt= t('tours.tour_type')
             %dd= @tour.tour_types.map(&:title).join(', ')
