@@ -71,7 +71,7 @@ uk:
     marshrut: Маршрут
     day: День
     price_type:
-      person: особу в номері
+      person: особу
       room: номер
   region:
     gallery: Галерея зображень

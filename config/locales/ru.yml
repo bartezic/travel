@@ -69,7 +69,7 @@ ru:
     marshrut: Маршрут
     day: День
     price_type:
-      person: человека в номере
+      person: человека
       room: номер
   region:
     gallery: Галерея изображений

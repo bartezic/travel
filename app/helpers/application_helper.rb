@@ -42,7 +42,7 @@ module ApplicationHelper
             <thead>
               <tr>
                 <th><p class=text-center>#{t 'tours.day'}</p></th>
-                <th><p class=text-center>#{t 'tours.marshrut'}</p></th>
+                <th><p class=text-center>#{t 'tours.tour_program'}</p></th>
               </tr>
             </thead>
           <tbody>"

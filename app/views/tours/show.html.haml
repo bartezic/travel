@@ -14,7 +14,7 @@
         %dl
           - if @tour.price_from
             %dt= t 'tours.price'
-            %dd= raw "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
+            %dd= "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
           - unless @tour.transports.empty?
             %dt= t('tours.transport')
             %dd= @tour.transports.map(&:title).join(', ')
