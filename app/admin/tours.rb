@@ -31,6 +31,7 @@ ActiveAdmin.register Tour do
       f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from
+      f.input :price_type, as: :radio, :collection => [['Room', 'room'],['Person', 'person']]
       # f.input :price_to
       f.input :active
       f.input :days, member_label: :day_of_life

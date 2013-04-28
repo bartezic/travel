@@ -52,6 +52,7 @@ uk:
   tours:
     title: Підібрати тур
     price: Ціна
+    prices: Ціни
     dates: Дати виїздів
     callendar: Календар виїздів
     dates_v: "Період: <b>%{count}</b> виїздів з <b>%{first}</b> до <b>%{last}</b>"
@@ -62,7 +63,6 @@ uk:
     departure: Виїзди із
     related: Схожі тури
     description: Опис
-    price_list: 'Ціни в %{currency} за 1 особу в номері'
     price_inc: В ціну входить
     price_exc: Додатково оплачується
     note: Примітка
@@ -70,6 +70,9 @@ uk:
     tour_program: Програма
     marshrut: Маршрут
     day: День
+    price_type:
+      person: особу в номері
+      room: номер
   region:
     gallery: Галерея зображень
   home:

@@ -1,4 +1,5 @@
 class Tour < ActiveRecord::Base
+  PRICE_TYPES = [PERSON = 'person', ROOM = 'room']
   belongs_to :currency
   belongs_to :photo
   belongs_to :gallery
@@ -15,11 +16,13 @@ class Tour < ActiveRecord::Base
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
-                  :seo_meta, :departure_calendar, :tour_programs_attributes
+                  :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type
 
   active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
     validates_presence_of :title
   end
+
+  validates :price_type, inclusion: {in: PRICE_TYPES}
 
   extend FriendlyId
   friendly_id :title, use: :slugged
