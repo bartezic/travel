@@ -32,7 +32,7 @@
               .p= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i> за #{t(tour.price_type, :scope => [:tours, :price_type])}"
               - if tour.days.any?
                 .p= raw t('tours.dates_v', first: l(tour.days.first.day_of_life, :format => :short), last: l(tour.days.last.day_of_life, :format => :short_w_y), count: tour.days.count)
-              - if temp = marshrut(tour.tour_programs.order('day_number ASC'))
+              - if temp = marshrut(tour.tour_programs.order('CAST(day_number AS INTEGER) ASC'))
                 .p= raw "#{t('tours.marshrut')}: #{temp}"
               .p= "#{t('tours.transport')}: #{tour.transports.map(&:title).join(', ')}"
               .p= "#{t('tours.duration')}: #{tour.durations.map(&:count_of_night).join(', ')}"
