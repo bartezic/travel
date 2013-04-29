@@ -123,14 +123,14 @@
                 - @regions.each do |region|
                   %li.media
                     - if region.gallery && region.gallery.photos.any?
-                      = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
+                      = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), [region.country, region], {class: 'pull-left'}
                     .media-body
                       %h5.media-heading
-                        = link_to region.name, region
+                        = link_to region.name, [region.country, region]
                         %small= link_to region.country.name, region.country
                       %div= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
                       %div= t 'home.region.hotels', count: region.hotels.count
-              %a.btn.pull-right{ href: countries_path }= t 'home.all_regions'
+              %a.btn.pull-right{ href: regions_path }= t 'home.all_regions'
         %li.span4
           %h4= t 'home.news' 
           .thumbnail

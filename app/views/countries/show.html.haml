@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @country.seo_meta
 - content_for :title do
-  = "#{@country.name} #{@country.continents.map{ |c| c.name }.join(',')}"
+  = "#{@country.name} - #{@country.continents.map{ |c| c.name }.join(',')}"
 
 .row.country
   .span12
@@ -26,9 +26,13 @@
         %li
           %a{"data-toggle" => "tab", :href => "#regions"}= t 'country.regions'
         %li
+          %a{"data-toggle" => "tab", :href => "#attractions"}= t 'country.attractions' 
+        %li
           %a{"data-toggle" => "tab", :href => "#hotels"}= t 'country.hotels' 
         %li
           %a{"data-toggle" => "tab", :href => "#visa"}= t 'country.visa'
+        %li
+          %a{"data-toggle" => "tab", :href => "#gallery"}= t 'region.gallery'
       .tab-content
         #tours.tab-pane.active
           - if @tours.any?
@@ -59,27 +63,41 @@
             %ul.media-list
               - @country.regions.each do |region|
                 %li.media
-                  %a.pull-left{:href => "#"}
-                    - if region.gallery && region.gallery.photos.any?
-                      = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), region, {class: 'pull-left'}
+                  - if region.gallery && region.gallery.photos.any?
+                    = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), [@country, region], {class: 'pull-left'}
                   .media-body
-                    %h5.media-heading= link_to region.name, region
+                    %h5.media-heading= link_to region.name, [@country, region]
                     %p= raw region.description.truncate(350)
           - else
-            %p.muted.text-center= t 'country.sorry.regions'
-        #hotels.tab-pane
-          - if @country.regions.any?
-            - hotels_mis = true
-            - @country.regions.each do |region|
-              - region.hotels do |hotel|
-                - hotels_mis = false
+            %p.muted.text-center= t 'country.sorry.regions'        
+        #attractions.tab-pane
+          - if @attractions.any?
+            %ul.media-list
+              - @attractions.each do |attraction|
                 %li.media
-                  %a.pull-left{:href => "#"}
-                    = image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title})
+                  - if attraction.gallery && attraction.gallery.photos.any?
+                    = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), [@country, attraction.region, attraction], {class: 'pull-left'}
                   .media-body
-                    %h5.media-heading= hotel.name
-                    %p= raw hotel.description
-          - if hotels_mis
+                    %h5.media-heading
+                      = link_to attraction.name, [@country, attraction.region, attraction]
+                      %small
+                        = link_to attraction.region.name, [@country, attraction.region]
+                    %p= raw attraction.description.truncate(350)
+          - else
+            %p.muted.text-center= t 'country.sorry.attractions'
+        #hotels.tab-pane
+          - if @hotels.any?
+            - @hotels.each do |hotel|
+              %li.media
+                - if hotel.gallery && hotel.gallery.photos.any?
+                  = link_to image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title}), [@country, hotel.region, hotel], {class: 'pull-left'}
+                .media-body
+                  %h5.media-heading
+                    = link_to hotel.name, [@country, hotel.region, hotel]
+                    %small
+                      = link_to hotel.region.name, [@country, hotel.region]
+                  %p= raw hotel.description
+          - else
             %p.muted.text-center= t 'country.sorry.hotels'
         #visa.tab-pane
           - if @country.visa && @country.visa.visa_type
@@ -100,3 +118,10 @@
                 %dd= @country.visa.diplomatic_pas
           - else
             %p.muted.text-center= t 'country.sorry.visa'
+        #gallery.tab-pane
+          - if @photos.any?
+            %ul.grid
+              - @photos.each do |photo|
+                %li= link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+          - else
+            %p.muted.text-center= t 'country.sorry.gallery'

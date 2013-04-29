@@ -11,6 +11,6 @@
     .f16
       - @continent.countries.each do |country|
         %h5
-          = link_to country.name, [@continent, country], { class: "flag #{country.code}"}
+          = link_to country.name, country, { class: "flag #{country.code}"}
           - country.regions.each do |region|
-            %small= link_to region.name, [@continent, country, region]
+            %small= link_to region.name, [country, region]

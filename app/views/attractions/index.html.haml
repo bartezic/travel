@@ -1,0 +1,23 @@
+- content_for :title do
+  = t 'country.attractions'
+
+.row.tours
+  .span12
+    .push-20
+    %h2= t 'country.attractions'
+
+    - if @attractions.any?
+      %ul.media-list
+        - @attractions.each do |attraction|
+          %li.media
+            - if attraction.gallery && attraction.gallery.photos.any?
+              = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_250x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), [attraction.region.country, attraction.region, attraction], {class: 'pull-left'}
+            .media-body
+              %h4.media-heading
+                = link_to attraction.name, [attraction.region.country, attraction.region, attraction]
+                %small
+                  = link_to attraction.region.name, [attraction.region.country, attraction.region]
+                  %small
+                    = raw "(#{link_to attraction.region.country.name, attraction.region.country})"
+              %p
+                = raw attraction.description.truncate(700)

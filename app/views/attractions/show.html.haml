@@ -1,0 +1,22 @@
+- content_for :seo_meta do
+  = @attraction.seo_meta
+- content_for :title do
+  = "#{@attraction.name} - #{@attraction.region.name} - #{@attraction.region.country.name}"
+
+.row.country
+  .span12
+    .push-20
+    %h2
+      = @attraction.name
+      %small
+        = link_to @attraction.region.name, [@attraction.region.country, @attraction.region]
+        %small= raw "(#{link_to @attraction.region.country.name, @attraction.region.country})"
+
+    - unless @attraction.description.empty?
+      %p= raw @attraction.description
+    - if @attraction.gallery && @attraction.gallery.photos.any?
+      %h4= t 'region.gallery'
+      %ul.grid
+        - @attraction.gallery.photos.each do |photo|
+          %li= link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+    

@@ -2,7 +2,6 @@ ru:
   gen: 
     from: От
     to: до
-    per_person: за человека
   menu:
     continents: Континенты
     countries_of_world: Cтраны мира
@@ -17,6 +16,7 @@ ru:
     tours: Туры
     about: 
       title: О стране
+      region: О регионе
       description: Общая информация
       kitchen: Кухня
       climate: Климат
@@ -26,7 +26,9 @@ ru:
     visa: Визовая информация
     regions: Регионы
     hotels: Гостиницы
+    attractions: Достопримечательности
     sorry:
+      attractions: К сожалению достопримечательности временно отсутствуют.
       tours: К сожалению туры временно отсутствуют.
       regions: К сожалению регионы временно отсутствуют.
       hotels: К сожалению гостиницы временно отсутствуют.

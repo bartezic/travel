@@ -15,6 +15,9 @@ class CountriesController < InheritedResources::Base
   def show
     @country = Country.includes(:regions).find(params[:id])
     @tours = Tour.find(@country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten)
+    @attractions = @country.regions.map { |i| i.attractions }.flatten
+    @hotels = @country.regions.map { |i| i.hotels }.flatten
+    @photos = @country.regions.map { |i| i.gallery.photos }.flatten.uniq
 
     respond_to do |format|
       format.html # show.html.erb

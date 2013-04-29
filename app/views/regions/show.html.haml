@@ -3,22 +3,76 @@
 - content_for :title do
   = "#{@region.name} - #{@region.country.name}"
   
-.row
+.row.country
   .span12
-    .push-20
+    - if false && @region.gallery && @region.gallery.photos.any? && @region.gallery.photos.first.asset.url(:big_1170x) != '/images/ph/logos_big.png'
+      = image_tag @region.gallery.photos.first.asset.url(:big_1170x), { alt: @region.gallery.photos.first.title }
+    - else 
+      .push-20
     %h2
       = @region.name
       %small= link_to @region.country.name, @region.country
-    %p= raw @region.description
-    - unless @region.recomendation.empty?
-      %h4= t 'country.about.recomendation'
-      %p= raw @region.recomendation
-    - unless @region.infrastructure.empty?
-      %h4= t 'country.about.infrastructure'
-      %p= raw @region.infrastructure
-    - if @region.gallery && @region.gallery.photos.any?
-      %h4= t 'region.gallery' 
-      %ul.grid
-        - @region.gallery.photos.each do |photo|
-          %li
-            = link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tours"}= t 'country.tours'
+        %li
+          %a{"data-toggle" => "tab", :href => "#about"}= t 'country.about.region'
+        %li
+          %a{"data-toggle" => "tab", :href => "#attractions"}= t 'country.attractions' 
+        %li
+          %a{"data-toggle" => "tab", :href => "#hotels"}= t 'country.hotels' 
+        %li
+          %a{"data-toggle" => "tab", :href => "#gallery"}= t 'region.gallery'
+      .tab-content
+        #tours.tab-pane.active
+          - if @tours.any?
+            = render 'layouts/tours'
+          - else
+            %p.muted.text-center= t 'country.sorry.tours'
+        #about.tab-pane
+          - unless @region.description.empty?
+            %h4= t 'country.about.description'
+            .div-block= raw @region.description
+          - unless @region.recomendation.empty?
+            %h4= t 'country.about.recomendation'
+            .div-block= raw @region.recomendation
+          - unless @region.infrastructure.empty?
+            %h4= t 'country.about.infrastructure'
+            .div-block= raw @region.infrastructure
+        #attractions.tab-pane
+          - if @region.attractions.any?
+            %ul.media-list
+              - @region.attractions.each do |attraction|
+                %li.media
+                  - if attraction.gallery && attraction.gallery.photos.any?
+                    = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), [attraction.region.country, attraction.region, attraction], {class: 'pull-left'}
+                  .media-body
+                    %h5.media-heading
+                      = link_to attraction.name, [attraction.region.country, attraction.region, attraction]
+                      %small
+                        = link_to attraction.region.name, [attraction.region.country, attraction.region]
+                    %p= raw attraction.description.truncate(350)
+          - else
+            %p.muted.text-center= t 'country.sorry.attractions'
+        #hotels.tab-pane
+          - if @region.hotels.any?
+            - @region.hotels.each do |hotel|
+              %li.media
+                - if hotel.gallery && hotel.gallery.photos.any?
+                  = link_to image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title}), [hotel.region.country, hotel.region, hotel], {class: 'pull-left'}
+                .media-body
+                  %h5.media-heading
+                    = link_to hotel.name, [hotel.region.country, hotel.region, hotel]
+                    %small
+                      = link_to hotel.region.name, [hotel.region.country, hotel.region]
+                  %p= raw hotel.description
+          - else
+            %p.muted.text-center= t 'country.sorry.hotels'
+        #gallery.tab-pane
+          - if @region.gallery && @region.gallery.photos.any?
+            %ul.grid
+              - @region.gallery.photos.each do |photo|
+                %li= link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+          - else
+            %p.muted.text-center= t 'country.sorry.gallery'
