@@ -26,6 +26,10 @@ ActiveAdmin.register Photo do
   form do |f|
     f.inputs do
       f.input :asset
+      f.input :asset_remote_url
+      f.inputs 'Photo' do
+        image_tag photo.asset(:thumb_150x), :id => "photoAsset"
+      end
       f.input :galleries, as: :check_boxes
     end
     f.translated_inputs switch_locale: true do |t|
