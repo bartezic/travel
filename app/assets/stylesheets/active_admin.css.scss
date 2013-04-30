@@ -12,18 +12,27 @@
 @import "active_admin/base";
 @import "active_admin/editor/wysiwyg";
 
-body.active_admin #header {
-  padding: 9px;
-  h1 {
-    margin-right: 10px;
+body.active_admin {
+  #header {
+    padding: 9px;
+    h1 {
+      margin-right: 10px;
+    }
+    ul.tabs > li {
+      margin-right: 0;
+      a {
+        padding: 4px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+    }
   }
-  ul.tabs > li {
-    margin-right: 0;
-    a {
-      padding: 4px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+
+  #index_table_photos {
+    div.asset{
+      max-width: 150px;
+      word-wrap: break-word;
     }
   }
 }
