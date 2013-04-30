@@ -19,6 +19,10 @@ ActiveAdmin.register Gallery do
       f.has_many :photos do |photo|
         photo.inputs do
           photo.input :asset
+          photo.input :asset_remote_url
+          # photo.inputs 'Photo' do
+          #   image_tag asset(:thumb_150x), :id => "photoAsset"
+          # end
         end
         photo.translated_inputs switch_locale: true do |t|
           t.input :title
