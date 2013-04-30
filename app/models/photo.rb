@@ -1,4 +1,6 @@
 class Photo < ActiveRecord::Base
+  default_scope :order => 'id ASC'
+  
   has_and_belongs_to_many :galleries, :join_table => :galleries_photos
   belongs_to :gallery
   has_many :countries

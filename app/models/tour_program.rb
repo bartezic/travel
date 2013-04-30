@@ -1,4 +1,6 @@
 class TourProgram < ActiveRecord::Base
+  default_scope :order => 'CAST(day_number AS INTEGER) ASC'
+  
   belongs_to :tour
   has_and_belongs_to_many :regions, :join_table => :tour_programs_regions
   

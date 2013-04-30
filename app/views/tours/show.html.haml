@@ -39,11 +39,11 @@
             %dt= t('tours.description')
             %dd= raw @tour.description
 
-          - if temp = marshrut(@tour.tour_programs.order('CAST(day_number AS INTEGER) ASC'))
+          - if temp = marshrut(@tour.tour_programs)
             %dt= t('tours.marshrut')
             %dd= raw temp
             
-          - if temp = tour_program(@tour.tour_programs.order('CAST(day_number AS INTEGER) ASC'))
+          - if temp = tour_program(@tour.tour_programs)
             %dt= t('tours.tour_program')
             %dd= raw temp
 
