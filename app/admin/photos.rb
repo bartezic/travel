@@ -13,6 +13,10 @@ ActiveAdmin.register Photo do
     column :tours do |photo|
       photo.tours.each{ |tour| div { link_to tour.title, [:admin, tour] }}
     end
+    column :asset do |photo|
+      div { image_tag photo.asset(:thumb_150x) }
+      div { photo.asset(:thumb_150x) }
+    end
     translation_status
     default_actions
   end

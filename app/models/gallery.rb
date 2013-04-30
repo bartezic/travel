@@ -1,7 +1,9 @@
 class Gallery < ActiveRecord::Base
   has_and_belongs_to_many :photos, :join_table => :galleries_photos
-  attr_accessible :title, :photo_ids
+  attr_accessible :title, :photo_ids, :photos_attributes
   translates :title
+
+  accepts_nested_attributes_for :photos
 
   active_admin_translates :title do
     validates_presence_of :title
