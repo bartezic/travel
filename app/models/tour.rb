@@ -1,5 +1,7 @@
 class Tour < ActiveRecord::Base
   PRICE_TYPES = [PERSON = 'person', ROOM = 'room']
+
+  default_scope :order => 'tours.id DESC'
   belongs_to :currency
   belongs_to :photo
   belongs_to :gallery
