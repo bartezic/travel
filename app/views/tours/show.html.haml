@@ -75,7 +75,7 @@
     .row-fluid
       %h4= t 'tours.related'
       %ul.thumbnails
-        - Tour.all.each do |tour|
+        - @related.each do |tour|
           %li.span12
             .thumbnail
               .caption
