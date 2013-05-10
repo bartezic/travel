@@ -12,9 +12,6 @@ ActiveAdmin.register Gallery do
   end
 
   form do |f|
-    f.inputs do
-      f.input :photos, as: :check_boxes
-    end
     f.inputs "photos" do
       f.has_many :photos do |photo|
         photo.inputs do

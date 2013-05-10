@@ -39,7 +39,7 @@ ActiveAdmin.register Tour do
       f.input :food_types, as: :check_boxes
       f.input :durations, member_label: :count_of_night, as: :check_boxes
       f.input :transports, as: :check_boxes
-      f.input :regions, as: :check_boxes
+      f.input :regions, as: :check_boxes, :collection => Country.where(code: :ua).first.regions
     end
     f.inputs "tour_programs" do
       f.has_many :tour_programs do |program|
