@@ -45,7 +45,7 @@ ActiveAdmin.register Tour do
       f.has_many :tour_programs do |program|
         program.inputs do
           program.input :day_number
-          program.input :regions, :collection => option_groups_from_collection_for_select(Country.all, :regions, :name, :id, :name, f.object.regions.map(&:id)), :input_html => { :size => 10 }
+          program.input :regions, :collection => option_groups_from_collection_for_select(Country.all, :regions, :name, :id, :name, program.object.regions.map(&:id)), :input_html => { :size => 10 }
         end
         program.translated_inputs switch_locale: true do |t|
           t.input :description, as: :html_editor
