@@ -62,7 +62,7 @@
                             %div= t 'home.region.tours', count: country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count
                             %div= t 'home.region.regions', count: country.regions.count
                             %div= t 'home.region.hotels', count: 0
-                    %a.btn.pull-right{ href: tours_path }= t 'home.all_countries'
+                    %a.btn.pull-right{ href: countries_path }= t 'home.all_countries'
     .row-fluid.country
       %ul.thumbnails
         %li.span4
