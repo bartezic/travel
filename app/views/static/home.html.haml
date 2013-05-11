@@ -33,9 +33,11 @@
                   .carousel-caption
                     %h4
                       = link_to tour.title, tour
-                      = raw tour_subtitle(tour, true)
-                    %p= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i>"
-                    %p= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
+                      = raw tour_subtitle(tour)
+                      %small
+                        - if temp = marshrut(tour.tour_programs)
+                          = raw "#{temp}"
+                    %p= raw "#{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i> на #{tour.durations.map(&:count_of_night).join(', ')} ночей<br/> #{tour.tour_types.map(&:title).join(', ')} "
             / Carousel nav
             %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
             %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›
