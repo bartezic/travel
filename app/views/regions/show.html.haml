@@ -71,8 +71,6 @@
             %p.muted.text-center= t 'country.sorry.hotels'
         #gallery.tab-pane
           - if @region.gallery && @region.gallery.photos.any?
-            %ul.grid
-              - @region.gallery.photos.each do |photo|
-                %li= link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+            = render 'layouts/gallery', photos: @region.gallery.photos
           - else
             %p.muted.text-center= t 'country.sorry.gallery'

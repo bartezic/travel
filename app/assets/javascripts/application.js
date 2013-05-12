@@ -64,23 +64,37 @@ $(function() {
 
   $('.tour').find('table').addClass('table table-striped table-bordered table-condensed');
 
-  $('a[data-toggle="tab"]').on('shown', function (e) {
-    console.log(e.target)
-    if(e.target.href.split('#')[1] == 'gallery'){
-      updateWookmark()
-    }
+  // $('a[data-toggle="tab"]').on('shown', function (e) {
+  //   console.log(e.target)
+  //   if(e.target.href.split('#')[1] == 'gallery'){
+  //     // updateWookmark()
+  //     // $('ul.grid li').addClass('loaded')
+  //   }
+  // })
+  //$('ul.grid').photobox('a', { thumbs:true }, function(){});
+  $('ul.grid li img').error(function(){
+    $(this).closest('li').remove()
   })
 });
 
-function updateWookmark() {
-  $('ul.grid li').wookmark({
-    autoResize: true, // This will auto-update the layout when the browser window is resized.
-    container: $('ul.grid'), // Optional, used for some extra CSS styling
-    offset: 6, // Optional, the distance between grid items
-    flexibleWidth: 200 // Optional, the maximum width of a grid item
-  });
-}
+// function updateWookmark() {
+//   $('ul.grid li').wookmark({
+//     autoResize: true, // This will auto-update the layout when the browser window is resized.
+//     container: $('ul.grid'), // Optional, used for some extra CSS styling
+//     offset: 6, // Optional, the distance between grid items
+//     flexibleWidth: 200 // Optional, the maximum width of a grid item
+//   });
+// }
 
-$('ul.grid').imagesLoaded(function() {
-  updateWookmark()
+// $('ul.grid').imagesLoaded(function() {
+//   updateWookmark()
+// });
+
+$('ul.grid li a img').imagesLoaded(function() {
+  $.each( $('ul.grid li'), function(index, photo){
+    setTimeout( function(){ 
+      $(photo).addClass('loaded'); 
+    }, 30*index);
+  });
+  $('ul.grid').photobox('a', { thumbs:true }, function(){});
 });

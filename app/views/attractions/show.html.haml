@@ -16,7 +16,5 @@
       %p= raw @attraction.description
     - if @attraction.gallery && @attraction.gallery.photos.any?
       %h4= t 'region.gallery'
-      %ul.grid
-        - @attraction.gallery.photos.each do |photo|
-          %li= link_to image_tag(photo.asset.url(:thumb_250x), { alt: photo.title }), photo.asset.url(:original), { class: :thumbnail }
+      = render 'layouts/gallery', photos: @attraction.gallery.photos
     
