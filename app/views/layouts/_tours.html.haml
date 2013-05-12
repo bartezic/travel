@@ -21,6 +21,7 @@
                 %input{ type: :checkbox, name: "#{filter}[]", value: a.id, checked: params[filter] && params[filter].include?(a.id.to_s) }= a.respond_to?(:title) ? a.title : a.name
   .span9
     .row-fluid
+      %h4= t 'tours.total_tours', count: @tours.total_count
       %ul.media-list
         - @tours.each do |tour|
           %li.media

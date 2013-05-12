@@ -70,6 +70,7 @@ ru:
     tour_program: Программа
     marshrut: Маршрут
     day: День
+    total_tours: 'Всего %{count} туров'
     price_type:
       person: человека
       room: номер

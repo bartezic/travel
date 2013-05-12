@@ -73,6 +73,7 @@ uk:
     tour_program: Програма
     marshrut: Маршрут
     day: День
+    total_tours: 'Всього %{count} турів'
     price_type:
       person: особу
       room: номер
