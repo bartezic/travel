@@ -13,6 +13,10 @@ class Tour < ActiveRecord::Base
   has_and_belongs_to_many :transports, :join_table => :tours_transports
   has_and_belongs_to_many :regions, :join_table => :tours_regions
 
+  amoeba do
+    enable
+  end
+
   translates  :title, :description, :transport_description, :price_list, :price_included, :price_excluded, 
               :note, :excursions, :seo_meta
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
@@ -30,10 +34,6 @@ class Tour < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   accepts_nested_attributes_for :tour_programs
-  
-  amoeba do
-    enable
-  end
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
