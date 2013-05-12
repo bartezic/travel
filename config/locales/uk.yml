@@ -106,3 +106,10 @@ uk:
     office:
       title: Офіс
       val: 10 (3-й поверх)
+  views:
+    pagination:
+      first: "&laquo; Перша"
+      last: "Остання &raquo;"
+      previous: "&lsaquo; Попередня"
+      next: "Наступна &rsaquo;"
+      truncate: "..."

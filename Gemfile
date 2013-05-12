@@ -18,6 +18,7 @@ gem "friendly_id", "~> 4.0.9"
 gem 'babosa'
 gem "paperclip", "~> 3.0"
 gem 'sitemap_generator'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.

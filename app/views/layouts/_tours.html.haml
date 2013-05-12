@@ -41,3 +41,4 @@
                 .p= raw "#{t('tours.food_type')}: #{temp}"
               .p= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
               .p= raw "#{t('tours.departure')}: #{tour.regions.map{ |r| link_to r.name, r }.join(', ')}"
+      = paginate @tours

@@ -6,4 +6,8 @@ class ToursController < InheritedResources::Base
     related_ids.delete(@tour.id)
     @related = Tour.find(related_ids.shuffle.first(5))
   end
+
+  def index
+    @tours = Tour.page(params[:page] || 0)
+  end
 end
