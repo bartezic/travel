@@ -13,7 +13,7 @@ class Tour < ActiveRecord::Base
   has_and_belongs_to_many :transports, :join_table => :tours_transports
   has_and_belongs_to_many :regions, :join_table => :tours_regions
 
-  amoeba do
+  self.amoeba do
     enable
   end
 
