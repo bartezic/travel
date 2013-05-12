@@ -24,16 +24,16 @@ class Tour < ActiveRecord::Base
     validates_presence_of :title
   end
 
-  amoeba do
-    enable
-  end
-
   validates :price_type, inclusion: {in: PRICE_TYPES}
 
   extend FriendlyId
   friendly_id :title, use: :slugged
 
   accepts_nested_attributes_for :tour_programs
+  
+  amoeba do
+    enable
+  end
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
