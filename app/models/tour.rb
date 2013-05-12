@@ -13,9 +13,9 @@ class Tour < ActiveRecord::Base
   has_and_belongs_to_many :transports, :join_table => :tours_transports
   has_and_belongs_to_many :regions, :join_table => :tours_regions
 
-  self.amoeba do
-    enable
-  end
+  # self.amoeba do
+  #   enable
+  # end
 
   translates  :title, :description, :transport_description, :price_list, :price_included, :price_excluded, 
               :note, :excursions, :seo_meta
