@@ -9,7 +9,15 @@ ActiveAdmin.register Tour do
     tours.where(active: :false)
   end
 
-
+  member_action :clone, :method => :put do
+    o_tour = Tour.find(params[:id])
+    n_tour = o_tour.amoeba_dup
+    o_tour.tour_programs.each_with_index do |tour_program, i|
+      n_tour.tour_programs[i].regions = tour_program.regions 
+    end
+    n_tour.save
+    redirect_to :back, {:notice => "Cloned!"}
+  end
 
   index do
     selectable_column
@@ -23,6 +31,9 @@ ActiveAdmin.register Tour do
     end
     translation_status
     default_actions
+    column :clone do |tour|
+      div { link_to "Clone", {:action => 'clone', :id => tour }, :method => :put }
+    end
   end
 
   form do |f|

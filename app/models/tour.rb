@@ -24,6 +24,10 @@ class Tour < ActiveRecord::Base
     validates_presence_of :title
   end
 
+  amoeba do
+    enable
+  end
+
   validates :price_type, inclusion: {in: PRICE_TYPES}
 
   extend FriendlyId
