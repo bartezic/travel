@@ -226,3 +226,32 @@ ul.grid {
     }
   }
 }
+
+
+/* Large desktop */
+@media (min-width: 1200px) { 
+  .tours .form-search input.search-query{
+    width: 180px;
+  }
+}
+
+/* Default desctop */
+@media (min-width: 980px) and (max-width: 1199px) { 
+  .tours .form-search input.search-query{
+    width: 130px;
+  }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+  .tours .form-search input.search-query{
+    width: 75px;
+  }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+  .tours .form-search input.search-query{
+    width: 100%;
+  } 
+}

@@ -31,6 +31,9 @@ class Tour < ActiveRecord::Base
 
   accepts_nested_attributes_for :tour_programs
 
+  scope :active, where(:active => true)
+  scope :with_days, joins(:days).uniq
+
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s
   end

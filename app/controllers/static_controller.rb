@@ -10,7 +10,7 @@ class StaticController < ApplicationController
     @regions = Region.find(res2)
     @countries = Country.limit(4)
 
-    @tours = Tour.includes(:tour_programs).order('id DESC').limit(5)
+    @tours = Tour.active.with_days.includes(:tour_programs).order('id DESC').limit(5)
     @hot_tours = TourType.where(code: :hot).first.tours
     respond_to do |format|
       format.html # index.html.erb

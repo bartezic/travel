@@ -4,10 +4,10 @@ class ToursController < InheritedResources::Base
     regions_ids = @tour.tour_programs.map(&:region_ids).flatten
     related_ids = TourProgram.includes(:regions).where("regions.id IN (?)", regions_ids).map(&:tour_id).uniq
     related_ids.delete(@tour.id)
-    @related = Tour.find(related_ids.shuffle.first(5))
+    @related = Tour.active.with_days.where('tours.id IN (?)',related_ids.shuffle).limit(5)
   end
 
   def index
-    @tours = Tour.page(params[:page] || 0)
+    @tours = Tour.active.with_days.page(params[:page] || 0)
   end
 end
