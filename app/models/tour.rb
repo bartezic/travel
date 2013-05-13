@@ -1,6 +1,4 @@
 class Tour < ActiveRecord::Base
-  extend  Amoeba::ClassMethods
-  include Amoeba::InstanceMethods
   PRICE_TYPES = [PERSON = 'person', ROOM = 'room']
 
   default_scope :order => 'tours.id DESC'
