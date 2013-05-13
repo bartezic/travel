@@ -1,4 +1,6 @@
 class Tour < ActiveRecord::Base
+  extend  Amoeba::ClassMethods
+  include Amoeba::InstanceMethods
   PRICE_TYPES = [PERSON = 'person', ROOM = 'room']
 
   default_scope :order => 'tours.id DESC'
@@ -13,7 +15,7 @@ class Tour < ActiveRecord::Base
   has_and_belongs_to_many :transports, :join_table => :tours_transports
   has_and_belongs_to_many :regions, :join_table => :tours_regions
 
-  Tour.amoeba do
+  amoeba do
     enable
   end
 
