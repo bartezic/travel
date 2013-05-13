@@ -1,7 +1,7 @@
 class RegionsController < InheritedResources::Base
   def show
     @region = Region.find(params[:id])
-    @tours = Tour.active.with_days.where('tours.id IN (?)', @region.tour_programs.map(&:tour_id)).page(params[:page] || 0)
+    @tours = Tour.search(params.merge({ region: @region.id }))
 
     respond_to do |format|
       format.html # show.html.erb

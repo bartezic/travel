@@ -31,8 +31,30 @@ class Tour < ActiveRecord::Base
 
   accepts_nested_attributes_for :tour_programs
 
-  scope :active, where(:active => true)
-  scope :with_days, joins(:days).uniq
+  scope :active,          where(:active => true)
+  scope :with_days,       joins(:days).uniq
+  scope :with_transports, lambda { |ids| where("transports.id IN (?)",     ids) unless ids.blank? }
+  scope :with_tour_types, lambda { |ids| where("tour_types.id IN (?)",     ids) unless ids.blank? }
+  scope :with_countries,  lambda { |ids| with_regions(Region.where('country_id IN (?)', ids).map(&:id)) unless ids.blank? }
+  scope :with_regions,    lambda { |ids| 
+    with_ids(Region.where('id IN (?)', ids).includes(&:tour_programs).map{ |region|
+      region.tour_programs.map(&:tour_id)
+    }.flatten) unless ids.blank?
+  }
+  scope :with_ids,        lambda { |ids| where('tours.id IN (?)', ids) }
+  scope :with_query,      lambda { |query| where("tours.title ilike ? or tours.description ilike ?", "%#{query}%", "%#{query}%") unless query.blank? }
+
+  def self.search(params, ids = [])
+    includes(:days, :tour_programs, :transports, :tour_types).
+      active.
+      # with_days.
+      with_transports(params[:transport]).
+      with_tour_types(params[:tour_type]).
+      with_countries(params[:country]).
+      with_regions(params[:region]).
+      with_query(params[:query]).
+      page(params[:page] || 0)
+  end
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s

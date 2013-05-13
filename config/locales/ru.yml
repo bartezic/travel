@@ -111,3 +111,5 @@ ru:
       previous: "&lsaquo; Предыдущая"
       next: "Следующая &rsaquo;"
       truncate: "..."
+  search:
+    sorry: К сожалению по вашему запросу ничего не найдено :(

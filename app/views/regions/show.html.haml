@@ -27,7 +27,7 @@
       .tab-content
         #tours.tab-pane.active
           - if @tours.any?
-            = render 'layouts/tours'
+            = render 'layouts/tours', f2: false
           - else
             %p.muted.text-center= t 'country.sorry.tours'
         #about.tab-pane

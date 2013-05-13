@@ -10,8 +10,8 @@ class StaticController < ApplicationController
     @regions = Region.find(res2)
     @countries = Country.limit(4)
 
-    @tours = Tour.active.with_days.includes(:tour_programs).order('id DESC').limit(5)
-    @hot_tours = TourType.where(code: :hot).first.tours
+    @tours = Tour.search(params).limit(5)
+    @hot_tours = Tour.search(params.merge({ tour_type: TourType.where(code: :hot).map(&:id) }))
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: {} }

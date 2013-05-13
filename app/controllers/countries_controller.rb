@@ -14,7 +14,7 @@ class CountriesController < InheritedResources::Base
   # GET /countries/1.json
   def show
     @country = Country.includes(:regions).find(params[:id])
-    @tours = Tour.active.with_days.where('tours.id IN (?)', @country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten).page(params[:page] || 0)
+    @tours = Tour.search(params.merge({ region: @country.region_ids}))
     @attractions = @country.regions.map { |i| i.attractions }.flatten
     @hotels = @country.regions.map { |i| i.hotels }.flatten
     @photos = @country.regions.map { |i| i.gallery.photos }.flatten.uniq

@@ -114,3 +114,5 @@ uk:
       previous: "&lsaquo; Попередня"
       next: "Наступна &rsaquo;"
       truncate: "..."
+  search:
+    sorry: На жаль за вашим запитом нічого не знайдено :(
