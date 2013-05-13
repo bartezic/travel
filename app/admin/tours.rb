@@ -11,30 +11,24 @@ ActiveAdmin.register Tour do
 
   member_action :clone, :method => :put do
     o_tour = Tour.find(params[:id])
-    # puts o_tour.inspect
-    o_tour.class.amoeba do
-      enable
-    end
-    n_tour = o_tour.amoeba_dup
+    
+    n_tour = o_tour.dup
+    Tour.reflect_on_all_associations(:has_many).map{|i| i.name}.each{ |i|
+      o_tour.send(i).each_with_index{|as,j|
+        n_tour.send(i)[j] = as.dup
+      }
+    }
+    Tour.reflect_on_all_associations(:has_and_belongs_to_many).map{|i| i.name}.each{ |i|
+      o_tour.send(i).each_with_index{|as,j|
+        n_tour.send(i)[j] = as
+      }
+    }
     o_tour.tour_programs.each_with_index do |tour_program, i|
       n_tour.tour_programs[i].regions = tour_program.regions
       tour_program.translations.each_with_index do |translation, j|
         n_tour.tour_programs[i].translations[j] = translation.dup
       end
     end
-    # n_tour = o_tour.dup
-    # n_tour.translations = o_tour.translations.dup
-    # n_tour.durations = o_tour.durations.dup
-    # n_tour.food_types = o_tour.food_types.dup
-    # n_tour.tour_types = o_tour.tour_types.dup
-    # n_tour.transports = o_tour.transports.dup
-    # n_tour.regions = o_tour.regions.dup
-    # n_tour.days = o_tour.days.dup
-    # n_tour.tour_programs = o_tour.tour_programs.dup
-    # o_tour.tour_programs.each_with_index do |tour_program, i|
-    #   n_tour.tour_programs[i].regions = tour_program.regions.dup
-    #   n_tour.tour_programs[i].translations = tour_program.translations.dup
-    # end
     
     n_tour.save
     redirect_to :back, {:notice => "Cloned!"}
