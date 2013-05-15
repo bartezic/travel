@@ -2,7 +2,6 @@ class Photo < ActiveRecord::Base
   default_scope :order => 'id ASC'
 
   has_and_belongs_to_many :galleries, :join_table => :galleries_photos
-  belongs_to :gallery
   has_many :countries
   has_many :tours
 
@@ -25,6 +24,11 @@ class Photo < ActiveRecord::Base
 
   before_save :upload_asset_from_remote_url
   before_save :change_file_name
+
+  scope :meta_galleries_eq, lambda { |ids| includes(:galleries).where("galleries.id IN (?)", ids) unless ids.blank? }
+  scope :meta_countries_eq, lambda { |ids| includes(:countries).where("countries.id IN (?)", ids) unless ids.blank? }
+  search_method :meta_galleries_eq, :type => :integer  
+  search_method :meta_countries_eq, :type => :integer
 
   def upload_asset_from_remote_url
     self.asset = open(asset_remote_url) if asset_remote_url.present?

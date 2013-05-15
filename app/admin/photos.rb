@@ -1,5 +1,12 @@
 ActiveAdmin.register Photo do
   menu :priority => 8, :label => proc{ I18n.t('active_admin.menu.photos') }
+
+  filter :id
+  filter :meta_galleries, :as => :select, :collection => Gallery.all
+  filter :meta_countries, :as => :select, :collection => Country.all
+  filter :title
+  filter :slug
+
   index do
     selectable_column
     id_column
