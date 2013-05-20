@@ -37,7 +37,7 @@
                       %small
                         - if temp = marshrut(tour.tour_programs)
                           = raw "#{temp}"
-                    %p= raw "#{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i> на #{tour.durations.map(&:count_of_night).join(', ')} ночей<br/> #{tour.tour_types.map(&:title).join(', ')} "
+                    %p= raw "#{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i> на #{tour.durations.map(&:count_of_night).sort.join(', ')} ночей<br/> #{tour.tour_types.map(&:title).join(', ')} "
             / Carousel nav
             %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
             %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›

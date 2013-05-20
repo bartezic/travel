@@ -32,9 +32,9 @@ class Tour < ActiveRecord::Base
   accepts_nested_attributes_for :tour_programs
 
   scope :active,          where(:active => true)
-  scope :with_days,       joins(:days).uniq
-  scope :with_transports, lambda { |ids| where("transports.id IN (?)",     ids) unless ids.blank? }
-  scope :with_tour_types, lambda { |ids| where("tour_types.id IN (?)",     ids) unless ids.blank? }
+  scope :with_days,       joins(:days)
+  scope :with_transports, lambda { |ids| joins(:transports).where("transports.id IN (?)",     ids) unless ids.blank? }
+  scope :with_tour_types, lambda { |ids| joins(:tour_types).where("tour_types.id IN (?)",     ids) unless ids.blank? }
   scope :with_countries,  lambda { |ids| with_regions(Region.where('country_id IN (?)', ids).map(&:id)) unless ids.blank? }
   scope :with_regions,    lambda { |ids| 
     with_ids(Region.where('id IN (?)', ids).includes(&:tour_programs).map{ |region|
@@ -45,7 +45,7 @@ class Tour < ActiveRecord::Base
   scope :with_query,      lambda { |query| where("tours.title ilike ? or tours.description ilike ?", "%#{query}%", "%#{query}%") unless query.blank? }
 
   def self.search(params, ids = [])
-    includes(:days, :tour_programs, :transports, :tour_types).
+    includes(:regions,{:tour_programs => :regions}).
       active.
       # with_days.
       with_transports(params[:transport]).
@@ -53,6 +53,7 @@ class Tour < ActiveRecord::Base
       with_countries(params[:country]).
       with_regions(params[:region]).
       with_query(params[:query]).
+      uniq.
       page(params[:page] || 0)
   end
 
