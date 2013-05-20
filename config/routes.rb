@@ -15,6 +15,7 @@ Travel::Application.routes.draw do
 
   match 'contacts' => 'static#contacts'
   match 'visas' => 'static#visas'
+  match 'home' => 'static#home'
   root :to => 'static#home'
   
   ActiveAdmin.routes(self)
