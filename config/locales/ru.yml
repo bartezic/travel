@@ -71,6 +71,7 @@ ru:
     marshrut: Маршрут
     day: День
     total_tours: 'Всего %{count} туров'
+    gallery: Галерея тура
     price_type:
       person: человека
       room: номер

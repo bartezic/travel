@@ -62,11 +62,21 @@
           - unless @tour.excursions.empty?
             %dt= t('tours.excursions')
             %dd= raw @tour.excursions
-        .row-fluid
-          .span12
+          %dt= t 'region.gallery'
+          %dd 
             - if @tour.gallery && @tour.gallery.photos.any?
-              %h4= t 'region.gallery' 
-              = render 'layouts/gallery', photos: @tour.gallery.photos
+              .row-fluid
+                .span12
+                  %h5= t 'tours.gallery' 
+                  = render 'layouts/gallery', photos: @tour.gallery.photos
+            - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
+              - @tour.tour_programs.map { |program| program.regions }.flatten.uniq.each do |region|
+                .row-fluid
+                  .span12
+                    %h5
+                      = link_to region.name, region
+                      %small= link_to region.country.name, region.country
+                    = render 'layouts/gallery', photos: region.gallery.photos
 
   .span3
     .row-fluid

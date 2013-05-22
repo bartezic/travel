@@ -80,7 +80,7 @@ module ApplicationHelper
   def tour_subtitle(tour, marshrut = false, seo = false)
     if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
       regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-      if regions.size == 1 || regions.map(&:id).uniq.size == 1
+      if regions.size == 1
         if seo 
           res = "#{regions.first.name} (#{regions.first.country.name})"
         else

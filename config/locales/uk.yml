@@ -74,6 +74,7 @@ uk:
     marshrut: Маршрут
     day: День
     total_tours: 'Всього %{count} турів'
+    gallery: Галерея туру
     price_type:
       person: особу
       room: номер
