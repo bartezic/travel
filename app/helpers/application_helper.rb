@@ -1,6 +1,6 @@
 module ApplicationHelper
   def full_year_callendar(days)
-    p = "<table><thead><tr><th></th>"
+    p = "<table><thead><tr><th>#{t 'callendar.month_year'}</th>"
     days.each { |k,v| p << "<th>#{k}</th>" }
     p << "<tr></thead><tbody>"
     arr = Array.new(12) { Array.new(days.size) }
@@ -69,7 +69,7 @@ module ApplicationHelper
 
   def marshrut(programs)
     if programs.any? && programs.size > 1
-      regions = programs.map { |program| program.regions }.flatten
+      regions = programs.map { |program| program.regions }.flatten.uniq
       
       regions.map {|region|
         "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
@@ -79,7 +79,7 @@ module ApplicationHelper
 
   def tour_subtitle(tour, marshrut = false, seo = false)
     if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-      regions = tour.tour_programs.map { |program| program.regions }.flatten
+      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
       if regions.size == 1 || regions.map(&:id).uniq.size == 1
         if seo 
           res = "#{regions.first.name} (#{regions.first.country.name})"

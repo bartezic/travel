@@ -64,7 +64,7 @@ class Tour < ActiveRecord::Base
   def departure_calendar
     mon = Date::MONTHNAMES.compact
     b = {}
-    a = days.map { |p| p.day_of_life }
+    a = days.sort_by(&:day_of_life).map { |p| p.day_of_life }
     a.each {|i| b[i.year] = {}}
     a.each {|i| b[i.year][i.mon] = []}
     a.each {|i| b[i.year][i.mon] << i.day}
