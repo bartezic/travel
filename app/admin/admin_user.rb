@@ -14,9 +14,6 @@ ActiveAdmin.register AdminUser do
     )
   end
 
-  member_action :vk_auth do
-  end
-
   member_action :fb_callback do
     user = AdminUser.find(params[:id])
 
@@ -43,7 +40,6 @@ ActiveAdmin.register AdminUser do
     default_actions
     column :clone do |user|
       span { link_to "FB", { :action => 'fb_auth', :id => user } }
-      span { link_to "VK", { :action => 'vk_auth', :id => user } }
     end               
   end                                 
 

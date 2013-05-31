@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(:version => 20130531103641) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "vk_token"
     t.string   "fb_token"
   end
 
