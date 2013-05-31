@@ -19,6 +19,8 @@ gem 'babosa'
 gem "paperclip", "~> 3.0"
 gem 'sitemap_generator'
 gem 'kaminari'
+gem 'fb_graph'
+gem 'bitly'
 
 # Gems used only for assets and not required
 # in production environments by default.

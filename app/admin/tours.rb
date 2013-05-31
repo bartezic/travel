@@ -34,10 +34,42 @@ ActiveAdmin.register Tour do
     redirect_to :back, {:notice => "Cloned!"}
   end
 
+  member_action :share, :method => :put do
+    tour = Tour.find(params[:id])
+    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+    name = [tour.title]
+
+    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+      name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
+    end
+
+    massage = [ tour.title,
+                "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
+                "Тривалість #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+                "Виїзди із #{tour.regions.map(&:name).join(', ')}"]
+
+    pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
+    pages.feed!(
+      :message => massage.join('
+        '),
+      :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
+      :description => tour.seo_meta,
+      :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
+      :name => name.join(' - ')
+    )
+    
+    redirect_to :back, {:notice => "Shared!"}
+  end
+
   index do
     selectable_column
     id_column
     column :title
+    column :photo do |tour|
+      div { image_tag tour.photo.asset(:thumb_150x) }
+    end
     column :price do |tour|
       "#{tour.currency && tour.currency.code} #{tour.price_from}+"
     end
@@ -48,6 +80,9 @@ ActiveAdmin.register Tour do
     default_actions
     column :clone do |tour|
       div { link_to "Clone", {:action => 'clone', :id => tour }, :method => :put }
+    end
+    column :share do |tour|
+      div { link_to "Share", {:action => 'share', :id => tour }, :method => :put }
     end
   end
 

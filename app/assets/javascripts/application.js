@@ -23,7 +23,7 @@ $(function() {
     interval: 5000
   });
 
-  $('.tour').find('table').addClass('table table-striped table-bordered table-condensed');
+  $('.tour').find('table').not('#vkshare0').addClass('table table-striped table-bordered table-condensed');
 
   $('ul.grid li img').error(function(){
     $(this).closest('li').remove()
@@ -55,3 +55,5 @@ $('ul.grid li a img').imagesLoaded(function() {
   });
   $('ul.grid').photobox('a', { thumbs:true }, function(){});
 });
+
+//window.open('https://www.facebook.com/dialog/oauth?client_id=256487544493099&display=popup&redirect_uri=http://mongrasse.com.ua/home','fb','resizable=yes,scrollbars=yes,width=500,height=500,left=200,top=200')
