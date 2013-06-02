@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20130531103641) do
   add_index "country_translations", ["locale"], :name => "index_country_translations_on_locale"
 
   create_table "currencies", :force => true do |t|
-    t.string   "title"
     t.string   "code"
+    t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
