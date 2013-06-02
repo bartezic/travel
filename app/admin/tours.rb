@@ -63,6 +63,13 @@ ActiveAdmin.register Tour do
     redirect_to :back, {:notice => "Shared!"}
   end
 
+  member_action :share2, :method => :put do
+    tour = Tour.find(params[:id])
+    tour.share2(current_admin_user, tour_url(tour), request)
+    
+    redirect_to :back, {:notice => "Shared!"}
+  end
+
   index do
     selectable_column
     id_column
@@ -83,6 +90,10 @@ ActiveAdmin.register Tour do
     end
     column :share do |tour|
       div { link_to "Share", {:action => 'share', :id => tour }, :method => :put }
+    end
+
+    column :share2 do |tour|
+      div { link_to "Share", {:action => 'share2', :id => tour }, :method => :put }
     end
   end
 

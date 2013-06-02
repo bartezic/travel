@@ -50,7 +50,7 @@ ActiveAdmin.register AdminUser do
     column :last_sign_in_at           
     column :sign_in_count             
     default_actions
-    column :clone do |user|
+    column :connect do |user|
       span { link_to "FB", { :action => 'fb_auth', :id => user } }
     end               
   end                                 
