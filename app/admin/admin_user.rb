@@ -5,7 +5,9 @@ ActiveAdmin.register AdminUser do
     def fb_auth_m(params)
       user = AdminUser.find(params[:id])
 
-      fb_auth = FbGraph::Auth.new(256487544493099, 'c6e6495f50b6afc7658702174f3fb69f')
+      puts FbGraph::Auth.inspect
+
+      fb_auth = FbGraph::Auth.new('256487544493099', 'c6e6495f50b6afc7658702174f3fb69f')
       client = fb_auth.client
       client.redirect_uri = "#{request.protocol + request.host_with_port}/admin/admin_users/#{params[:id]}/fb_callback"
 
@@ -18,7 +20,7 @@ ActiveAdmin.register AdminUser do
     def fb_callback_m(params)
       user = AdminUser.find(params[:id])
 
-      fb_auth = FbGraph::Auth.new(256487544493099, 'c6e6495f50b6afc7658702174f3fb69f')
+      fb_auth = FbGraph::Auth.new('256487544493099', 'c6e6495f50b6afc7658702174f3fb69f')
       client = fb_auth.client
       client.redirect_uri = "#{request.protocol + request.host_with_port}/admin/admin_users/#{params[:id]}/fb_callback"
       client.authorization_code = params[:code]
