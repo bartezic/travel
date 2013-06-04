@@ -47,8 +47,8 @@ ActiveAdmin.register Tour do
 
     massage = [ tour.title,
                 "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
-                "Тривалість #{tour.durations.map(&:count_of_night).join(', ')} ночей",
-                "Виїзди із #{tour.regions.map(&:name).join(', ')}"]
+                "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+                "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
 
     pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
     pages.feed!(
@@ -63,11 +63,9 @@ ActiveAdmin.register Tour do
     redirect_to :back, {:notice => "Shared!"}
   end
 
-  member_action :share2, :method => :put do
-    tour = Tour.find(params[:id])
-    tour.share2(current_admin_user, tour_url(tour), request)
-    
-    redirect_to :back, {:notice => "Shared!"}
+  action_item :only => :show do
+    span { link_to "Share", {:action => 'share', :id => tour }, :method => :put }
+    span { link_to "Clone", {:action => 'clone', :id => tour }, :method => :put }
   end
 
   index do
@@ -83,17 +81,13 @@ ActiveAdmin.register Tour do
     column :active do |tour|
       status_tag(tour.active.to_s)
     end
-    translation_status
+    column :seo do |tour|
+      raw tour.seo_meta
+    end
     default_actions
-    column :clone do |tour|
-      div { link_to "Clone", {:action => 'clone', :id => tour }, :method => :put }
-    end
-    column :share do |tour|
-      div { link_to "Share", {:action => 'share', :id => tour }, :method => :put }
-    end
-
-    column :share2 do |tour|
-      div { link_to "Share", {:action => 'share2', :id => tour }, :method => :put }
+    column :custom do |tour|
+      span { link_to("Clone", {:action => 'clone', :id => tour }, :method => :put) }
+      span { link_to("Share", {:action => 'share', :id => tour }, :method => :put) }
     end
   end
 

@@ -36,6 +36,15 @@ body.active_admin {
     }
   }
 
+  #index_table_tours {
+    a{
+      display: block;
+    }
+    .seo {
+      max-width: 170px;
+    }
+  }
+
 }
 
 // Overriding any non-variable SASS must be done after the fact.
