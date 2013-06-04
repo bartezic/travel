@@ -1,5 +1,5 @@
 class Region < ActiveRecord::Base
-  default_scope :order => 'country_id ASC, name ASC'
+  default_scope :order => 'regions.country_id ASC, regions.name ASC'
   belongs_to :gallery
   belongs_to :country
   has_many :attractions

@@ -1,4 +1,5 @@
 class Country < ActiveRecord::Base
+  default_scope :order => 'countries.name ASC'
   has_and_belongs_to_many :continents, :join_table => :continents_countries
   belongs_to :photo
   has_many :regions

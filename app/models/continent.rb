@@ -1,4 +1,5 @@
 class Continent < ActiveRecord::Base
+  default_scope :order => 'continents.name ASC'
   has_and_belongs_to_many :countries, :join_table => :continents_countries
   
   translates :description, :name, :seo_meta

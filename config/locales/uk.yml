@@ -75,6 +75,7 @@ uk:
     day: День
     total_tours: 'Всього %{count} турів'
     gallery: Галерея туру
+    transport_description: Деталі переміщення
     price_type:
       person: особу
       room: номер

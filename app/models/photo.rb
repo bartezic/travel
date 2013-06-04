@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  default_scope :order => 'id ASC'
+  default_scope :order => 'photos.id ASC'
 
   has_and_belongs_to_many :galleries, :join_table => :galleries_photos
   has_many :countries

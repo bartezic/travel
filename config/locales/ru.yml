@@ -72,6 +72,7 @@ ru:
     day: День
     total_tours: 'Всего %{count} туров'
     gallery: Галерея тура
+    transport_description: Детали перемещения
     price_type:
       person: человека
       room: номер

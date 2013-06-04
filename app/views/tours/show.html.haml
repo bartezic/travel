@@ -77,6 +77,9 @@
           - unless @tour.note.empty?
             %dt= t('tours.note')
             %dd= raw @tour.note
+          - unless @tour.transport_description.empty?
+            %dt= t('tours.transport_description')
+            %dd= raw @tour.transport_description
           - unless @tour.excursions.empty?
             %dt= t('tours.excursions')
             %dd= raw @tour.excursions
