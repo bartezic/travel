@@ -34,6 +34,7 @@ class Tour < ActiveRecord::Base
 
   scope :active,          where(:active => true)
   scope :with_days,       joins(:days)
+  scope :with_from, lambda { |ids| joins(:regions).where("regions.id IN (?)",     ids) unless ids.blank? }
   scope :with_transports, lambda { |ids| joins(:transports).where("transports.id IN (?)",     ids) unless ids.blank? }
   scope :with_tour_types, lambda { |ids| joins(:tour_types).where("tour_types.id IN (?)",     ids) unless ids.blank? }
   scope :with_countries,  lambda { |ids| with_regions(Region.where('country_id IN (?)', ids).map(&:id)) unless ids.blank? }
@@ -54,6 +55,7 @@ class Tour < ActiveRecord::Base
       with_countries(params[:country]).
       with_regions(params[:region]).
       with_query(params[:query]).
+      with_from(params[:from]).
       uniq.
       page(params[:page] || 0)
   end

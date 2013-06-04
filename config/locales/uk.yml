@@ -52,12 +52,14 @@ uk:
     tour_type: Тип
     food_type: Харчування
     country: Країна
+    regions: Місто виїзду
   tours:
     title: Підібрати тур
     price: Ціна
     prices: Ціни
     dates: Дати виїздів
     callendar: Календар виїздів
+    dates_s: Виїзди
     dates_v: "Період: <b>%{count}</b> виїздів з <b>%{first}</b> до <b>%{last}</b>"
     transport: Транспорт
     duration: Тривалість(ночей)
