@@ -1,8 +1,17 @@
 uk:
   active_admin:
+    clone: Зробити копію
+    cloned: Копію успішно зроблено
+    share: У Фейсбук
+    shared: Вже у Фейсбуці
+    room: За номер
+    person: За особу
+    all_tours: Всі тури
+    active: Активні
+    not_active: Не Активні
     menu:
       users: Користувачі
-      attractions: Екскурсії
+      attractions: Пам'ятки
       continents: Континенти
       countries: Країни
       currencies: Валюта
@@ -20,90 +29,104 @@ uk:
       transports: Транспорт
       visa_types: Типи віз
       visas: Візи
-    dashboard: Dashboard
+    dashboard: "Панель керування"
     dashboard_welcome:
-      welcome: "Welcome to Active Admin. This is the default dashboard page."
-      call_to_action: "To add dashboard sections, checkout 'app/admin/dashboard.rb'"
-    view: "View"
-    edit: "Edit"
-    delete: "Delete"
-    delete_confirmation: "Are you sure you want to delete this?"
-    new_model: "New %{model}"
-    create_model: "New %{model}"
-    edit_model: "Edit %{model}"
-    update_model: "Edit %{model}"
-    delete_model: "Delete %{model}"
-    details: "%{model} Details"
-    cancel: "Cancel"
-    empty: "Empty"
-    previous: "Previous"
-    next: "Next"
-    download: "Download:"
-    has_many_new: "Add New %{model}"
-    has_many_delete: "Delete"
-    filter: "Filter"
-    clear_filters: "Clear Filters"
-    search_field: "Search %{field}"
-    equal_to: "Equal To"
-    greater_than: "Greater Than"
-    less_than: "Less Than"
-    main_content: "Please implement %{model}#main_content to display content."
-    logout: "Logout"
+      welcome: "Ласкаво просимо в Active Admin. Це стандартна сторінка керування сайтом."
+      call_to_action: "Щоб додати сюди що-небудь загляніть в 'app/admin/dashboard.rb'"
+    view: "Переглянути"
+    edit: "Змінити"
+    delete: "Видалити"
+    delete_confirmation: "Ви впевнені, що хочете це видалити?"
+    new_model: "Створити %{model}"
+    create_model: "Створити %{model}"
+    edit_model: "Змінити %{model}"
+    update_model: "Змінити %{model}"
+    delete_model: "Видалити %{model}"
+    details: "%{model} детальніше"
+    cancel: "Відміна"
+    empty: "Пусто"
+    previous: "Поперед."
+    next: "Наст."
+    download: "Завантаження:"
+    has_many_new: "Додати %{model}"
+    has_many_delete: "Прибрати"
+    has_many_remove: "Видалити"
+    filter: "Фільтрувати"
+    clear_filters: "Очистити"
+    contains: "Містить"
+    starts_with: "Починається з"
+    ends_with: "Закінчується"
+    equal_to: "="
+    greater_than: "більше"
+    less_than: "менше"
+    main_content: "Створіть %{model}#main_content для відображення вмісту."
+    logout: "Вийти"
     powered_by: "Powered by %{active_admin} %{version}"
+    search_field: "Шукати за %{field}"
     sidebars:
-      filters: "Filters"
+      filters: "Фільтри"
     pagination:
-      empty: "No %{model} found"
-      one: "Displaying <b>1</b> %{model}"
-      one_page: "Displaying <b>all %{n}</b> %{model}"
-      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
+      empty: "%{model} не знайдено"
+      one: "Результат: <b>1</b> %{model}"
+      one_page: "Результат: <b>%{n}</b> %{model}"
+      multiple: "Результат: %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> з <b>%{total}</b>"
       entry:
-        one: "entry"
-        other: "entries"
-    any: "Any"
+        one: "запис"
+        other: "записів"
+    any: "Будь-який"
     blank_slate:
-      content: "There are no %{resource_name} yet."
-      link: "Create one"
+      content: "Покищо немає %{resource_name}."
+      link: "Створити"
     batch_actions:
-      button_label: "Batch Actions"
-      delete_confirmation: "Are you sure you want to delete these %{plural_model}? You won't be able to undo this."
+      button_label: "Групові операції"
+      delete_confirmation: "Ви впевнені, що хочете видалити %{plural_model}? Ви не зможете це відмінити."
       succesfully_destroyed:
-        one: "Successfully destroyed 1 %{model}"
-        other: "Successfully destroyed %{count} %{plural_model}"
-      selection_toggle_explanation: "(Toggle Selection)"
-      link: "Create one"
-      action_label: "%{title} Selected"
+        one: "Успішно видалено: 1 %{model}"
+        few: "Успішно видалено: %{count} %{plural_model}"
+        many: "Успішно видалено: %{count} %{plural_model}"        
+        other: "Успішно видалено: %{count} %{plural_model}"
+      selection_toggle_explanation: "(Відмінити все / Зняти виділення)"
+      link: "Створити"
+      action_label: "%{title} вибране"
       labels:
-        destroy: "Delete"
+        destroy: "Видалити"
     comments:
-      body: "Body"
-      author: "Author"
-      title: "Comment"
-      add: "Add Comment"
-      resource: "Resource"
-      no_comments_yet: "No comments yet."
-      title_content: "Comments (%{count})"
+      resource_type: "Тип ресурса"
+      author_type: "Тип автора"
+      body: "Текст"
+      author: "Автор"
+      title: "Коментар"
+      add: "Додати Коментар"
+      resource: "Ресурс"
+      no_comments_yet: "Покищо немає коментарів."
+      title_content: "Коментарі (%{count})"
       errors:
-        empty_text: "Comment wasn't saved, text was empty."
+        empty_text: "Коментар не збережено, текст не повинен бути пустим."
     devise:
       login:
-        title: "Login"
-        remember_me: "Remember me"
-        submit: "Login"
+        title: "Вхід"
+        remember_me: "Запам'ятати мене"
+        submit: "Увійти"
       reset_password:
-        title: "Forgot your password?"
-        submit: "Reset My Password"
+        title: "Забули пароль?"
+        submit: "Скинути пароль"
       change_password:
-        title: "Change your password"
-        submit: "Change my password"
+        title: "Зміна паролю"
+        submit: "Змінити пароль"
       unlock:
-        title: "Resend unlock instructions"
-        submit: "Resend unlock instructions"
+        title: "Відправити повторно інструкції з розблокування"
+        submit: "Відправити повторно інструкції з розблокування"
       links:
-        sign_in: "Sign in"
-        forgot_your_password: "Forgot your password?"
+        sign_in: "Увійти"
+        forgot_your_password: "Забули пароль?"
+        sign_in_with_omniauth_provider: "Увійти з допомогою %{provider}"
     access_denied:
-      message: "You are not authorized to perform this action."
+      message: "Ви не авторизовані для виконання даної дії."
+    index_list:
+      table: "Таблиця"
+      block: "Список"
+      grid: "Сітка"
+      blog: "Блог"
     globalize3:
       translations: Переклади
       language:

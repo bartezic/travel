@@ -1,8 +1,14 @@
 ru:
   active_admin:
+    clone: Сделать копию
+    cloned: Копию успешно сделано!
+    share: В Фейсбук
+    shared: Уже в Фейсбуке!
+    room: За номер
+    person: За человека
     menu:
       users: Пользователи
-      attractions: Экскурсии
+      attractions: Достопримечательности
       continents: Континенты
       countries: Страны
       currencies: Валюта

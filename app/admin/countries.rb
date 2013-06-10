@@ -15,20 +15,25 @@ ActiveAdmin.register Country do
     id_column
     column :name
     column :photo do |a|
-      div { image_tag a.photo.asset(:thumb_150x) }
+      div { image_tag a.photo.asset(:thumb_150x) if a.photo }
     end
     column :slug
     column :code
     column :continents do |a|
       a.continents.map(&:name).join(', ')
     end 
+    column :seo do |a|
+      raw a.seo_meta
+    end
     default_actions
   end
 
   form do |f|
     f.inputs do
       f.input :continents
-      f.input :photo
+      f.input :photo, as: :select, collection: Photo.all.sort_by(&:title).map{ |photo|
+        [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
+      }
       f.input :code
     end
     f.translated_inputs switch_locale: true do |t|

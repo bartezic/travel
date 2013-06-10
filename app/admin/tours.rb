@@ -31,7 +31,7 @@ ActiveAdmin.register Tour do
     end
     
     n_tour.save
-    redirect_to :back, {:notice => "Cloned!"}
+    redirect_to :back, {:notice => I18n.t('active_admin.cloned') }
   end
 
   member_action :share, :method => :put do
@@ -60,12 +60,12 @@ ActiveAdmin.register Tour do
       :name => name.join(' - ')
     )
     
-    redirect_to :back, {:notice => "Shared!"}
+    redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
   action_item :only => :show do
-    span { link_to "Share", {:action => 'share', :id => tour }, :method => :put }
-    span { link_to "Clone", {:action => 'clone', :id => tour }, :method => :put }
+    span { link_to I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put }
+    span { link_to I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put }
   end
 
   index do
@@ -78,6 +78,9 @@ ActiveAdmin.register Tour do
     column :price do |tour|
       "#{tour.currency && tour.currency.code} #{tour.price_from}+"
     end
+    column :days do |tour|
+      tour.days.count
+    end
     column :active do |tour|
       status_tag(tour.active.to_s)
     end
@@ -85,8 +88,8 @@ ActiveAdmin.register Tour do
       raw tour.seo_meta
     end
     actions do |tour|
-      link_to("Clone", {:action => 'clone', :id => tour }, :method => :put) +
-      link_to("Share", {:action => 'share', :id => tour }, :method => :put)
+      link_to(I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put) +
+      link_to(I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put)
     end
   end
 
@@ -98,7 +101,10 @@ ActiveAdmin.register Tour do
       f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from
-      f.input :price_type, as: :radio, :collection => [['Room', 'room'],['Person', 'person']]
+      f.input :price_type, as: :radio, :collection => [
+        [I18n.t('active_admin.room'), 'room'],
+        [I18n.t('active_admin.person'), 'person']
+      ]
       # f.input :price_to
       f.input :active
       f.input :days, member_label: :day_of_life

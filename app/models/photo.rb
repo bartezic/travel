@@ -18,7 +18,7 @@ class Photo < ActiveRecord::Base
       :thumb_250x => '250x',
       :big_1170x => '1170x1000>' 
     },
-    :default_url => "/images/ph/:attachment_:style.png", 
+    :default_url => "/assets/ph/:attachment_:style.gif", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"
 
@@ -37,7 +37,7 @@ class Photo < ActiveRecord::Base
   end
 
   def change_file_name
-    extension = File.extname(asset_file_name || asset_remote_url).gsub(/^\.+/, '')
+    extension = File.extname(asset_remote_url.present? ? asset_remote_url : asset_file_name).gsub(/^\.+/, '')
     name = title.to_slug.normalize(transliterations: :ukrainian).to_s
     asset.instance_write(:file_name, "#{name}.#{extension}")
   end

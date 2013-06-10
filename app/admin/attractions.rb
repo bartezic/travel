@@ -9,7 +9,9 @@ ActiveAdmin.register Attraction do
     end
     column :region
     column :gallery
-    translation_status
+    column :seo do |a|
+      raw a.seo_meta
+    end
     default_actions
   end
 

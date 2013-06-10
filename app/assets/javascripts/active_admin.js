@@ -32,11 +32,13 @@ $(function() {
     return "<img class='select-photo-thumb' src='" + $(option).data('thumb') + "'/>" + state.text;
   }
 
-  $('#tour_photo_id').select2({
+  $('#tour_photo_id, #country_photo_id').select2({
     formatResult: format,
     formatSelection: format,
     escapeMarkup: function(m) { return m; }
   });
 
-  $('.select2-container').width($('.select2-container').outerWidth()+100);
+  //$('#country_continent_ids').select2();
+
+  $('.select2-container').width($('.select2-container').outerWidth()+50);
 });

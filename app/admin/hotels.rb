@@ -4,11 +4,16 @@ ActiveAdmin.register Hotel do
     selectable_column
     id_column
     column :name
+    column :photo do |a|
+      div { image_tag(a.gallery.photos.first.asset(:thumb_150x)) if a.gallery && a.gallery.photos.any? }
+    end
     column :star
     column :site
     column :region
     column :gallery
-    translation_status
+    column :seo do |a|
+      raw a.seo_meta
+    end
     default_actions
   end
 

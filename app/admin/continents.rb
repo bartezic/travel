@@ -5,7 +5,9 @@ ActiveAdmin.register Continent do
     id_column
     column :name
     column :slug
-    translation_status
+    column :seo do |a|
+      raw a.seo_meta
+    end
     default_actions
   end
 

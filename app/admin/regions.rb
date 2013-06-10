@@ -5,7 +5,7 @@ ActiveAdmin.register Region do
     id_column
     column :name
     column :photo do |region|
-      div { image_tag region.gallery.photos.first.asset(:thumb_150x) }
+      div { image_tag(region.gallery.photos.first.asset(:thumb_150x)) if region.gallery && region.gallery.photos.any? }
     end
     column :country
     column :tours_to do |region|
@@ -13,6 +13,9 @@ ActiveAdmin.register Region do
     end
     column :tours_from do |region|
       region.tours.count
+    end
+    column :seo do |a|
+      raw a.seo_meta
     end
     default_actions
   end
