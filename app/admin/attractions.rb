@@ -5,7 +5,7 @@ ActiveAdmin.register Attraction do
     id_column
     column :name
     column :photo do |a|
-      div { image_tag a.gallery.photos.first.asset(:thumb_150x) }
+      div { image_tag(a.gallery.photos.first.asset(:thumb_150x)) if a.gallery && a.gallery.photos.any? }
     end
     column :region
     column :gallery
