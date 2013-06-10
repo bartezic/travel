@@ -1,4 +1,7 @@
 //= require active_admin/base
+//= require select2/select2.min.js
+//= require select2/select2_locale_ua.js
+
 
 
 $(function() {
@@ -18,7 +21,22 @@ $(function() {
     $('#photoAsset').attr("src", $(this).val()).width(150);
     photoFile.replaceWith( photoFile = photoFile.val('').clone( true ) )
   });
+
   // $('#photoAsset').error(function() {
   //   $('#photo_asset_remote_url').val("");
   // });
+
+  function format(state) {
+    var option = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<img class='select-photo-thumb' src='" + $(option).data('thumb') + "'/>" + state.text;
+  }
+
+  $('#tour_photo_id').select2({
+    formatResult: format,
+    formatSelection: format,
+    escapeMarkup: function(m) { return m; }
+  });
+
+  $('.select2-container').width($('.select2-container').outerWidth()+100);
 });

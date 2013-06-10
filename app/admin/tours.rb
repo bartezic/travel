@@ -92,7 +92,9 @@ ActiveAdmin.register Tour do
 
   form do |f|
     f.inputs do
-      f.input :photo
+      f.input :photo, as: :select, collection: Photo.all.sort_by(&:title).map{ |photo|
+        [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
+      }
       f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from

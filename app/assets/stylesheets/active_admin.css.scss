@@ -11,6 +11,7 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 @import "active_admin/editor/wysiwyg";
+@import "select2";
 
 body.active_admin {
   #header {
@@ -44,7 +45,17 @@ body.active_admin {
       max-width: 170px;
     }
   }
-
+  img.select-photo-thumb {
+    width: 40px;
+    margin-right: 5px
+  }
+  .select2-container {
+    img.select-photo-thumb {
+      height: 20px;
+      width: auto;
+      margin-bottom: -6px;
+    }
+  }
 }
 
 // Overriding any non-variable SASS must be done after the fact.
