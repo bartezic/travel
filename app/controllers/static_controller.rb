@@ -5,7 +5,7 @@ class StaticController < ApplicationController
 
     @regions = popular_regions
     @countries = popular_countries
-    @tours = Tour.search(params).limit(5)
+    @tours = Tour.search(params).limit(8)
     @hot_tours = Tour.search(params.merge({ tour_type: TourType.where(code: :hot).map(&:id) }))
     respond_to do |format|
       format.html # index.html.erb
@@ -48,6 +48,6 @@ class StaticController < ApplicationController
     Country.includes(:regions, :regions => :tour_programs).inject({}){|mem, country|
       mem[country] = country.regions.map{ |region| region.tour_programs.map(&:tour_id) }.flatten.uniq.size
       mem
-    }.sort_by(&:last).map(&:first).uniq.last(3).reverse
+    }.sort_by(&:last).map(&:first).uniq.last(5).reverse
   end
 end

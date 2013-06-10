@@ -84,10 +84,9 @@ ActiveAdmin.register Tour do
     column :seo do |tour|
       raw tour.seo_meta
     end
-    default_actions
-    column :custom do |tour|
-      span { link_to("Clone", {:action => 'clone', :id => tour }, :method => :put) }
-      span { link_to("Share", {:action => 'share', :id => tour }, :method => :put) }
+    actions do |tour|
+      link_to("Clone", {:action => 'clone', :id => tour }, :method => :put) +
+      link_to("Share", {:action => 'share', :id => tour }, :method => :put)
     end
   end
 

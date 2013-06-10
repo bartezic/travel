@@ -4,6 +4,9 @@ ActiveAdmin.register Region do
     selectable_column
     id_column
     column :name
+    column :photo do |region|
+      div { image_tag region.gallery.photos.first.asset(:thumb_150x) }
+    end
     column :country
     column :tours_to do |region|
       region.tour_programs.group_by(&:tour_id).count
@@ -11,7 +14,6 @@ ActiveAdmin.register Region do
     column :tours_from do |region|
       region.tours.count
     end
-    translation_status
     default_actions
   end
 

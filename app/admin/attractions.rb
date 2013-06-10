@@ -4,6 +4,9 @@ ActiveAdmin.register Attraction do
     selectable_column
     id_column
     column :name
+    column :photo do |a|
+      div { image_tag a.gallery.photos.first.asset(:thumb_150x) }
+    end
     column :region
     column :gallery
     translation_status

@@ -14,12 +14,14 @@ ActiveAdmin.register Country do
     selectable_column
     id_column
     column :name
+    column :photo do |a|
+      div { image_tag a.photo.asset(:thumb_150x) }
+    end
     column :slug
     column :code
     column :continents do |a|
       a.continents.map(&:name).join(', ')
     end 
-    translation_status
     default_actions
   end
 
