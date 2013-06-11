@@ -1,9 +1,11 @@
 ru:
   active_admin:
     clone: Сделать копию
-    cloned: Копию успешно сделано!
+    cloned: Копию успешно сделано
     share: В Фейсбук
-    shared: Уже в Фейсбуке!
+    twitt: В Твіттер
+    shared: Уже в Фейсбуке
+    twited: Уже в Твіттере
     room: За номер
     person: За человека
     menu:

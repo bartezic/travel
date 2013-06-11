@@ -21,6 +21,7 @@ gem 'sitemap_generator'
 gem 'kaminari'
 gem 'fb_graph'
 gem 'bitly'
+gem 'twitter'
 
 # Gems used only for assets and not required
 # in production environments by default.

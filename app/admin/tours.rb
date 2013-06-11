@@ -63,9 +63,81 @@ ActiveAdmin.register Tour do
     redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
+  member_action :twitt, :method => :put do
+    currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+    tour = Tour.find(params[:id])
+    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+    url = bitly.shorten(tour_url(tour), :history => 1).short_url
+
+    temp = [tour.title.size > 40 ? tour.title.truncate(40) : "#{tour.title}."]
+
+    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+      temp.push(regions.size == 1 ? "#{regions.first.name}/#{regions.first.country.name}" : regions.map {|region| "#{region.name}/#{region.country.name}" }.join('-'))
+    end
+
+    massage = "#{temp.join(' ')[0..95]}. Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+
+    Twitter.update("#{massage}: #{url}")
+
+    redirect_to :back, {:notice => I18n.t('active_admin.twited') }
+  end
+
+  batch_action :to_facebook do |selection|
+    Tour.find(selection).each do |tour|
+      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+      name = [tour.title]
+
+      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
+      end
+
+      massage = [ tour.title,
+                  "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
+                  "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
+
+      pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
+      pages.feed!(
+        :message => massage.join('
+          '),
+        :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
+        :description => tour.seo_meta,
+        :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
+        :name => name.join(' - ')
+      )
+    end
+    redirect_to :back, {:notice => I18n.t('active_admin.twited') }
+  end
+
+  batch_action :to_twitter do |selection|
+    Tour.find(selection).each do |tour|
+      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+      url = bitly.shorten(tour_url(tour), :history => 1).short_url
+
+      temp = [tour.title.size > 40 ? tour.title.truncate(40) : "#{tour.title}."]
+
+      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        temp.push(regions.size == 1 ? "#{regions.first.name}/#{regions.first.country.name}" : regions.map {|region| "#{region.name}/#{region.country.name}" }.join('-'))
+      end
+
+      massage = "#{temp.join(' ')[0..95]}. Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+
+      Twitter.update("#{massage}: #{url}")
+    end
+    redirect_to :back, {:notice => I18n.t('active_admin.twited') }
+  end
+
   action_item :only => :show do
     span { link_to I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put }
     span { link_to I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put }
+    span { link_to I18n.t('active_admin.twitt'), {:action => 'twitt', :id => tour }, :method => :put }
   end
 
   index do
@@ -89,7 +161,8 @@ ActiveAdmin.register Tour do
     end
     actions do |tour|
       link_to(I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put) +
-      link_to(I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put)
+      link_to(I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put) +
+      link_to(I18n.t('active_admin.twitt'), {:action => 'twitt', :id => tour }, :method => :put)
     end
   end
 
