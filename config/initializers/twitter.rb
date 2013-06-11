@@ -4,3 +4,11 @@ Twitter.configure do |config|
   config.oauth_token = '1372723676-ivrDZq0qxu0qtvxnuUn1WA2Hq7j4eNAA4ANcCm4'
   config.oauth_token_secret = 'sEfXFCimlYEFHfSY21HmeGB2ANfUWSIqJyTVAZkM'
 end
+
+Typhoeus.configure do |config|
+  # Disable memoization of :get requests
+  config.memoize = false
+end
+
+Faraday.load_autoloaded_constants
+Faraday.default_adapter = :typhoeus

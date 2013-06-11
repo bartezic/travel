@@ -1,3 +1,7 @@
+require 'faraday'
+require 'typhoeus'
+require 'typhoeus/adapters/faraday'
+
 ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }
   
@@ -69,6 +73,7 @@ ActiveAdmin.register Tour do
     bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
     url = bitly.shorten(tour_url(tour), :history => 1).short_url
+    img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
 
     temp = [tour.title.size > 40 ? tour.title.truncate(40) : "#{tour.title}."]
 
@@ -79,7 +84,12 @@ ActiveAdmin.register Tour do
 
     massage = "#{temp.join(' ')[0..95]}. Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
 
-    Twitter.update("#{massage}: #{url}")
+    begin
+      Twitter.update_with_media("#{massage}: #{url}", img)
+    rescue
+      Twitter.update("#{massage}: #{url}")
+    end
+    
 
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
