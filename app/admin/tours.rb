@@ -68,26 +68,42 @@ ActiveAdmin.register Tour do
   end
 
   member_action :twitt, :method => :put do
-    currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-    tour = Tour.find(params[:id])
-    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
-    url = bitly.shorten(tour_url(tour), :history => 1).short_url
-    img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
+      url = bitly.shorten(tour_url(tour), :history => 1).short_url
+      title = tour.title
+      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      subtitle = ''
 
-    temp = [tour.title.size > 40 ? tour.title.truncate(40) : "#{tour.title}."]
+      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
+      end
 
-    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-      temp.push(regions.size == 1 ? "#{regions.first.name}/#{regions.first.country.name}" : regions.map {|region| "#{region.name}/#{region.country.name}" }.join('-'))
-    end
-
-    massage = "#{temp.join(' ')[0..95]}. Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      ts_size = 140-(descr.size+url.size+6)
+      if (title.size + subtitle.size) <= ts_size
+        ts = "#{title} #{subtitle}"
+      elsif title.size < subtitle.size
+        if title.size < ts_size/3
+          ts = "#{title} #{subtitle.truncate(ts_size-title.size)}"
+        else
+          temp = title.truncate(ts_size/3)
+          ts = "#{temp} #{subtitle.truncate(ts_size-temp.size)}"
+        end
+      else
+        if subtitle.size < ts_size/3
+          ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
+        else
+          temp = subtitle.truncate(ts_size/3, :separator => '..')
+          ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
+        end
+      end
 
     begin
-      Twitter.update_with_media("#{massage}: #{url}", img)
+      Twitter.update_with_media("#{ts}. #{descr}: #{url}", img)
     rescue
-      Twitter.update("#{massage}: #{url}")
+      Twitter.update("#{ts}. #{descr}: #{url}")
     end
     
 
@@ -120,7 +136,7 @@ ActiveAdmin.register Tour do
         :name => name.join(' - ')
       )
     end
-    redirect_to :back, {:notice => I18n.t('active_admin.twited') }
+    redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
   batch_action :to_twitter do |selection|
@@ -129,17 +145,35 @@ ActiveAdmin.register Tour do
       bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
       url = bitly.shorten(tour_url(tour), :history => 1).short_url
-
-      temp = [tour.title.size > 40 ? tour.title.truncate(40) : "#{tour.title}."]
+      title = tour.title
+      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      subtitle = ''
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
         regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        temp.push(regions.size == 1 ? "#{regions.first.name}/#{regions.first.country.name}" : regions.map {|region| "#{region.name}/#{region.country.name}" }.join('-'))
+        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
       end
 
-      massage = "#{temp.join(' ')[0..95]}. Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      ts_size = 140-(descr.size+url.size+6)
+      if (title.size + subtitle.size) <= ts_size
+        ts = "#{title} #{subtitle}"
+      elsif title.size < subtitle.size
+        if title.size < ts_size/3
+          ts = "#{title} #{subtitle.truncate(ts_size-title.size)}"
+        else
+          temp = title.truncate(ts_size/3)
+          ts = "#{temp} #{subtitle.truncate(ts_size-temp.size)}"
+        end
+      else
+        if subtitle.size < ts_size/3
+          ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
+        else
+          temp = subtitle.truncate(ts_size/3, :separator => '..')
+          ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
+        end
+      end
 
-      Twitter.update("#{massage}: #{url}")
+      Twitter.update("#{ts}. #{descr}: #{url}")
     end
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
