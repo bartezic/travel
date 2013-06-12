@@ -68,44 +68,44 @@ ActiveAdmin.register Tour do
   end
 
   member_action :twitt, :method => :put do
-      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+    tour = Tour.find(params[:id])
+    currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
-      url = bitly.shorten(tour_url(tour), :history => 1).short_url
-      title = tour.title
-      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
-      subtitle = ''
+    url = bitly.shorten(tour_url(tour), :history => 1).short_url
+    title = tour.title
+    descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+    subtitle = ''
 
-      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
-      end
+    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+      subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
+    end
 
-      ts_size = 140-(descr.size+url.size+6)
-      if (title.size + subtitle.size) <= ts_size
-        ts = "#{title} #{subtitle}"
-      elsif title.size < subtitle.size
-        if title.size < ts_size/3
-          ts = "#{title} #{subtitle.truncate(ts_size-title.size)}"
-        else
-          temp = title.truncate(ts_size/3)
-          ts = "#{temp} #{subtitle.truncate(ts_size-temp.size)}"
-        end
+    ts_size = 140-(descr.size+url.size+6)
+    if (title.size + subtitle.size) <= ts_size
+      ts = "#{title}. #{subtitle}"
+    elsif title.size < subtitle.size
+      if title.size < ts_size/3
+        ts = "#{title}. #{subtitle.truncate(ts_size-title.size, :separator => '..')}"
       else
-        if subtitle.size < ts_size/3
-          ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
-        else
-          temp = subtitle.truncate(ts_size/3, :separator => '..')
-          ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
-        end
+        temp = title.truncate(ts_size/3, :separator => '..')
+        ts = "#{temp}. #{subtitle.truncate(ts_size-temp.size, :separator => '..')}"
       end
+    else
+      if subtitle.size < ts_size/3
+        ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
+      else
+        temp = subtitle.truncate(ts_size/3, :separator => '..')
+        ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
+      end
+    end
 
     begin
       Twitter.update_with_media("#{ts}. #{descr}: #{url}", img)
     rescue
       Twitter.update("#{ts}. #{descr}: #{url}")
     end
-    
 
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
@@ -156,13 +156,13 @@ ActiveAdmin.register Tour do
 
       ts_size = 140-(descr.size+url.size+6)
       if (title.size + subtitle.size) <= ts_size
-        ts = "#{title} #{subtitle}"
+        ts = "#{title}. #{subtitle}"
       elsif title.size < subtitle.size
         if title.size < ts_size/3
-          ts = "#{title} #{subtitle.truncate(ts_size-title.size)}"
+          ts = "#{title}. #{subtitle.truncate(ts_size-title.size, :separator => '..')}"
         else
-          temp = title.truncate(ts_size/3)
-          ts = "#{temp} #{subtitle.truncate(ts_size-temp.size)}"
+          temp = title.truncate(ts_size/3, :separator => '..')
+          ts = "#{temp}. #{subtitle.truncate(ts_size-temp.size, :separator => '..')}"
         end
       else
         if subtitle.size < ts_size/3
