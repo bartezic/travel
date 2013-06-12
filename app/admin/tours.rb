@@ -83,7 +83,7 @@ ActiveAdmin.register Tour do
       subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
     end
 
-    ts_size = 140-(descr.size+url.size+7)
+    ts_size = 140-(descr.size+url.size+8)
     if (title.size + subtitle.size) <= ts_size
       ts = "#{title}. #{subtitle}"
     elsif title.size < subtitle.size
