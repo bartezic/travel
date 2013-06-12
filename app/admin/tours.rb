@@ -72,6 +72,7 @@ ActiveAdmin.register Tour do
     currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
     bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
+    img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
     url = bitly.shorten(tour_url(tour), :history => 1).short_url
     title = tour.title
     descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
@@ -82,7 +83,7 @@ ActiveAdmin.register Tour do
       subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
     end
 
-    ts_size = 140-(descr.size+url.size+6)
+    ts_size = 140-(descr.size+url.size+7)
     if (title.size + subtitle.size) <= ts_size
       ts = "#{title}. #{subtitle}"
     elsif title.size < subtitle.size
