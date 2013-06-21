@@ -31,6 +31,7 @@ uk:
       transports: Транспорт
       visa_types: Типи віз
       visas: Візи
+      keywords: Теги
     dashboard: "Панель керування"
     dashboard_welcome:
       welcome: "Ласкаво просимо в Active Admin. Це стандартна сторінка керування сайтом."

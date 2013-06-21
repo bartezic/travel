@@ -34,6 +34,14 @@ ActiveAdmin.register Hotel do
       t.input :policies, as: :html_editor
       t.input :seo_meta
     end
+    f.inputs "Keywords" do
+      f.input :keywords
+      f.has_many :keywords do |keyword|
+        keyword.translated_inputs switch_locale: true do |t|
+          t.input :title
+        end
+      end
+    end
     f.buttons
   end
 end

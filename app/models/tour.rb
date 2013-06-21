@@ -1,4 +1,5 @@
 class Tour < ActiveRecord::Base
+  extend FriendlyId
 
   PRICE_TYPES = [PERSON = 'person', ROOM = 'room']
 
@@ -7,30 +8,24 @@ class Tour < ActiveRecord::Base
   belongs_to :photo
   belongs_to :gallery
   has_many :tour_programs
-  has_and_belongs_to_many :days, :join_table => :tours_days
-  has_and_belongs_to_many :durations, :join_table => :tours_durations
-  has_and_belongs_to_many :food_types, :join_table => :tours_food_types
-  has_and_belongs_to_many :tour_types, :join_table => :tours_tour_types
-  has_and_belongs_to_many :transports, :join_table => :tours_transports
-  has_and_belongs_to_many :regions, :join_table => :tours_regions
-
-  translates  :title, :description, :transport_description, :price_list, :price_included, :price_excluded, 
-              :note, :excursions, :seo_meta
+  has_and_belongs_to_many :days,        :join_table => :tours_days
+  has_and_belongs_to_many :durations,   :join_table => :tours_durations
+  has_and_belongs_to_many :food_types,  :join_table => :tours_food_types
+  has_and_belongs_to_many :tour_types,  :join_table => :tours_tour_types
+  has_and_belongs_to_many :transports,  :join_table => :tours_transports
+  has_and_belongs_to_many :regions,     :join_table => :tours_regions
+  has_and_belongs_to_many :keywords,    :join_table => :tours_keywords
+  
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
-                  :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type
-
-  active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
-    validates_presence_of :title
-  end
-
-  validates :price_type, inclusion: {in: PRICE_TYPES}
-
-  extend FriendlyId
-  friendly_id :title, use: :slugged
-
+                  :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :keyword_ids, 
+                  :keywords_attributes
+  
   accepts_nested_attributes_for :tour_programs
+  accepts_nested_attributes_for :keywords
+  
+  validates :price_type, inclusion: {in: PRICE_TYPES}
 
   scope :active,          where(:active => true)
   scope :with_days,       joins(:days)
@@ -45,6 +40,14 @@ class Tour < ActiveRecord::Base
   }
   scope :with_ids,        lambda { |ids| where('tours.id IN (?)', ids) }
   scope :with_query,      lambda { |query| where("tours.title ilike ? or tours.description ilike ?", "%#{query}%", "%#{query}%") unless query.blank? }
+
+  friendly_id :title, use: :slugged
+
+  translates  :title, :description, :transport_description, :price_list, :price_included, :price_excluded, 
+              :note, :excursions, :seo_meta
+  active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
+    validates_presence_of :title
+  end
 
   def self.search(params, ids = [])
     includes({:tour_programs => :regions}).
