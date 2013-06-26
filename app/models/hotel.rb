@@ -3,13 +3,14 @@ class Hotel < ActiveRecord::Base
 
   belongs_to :gallery
   belongs_to :region
-  has_and_belongs_to_many :keywords, :join_table => :hotels_keywords
+  has_many :tags, :through => :taggings
+  has_many :taggings, :as => :taggable
 
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, :policies, 
-                  :amenities, :star, :address, :phone, :email, :site, :keyword_ids, 
-                  :keywords_attributes
+                  :amenities, :star, :address, :phone, :email, :site, :tag_ids, 
+                  :tags_attributes
 
-  accepts_nested_attributes_for :keywords
+  accepts_nested_attributes_for :tags
 
   friendly_id :name, use: :slugged
 

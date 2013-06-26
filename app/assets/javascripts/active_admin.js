@@ -38,9 +38,9 @@ $(function() {
     escapeMarkup: function(m) { return m; }
   });
 
-  $("#tour_keyword_ids, #continent_keyword_ids, #country_keyword_ids, #region_keyword_ids, #hotel_keyword_ids, #attraction_keyword_ids").select2();
+  $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();
 
-  $('.has_many.keywords li.input').remove();
+  $('.has_many.tags li.input').remove();
 
   //$('#country_continent_ids').select2();
   var select2Width = $('.select2-container').outerWidth()+50;

@@ -28,7 +28,7 @@ ru:
       transports: Транспорт
       visa_types: Типы виз
       visas: Визы
-      keywords: Теги
+      tags: Теги
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."

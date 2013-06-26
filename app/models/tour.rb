@@ -14,16 +14,17 @@ class Tour < ActiveRecord::Base
   has_and_belongs_to_many :tour_types,  :join_table => :tours_tour_types
   has_and_belongs_to_many :transports,  :join_table => :tours_transports
   has_and_belongs_to_many :regions,     :join_table => :tours_regions
-  has_and_belongs_to_many :keywords,    :join_table => :tours_keywords
+  has_many :tags, :through => :taggings
+  has_many :taggings, :as => :taggable
   
   attr_accessible :day_ids, :tour_type_ids, :food_type_ids, :duration_ids, :transport_ids, :region_ids, 
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
-                  :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :keyword_ids, 
-                  :keywords_attributes
+                  :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :tag_ids, 
+                  :tags_attributes
   
   accepts_nested_attributes_for :tour_programs
-  accepts_nested_attributes_for :keywords
+  accepts_nested_attributes_for :tags
   
   validates :price_type, inclusion: {in: PRICE_TYPES}
 

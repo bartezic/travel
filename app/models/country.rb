@@ -7,13 +7,14 @@ class Country < ActiveRecord::Base
   has_many :regions
   has_one :visa
   has_and_belongs_to_many :continents,  :join_table => :continents_countries
-  has_and_belongs_to_many :keywords,    :join_table => :countries_keywords
+  has_many :tags, :through => :taggings
+  has_many :taggings, :as => :taggable
   
   attr_accessible :id, :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, 
-                  :recomendation, :climate, :culture, :infrastructure, :code, :keyword_ids, 
-                  :keywords_attributes
+                  :recomendation, :climate, :culture, :infrastructure, :code, :tag_ids, 
+                  :tags_attributes
 
-  accepts_nested_attributes_for :keywords
+  accepts_nested_attributes_for :tags
   
   friendly_id :name, use: :slugged
 

@@ -254,10 +254,10 @@ ActiveAdmin.register Tour do
       t.input :transport_description, as: :html_editor
       t.input :seo_meta
     end
-    f.inputs "Keywords" do
-      f.input :keywords
-      f.has_many :keywords do |keyword|
-        keyword.translated_inputs switch_locale: true do |t|
+    f.inputs 'Tags' do
+      f.input :tags
+      f.has_many :tags do |k|
+        k.translated_inputs switch_locale: true do |t|
           t.input :title
         end
       end

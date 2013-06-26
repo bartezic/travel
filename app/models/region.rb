@@ -9,12 +9,13 @@ class Region < ActiveRecord::Base
   has_many :hotels
   has_and_belongs_to_many :tours,         :join_table => :tours_regions
   has_and_belongs_to_many :tour_programs, :join_table => :tour_programs_regions
-  has_and_belongs_to_many :keywords,      :join_table => :regions_keywords
+  has_many :tags, :through => :taggings
+  has_many :taggings, :as => :taggable
 
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, 
-                  :infrastructure, :keyword_ids, :keywords_attributes
+                  :infrastructure, :tag_ids, :tags_attributes
 
-  accepts_nested_attributes_for :keywords
+  accepts_nested_attributes_for :tags
   
   friendly_id :name, use: :slugged
 

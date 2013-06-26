@@ -3,12 +3,13 @@ class Attraction < ActiveRecord::Base
 
   belongs_to :gallery
   belongs_to :region
-  has_and_belongs_to_many :keywords, :join_table => :attractions_keywords
+  has_many :tags, :through => :taggings
+  has_many :taggings, :as => :taggable
   
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, 
-                  :keyword_ids, :keywords_attributes
+                  :tag_ids, :tags_attributes
 
-  accepts_nested_attributes_for :keywords
+  accepts_nested_attributes_for :tags
   
   friendly_id :name, use: :slugged
   
