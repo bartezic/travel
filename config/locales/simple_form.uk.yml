@@ -5,22 +5,31 @@ uk:
     required:
       text: "обов'язкове"
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Будь ласка, ознайомтеся з проблемами нижче:"
-    # Labels and hints examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-
+    labels:
+      request_action:
+        name: Ім'я
+        email: Email
+        phone: Телефон
+        countries: Країна(-и)
+        response_type: Тип відповіді
+        subscribe: Чи бажаєте ви отримувати розсилки гарячих пропозицій на електронну пошту
+        node: Додаткові побажання
+        budget: Бюджет (на особу)
+        duration: Тривалість (ночей)
+        departure_date: Бажана дата виїзду
+        persons: Кількість осіб
+        adults: Дорослих
+        childrens: Дітей
+        currency: Валюта
+        transports: Транспорт
+        tour_types: Тип туру
+    hints:
+      request_action:
+        response_type: Як бажаєте отримати відповідь
+    placeholders:
+      request_action:
+        adults: Дорослих
+        childrens: Дітей
+        budget: Сума

@@ -138,6 +138,27 @@ body {
     }
   }
 }*/
+.text-orange {
+  color: #e36300
+}
+
+.modal form {
+  margin: 0;
+  &.form-horizontal {
+    .controls {
+      margin-left: 220px;
+    }
+    .control-label {
+      float: left;
+      width: 200px;
+      padding-top: 5px;
+      text-align: right;
+    }
+    select#request_action_currency_id {
+      width: 112px;
+    }
+  }
+}
 
 .tour_program {
   .regions-links {
@@ -262,3 +283,4 @@ ul.grid {
     width: 100%;
   } 
 }
+

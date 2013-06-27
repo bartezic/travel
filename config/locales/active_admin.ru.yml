@@ -29,6 +29,7 @@ ru:
       visa_types: Типы виз
       visas: Визы
       tags: Теги
+      request_action: Рег. на акции
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."

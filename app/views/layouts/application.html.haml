@@ -12,6 +12,10 @@
     %link(href="/favicon.ico" rel="shortcut icon")
     %link{ rel: :image_src, href: request.protocol + request.host_with_port + (content_for?(:image_src) ? yield(:image_src) : '/assets/logo.png') }
     %script{:charset => "windows-1251", :src => "http://vk.com/js/api/share.js?85", :type => "text/javascript"}
+    :javascript
+      window.app = {
+        locale: '#{locale}'
+      }; 
 
   %body
     #wrap
@@ -26,8 +30,8 @@
         %p.pull-left.muted
           &copy; 2010-2013. Монграссе. 
         %p.pull-right.muted
-          Розробка та підтримка
-          %a.muted{ href: '#' } Олексин Віктор
+          Розробка:
+          %a.muted{ href: 'http://ua.linkedin.com/in/bartezic/en' } Олексин Віктор
           :javascript
             (function(w,n,d,r,s){d.write('<div><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
             ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+

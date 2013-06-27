@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621204549) do
+ActiveRecord::Schema.define(:version => 20130626205237) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -297,6 +297,34 @@ ActiveRecord::Schema.define(:version => 20130621204549) do
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
+
+  create_table "request_actions", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "countries"
+    t.string   "response_type"
+    t.integer  "budget"
+    t.integer  "duration"
+    t.integer  "adults"
+    t.integer  "childrens"
+    t.integer  "currency_id"
+    t.date     "departure_date"
+    t.boolean  "subscribe"
+    t.text     "node"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "request_actions_tour_types", :force => true do |t|
+    t.integer "request_action_id"
+    t.integer "tour_type_id"
+  end
+
+  create_table "request_actions_transports", :force => true do |t|
+    t.integer "request_action_id"
+    t.integer "transport_id"
+  end
 
   create_table "tag_translations", :force => true do |t|
     t.integer  "tag_id"

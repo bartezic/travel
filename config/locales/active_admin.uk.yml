@@ -32,6 +32,7 @@ uk:
       visa_types: Типи віз
       visas: Візи
       tags: Теги
+      request_action: Реє. на акції
     dashboard: "Панель керування"
     dashboard_welcome:
       welcome: "Ласкаво просимо в Active Admin. Це стандартна сторінка керування сайтом."

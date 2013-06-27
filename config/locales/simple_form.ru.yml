@@ -5,22 +5,31 @@ ru:
     required:
       text: 'обязательное'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Пожалуйста, ознакомьтесь с проблемами ниже:"
-    # Labels and hints examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
-
+    labels:
+      request_action:
+        name: Имя
+        email: Email
+        phone: Телефон
+        countries: Страна(-ы)
+        response_type: Тип ответы
+        subscribe: Желаете ли вы получать рассылки горячих предложений на электронную почту
+        node: Дополнительные пожелания
+        budget: Бюджет (на человека)
+        duration: Длительность (ночей)
+        departure_date: Желаемая дата выезда
+        persons: Количество человек
+        adults: Взрослых
+        childrens: Детей
+        currency: Валюта
+        transports: Транспорт
+        tour_types: Тип тура
+    hints:
+      request_action:
+        response_type: Как хотите получить ответ
+    placeholders:
+      request_action:
+        adults: Взрослых
+        childrens: Детей
+        budget: Сумма

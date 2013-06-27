@@ -1,4 +1,7 @@
 Travel::Application.routes.draw do
+  
+
+  resources :request_actions, :only => [:create]
   resources :tours, :only => [:index, :show]
   # resources :hotels, :only => [:index, :show]
   resources :continents, :only => [:index, :show]
@@ -10,8 +13,6 @@ Travel::Application.routes.draw do
       resources :hotels, :only => [:show]
     end
   end
-
-  
 
   match 'contacts' => 'static#contacts'
   match 'visas' => 'static#visas'
