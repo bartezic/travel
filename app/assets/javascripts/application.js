@@ -43,6 +43,14 @@ $(function() {
     searchAndFilter();
   });
 
+  function searchAndFilter () {
+    var query = '?' + $('form.filters').serialize();
+    if ($('.search-query').val().length > 0 ){
+      query += '&query=' + $('.search-query').val();
+    }
+    window.location.search = query;
+  };
+
   $('.datepicker').datepicker({
     format: 'dd-mm-yyyy',
     startDate: new Date(),
@@ -84,14 +92,6 @@ $(function() {
       alert(window.app.l.v_email_or_phone)
     }
   });
-
-  function searchAndFilter () {
-    var query = '?' + $('form.filters').serialize();
-    if ($('.search-query').val().length > 0 ){
-      query += '&query=' + $('.search-query').val();
-    }
-    window.location.search = query;
-  }
 });
 
 $('ul.grid li a img').imagesLoaded(function() {

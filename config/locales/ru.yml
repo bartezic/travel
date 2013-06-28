@@ -2,6 +2,7 @@ ru:
   gen: 
     from: От
     to: до
+    dev: 'Разработка:'
   menu:
     continents: Континенты
     countries_of_world: Cтраны мира

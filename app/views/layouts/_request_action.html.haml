@@ -1,0 +1,49 @@
+#myModal.modal.hide.fade{"aria-hidden" => :true, :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => true, "data-dismiss" => :modal, type: :button} ×
+    %h3.text-orange= t 'request_action.title'
+  .modal-body
+    %h4.text-orange= t 'request_action.msg_1'
+    %p.text-orange= t 'request_action.msg_2'
+    = simple_form_for(RequestAction.new, html: { class: 'form-horizontal' }, :remote => true) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :name, required: true
+        = f.input :email
+        = f.input :phone
+        = f.input :countries
+        = f.association :tour_types, as: :check_boxes
+        = f.association :transports, as: :check_boxes
+        = f.input :persons do
+          = f.input_field :adults, type: :number, class: :'input-small'
+          = f.input_field :childrens, type: :number, class: :'input-small'
+        = f.input :budget do
+          = f.input_field :budget, type: :number, class: :'input-small'
+          = f.input_field :currency_id, collection: Currency.all, as: :select, label_method: :code, prompt: 'Валюта'
+        = f.input :departure_date do
+          = f.input_field :departure_date, as: :string, type: :hidden
+          .datepicker
+        = f.input :duration
+        = f.input :node, input_html: {rows: 4}
+      %p.muted= "* #{t('request_action.msg_3')}"
+      %p.muted= t 'request_action.msg_4'
+      %p.muted= t 'request_action.msg_5'
+      %p.muted= t 'request_action.msg_6'
+      %h4.text-orange= t 'request_action.msg_7'
+  .modal-footer
+    %button.btn.btn-primary.request-action-submit= t 'buttons.request_action'
+    %button.btn.btn-danger{"aria-hidden" => true, "data-dismiss" => :modal}= t 'buttons.close'
+
+#myModal2.modal.hide.fade{"aria-hidden" => :true, :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => true, "data-dismiss" => :modal, type: :button} ×
+    %h3.text-orange= t 'request_action.title'
+  .modal-body
+    .request-action-success.hidden
+      %h4.text-orange.text-center= t 'request_action.msg_8'
+      %h4.text-orange.text-center= t 'request_action.msg_9'
+      %h4.text-orange.text-center= t 'request_action.msg_7'
+    .request-action-failure.hidden
+      %h4.text-center= t 'errors.opps_500'
+  .modal-footer
+    %button.btn.btn-danger{"aria-hidden" => true, "data-dismiss" => :modal}= t 'buttons.close'
