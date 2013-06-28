@@ -33,6 +33,7 @@ window.adminApp.trasl = {
     var _ = this;
 
     $.ajax({
+      type: 'POST',
       url: _.configs.url,
       data: { 
         key: _.configs.apiKey,
@@ -63,7 +64,7 @@ window.adminApp.trasl = {
 
     if($('#'+_.traslPackage.toId).val().length === 0){
       _.transleting();
-    }
+    };
   },
 
   bindEditorEvents: function() {
