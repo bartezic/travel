@@ -21,7 +21,7 @@ class Tour < ActiveRecord::Base
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
                   :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :tag_ids, 
-                  :tags_attributes
+                  :tags_attributes, :all_tags
   
   accepts_nested_attributes_for :tour_programs
   accepts_nested_attributes_for :tags
@@ -48,6 +48,10 @@ class Tour < ActiveRecord::Base
               :note, :excursions, :seo_meta
   active_admin_translates :title, :description, :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, :seo_meta do
     validates_presence_of :title
+  end
+
+  def all_tags
+    tags + tour_programs.map(&:all_tags).flatten.uniq
   end
 
   def self.search(params, ids = [])

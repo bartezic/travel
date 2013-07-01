@@ -5,7 +5,7 @@ class Continent < ActiveRecord::Base
   has_many :taggings, :as => :taggable
 
   translates :description, :name, :seo_meta
-  attr_accessible :description, :name, :tag_ids, :tags_attributes
+  attr_accessible :description, :name, :tag_ids, :tags_attributes, :all_tags
 
   accepts_nested_attributes_for :tags
 
@@ -15,6 +15,10 @@ class Continent < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  def all_tags
+    tags + countries.map(&:tags).flatten.uniq    
+  end
 
   def normalize_friendly_id(input)
     input.to_s.to_slug.normalize(transliterations: :ukrainian).to_s

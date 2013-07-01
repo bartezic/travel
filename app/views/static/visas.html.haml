@@ -1,5 +1,7 @@
 - content_for :seo_meta do
   = t 'visa.seo'
+- content_for :tags do
+  = Country.all.map{ |i| t('visa.visa_to', country: i.name)}.join(',')
 - content_for :title do
   = t 'menu.visas'
 

@@ -12,7 +12,7 @@ class Country < ActiveRecord::Base
   
   attr_accessible :id, :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, 
                   :recomendation, :climate, :culture, :infrastructure, :code, :tag_ids, 
-                  :tags_attributes
+                  :tags_attributes, :all_tags
 
   accepts_nested_attributes_for :tags
   
@@ -21,6 +21,10 @@ class Country < ActiveRecord::Base
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
+  end
+
+  def all_tags
+    regions.map(&:tags).flatten.uniq
   end
 
   def normalize_friendly_id(input)

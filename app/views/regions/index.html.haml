@@ -1,5 +1,7 @@
 - content_for :title do
   = t 'menu.travel_regions'
+- content_for :tags do
+  = @regions.map(&:all_tags).flatten.uniq.map(&:title).join(',')
 
 .row
   .span12

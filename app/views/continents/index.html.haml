@@ -1,6 +1,8 @@
 - content_for :title do
   = t 'menu.continents'
-
+- content_for :tags do
+  = @continents.map(&:all_tags).flatten.uniq.map(&:title).join(',')
+  
 .row
   .span12
     .push-20

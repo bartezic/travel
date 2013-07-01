@@ -1,6 +1,8 @@
 - content_for :title do
   = t 'country.attractions'
-
+- content_for :tags do
+  = @attractions.map(&:all_tags).flatten.uniq.map(&:title).join(',')
+  
 .row.tours
   .span12
     .push-20

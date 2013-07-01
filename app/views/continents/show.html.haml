@@ -1,5 +1,7 @@
 - content_for :seo_meta do
   = @continent.seo_meta
+- content_for :tags do
+  = @continent.all_tags.map(&:title).join(',')
 - content_for :title do
   = @continent.name
   

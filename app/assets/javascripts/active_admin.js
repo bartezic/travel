@@ -151,7 +151,9 @@ $(function() {
 
   $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();
 
-  $('.has_many.tags li.input').remove();
+  if($('.has_many.tags li.input .inline-errors').length == 0){
+    $('.has_many.tags li.input').remove();
+  }
 
   //$('#country_continent_ids').select2();
   var select2Width = $('.select2-container').outerWidth()+50;

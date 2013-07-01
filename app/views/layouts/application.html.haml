@@ -4,7 +4,7 @@
     %meta{ charset: "utf-8" }
     %meta{ name: 'google-site-verification', content: 'XP1GGT3KLTm25Mk3S-WiuClOII2X6Ie5eW3HtrXGvaI' }
     %meta{ name: :description, content: content_for?(:seo_meta) ? yield(:seo_meta) : t('seo.descr') }
-    %meta{ name: :keywords, content: t('seo.keywords') }
+    %meta{ name: :keywords, content: content_for?(:tags) ? yield(:tags) : t('seo.keywords') }
     %meta{ name: :title, content: content_for?(:title) ? yield(:title).strip << t('seo.title_s') : t('seo.title') }
     %title= content_for?(:title) ? yield(:title).strip << t('seo.title_s') : t('seo.title')
     = csrf_meta_tags
