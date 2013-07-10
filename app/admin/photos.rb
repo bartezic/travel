@@ -23,7 +23,7 @@ ActiveAdmin.register Photo do
     column :asset do |photo|
       div { image_tag photo.asset(:thumb_150x) }
       div :class => 'asset' do
-        photo.asset(:thumb_150x)
+        photo.asset.url(:original, timestamp: false)
       end
     end
     translation_status

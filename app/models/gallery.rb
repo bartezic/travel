@@ -3,7 +3,7 @@ class Gallery < ActiveRecord::Base
   attr_accessible :title, :photo_ids, :photos_attributes
   translates :title
 
-  accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   active_admin_translates :title do
     validates_presence_of :title

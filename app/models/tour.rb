@@ -7,7 +7,7 @@ class Tour < ActiveRecord::Base
   belongs_to :currency
   belongs_to :photo
   belongs_to :gallery
-  has_many :tour_programs
+  has_many :tour_programs, :dependent => :destroy
   has_and_belongs_to_many :days,        :join_table => :tours_days
   has_and_belongs_to_many :durations,   :join_table => :tours_durations
   has_and_belongs_to_many :food_types,  :join_table => :tours_food_types
@@ -23,7 +23,7 @@ class Tour < ActiveRecord::Base
                   :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :tag_ids, 
                   :tags_attributes, :all_tags
   
-  accepts_nested_attributes_for :tour_programs
+  accepts_nested_attributes_for :tour_programs, allow_destroy: true
   accepts_nested_attributes_for :tags
   
   validates :price_type, inclusion: {in: PRICE_TYPES}

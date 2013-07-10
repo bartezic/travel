@@ -17,9 +17,7 @@ ActiveAdmin.register Gallery do
         photo.inputs do
           photo.input :asset
           photo.input :asset_remote_url
-          # photo.inputs 'Photo' do
-          #   image_tag asset(:thumb_150x), :id => "photoAsset"
-          # end
+          photo.input(:_destroy, :as => :boolean, :label => "Destroy?") if photo.object
         end
         photo.translated_inputs switch_locale: true do |t|
           t.input :title

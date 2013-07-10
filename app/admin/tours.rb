@@ -4,6 +4,78 @@ require 'typhoeus/adapters/faraday'
 
 ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }
+
+  controller do
+
+    private
+
+    def twitt_tour(tour)
+      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+      img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
+      url = bitly.shorten(tour_url(tour), :history => 1).short_url
+      title = tour.title
+      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      subtitle = ''
+
+      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
+      end
+
+      ts_size = 140-(descr.size+url.size+8)
+      if (title.size + subtitle.size) <= ts_size
+        ts = "#{title}. #{subtitle}"
+      elsif title.size < subtitle.size
+        if title.size < ts_size/3
+          ts = "#{title}. #{subtitle.truncate(ts_size-title.size, :separator => '..')}"
+        else
+          temp = title.truncate(ts_size/3, :separator => '..')
+          ts = "#{temp}. #{subtitle.truncate(ts_size-temp.size, :separator => '..')}"
+        end
+      else
+        if subtitle.size < ts_size/3
+          ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
+        else
+          temp = subtitle.truncate(ts_size/3, :separator => '..')
+          ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
+        end
+      end
+
+      begin
+        Twitter.update_with_media("#{ts}. #{descr}: #{url}", img)
+      rescue
+        Twitter.update("#{ts}. #{descr}: #{url}")
+      end
+    end
+
+    def fb_tour(tour)
+      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+
+      name = [tour.title]
+
+      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
+      end
+
+      massage = [ tour.title,
+                  "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
+                  "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
+
+      pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
+      pages.feed!(
+        :message => massage.join('
+          '),
+        :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
+        :description => tour.seo_meta,
+        :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
+        :name => name.join(' - ')
+      )
+    end
+  end
   
   scope :all, :default => true
   scope :active do |tours|
@@ -39,143 +111,22 @@ ActiveAdmin.register Tour do
   end
 
   member_action :share, :method => :put do
-    tour = Tour.find(params[:id])
-    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
-    name = [tour.title]
-
-    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-      name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
-    end
-
-    massage = [ tour.title,
-                "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
-                "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
-                "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
-
-    pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
-    pages.feed!(
-      :message => massage.join('
-        '),
-      :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
-      :description => tour.seo_meta,
-      :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
-      :name => name.join(' - ')
-    )
-    
+    fb_tour(Tour.find(params[:id]))
     redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
   member_action :twitt, :method => :put do
-    tour = Tour.find(params[:id])
-    currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-    bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
-    img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
-    url = bitly.shorten(tour_url(tour), :history => 1).short_url
-    title = tour.title
-    descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
-    subtitle = ''
-
-    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-      subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
-    end
-
-    ts_size = 140-(descr.size+url.size+8)
-    if (title.size + subtitle.size) <= ts_size
-      ts = "#{title}. #{subtitle}"
-    elsif title.size < subtitle.size
-      if title.size < ts_size/3
-        ts = "#{title}. #{subtitle.truncate(ts_size-title.size, :separator => '..')}"
-      else
-        temp = title.truncate(ts_size/3, :separator => '..')
-        ts = "#{temp}. #{subtitle.truncate(ts_size-temp.size, :separator => '..')}"
-      end
-    else
-      if subtitle.size < ts_size/3
-        ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
-      else
-        temp = subtitle.truncate(ts_size/3, :separator => '..')
-        ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
-      end
-    end
-
-    begin
-      Twitter.update_with_media("#{ts}. #{descr}: #{url}", img)
-    rescue
-      Twitter.update("#{ts}. #{descr}: #{url}")
-    end
-
+    twitt_tour(Tour.find(params[:id]))
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
 
   batch_action :to_facebook do |selection|
-    Tour.find(selection).each do |tour|
-      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
-      name = [tour.title]
-
-      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
-      end
-
-      massage = [ tour.title,
-                  "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
-                  "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
-                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
-
-      pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
-      pages.feed!(
-        :message => massage.join('
-          '),
-        :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
-        :description => tour.seo_meta,
-        :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
-        :name => name.join(' - ')
-      )
-    end
+    Tour.find(selection).each { |tour| fb_tour(tour) }
     redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
   batch_action :to_twitter do |selection|
-    Tour.find(selection).each do |tour|
-      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
-      url = bitly.shorten(tour_url(tour), :history => 1).short_url
-      title = tour.title
-      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
-      subtitle = ''
-
-      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
-        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
-      end
-
-      ts_size = 140-(descr.size+url.size+6)
-      if (title.size + subtitle.size) <= ts_size
-        ts = "#{title}. #{subtitle}"
-      elsif title.size < subtitle.size
-        if title.size < ts_size/3
-          ts = "#{title}. #{subtitle.truncate(ts_size-title.size, :separator => '..')}"
-        else
-          temp = title.truncate(ts_size/3, :separator => '..')
-          ts = "#{temp}. #{subtitle.truncate(ts_size-temp.size, :separator => '..')}"
-        end
-      else
-        if subtitle.size < ts_size/3
-          ts = "#{title.truncate(ts_size-subtitle.size)} #{subtitle}"
-        else
-          temp = subtitle.truncate(ts_size/3, :separator => '..')
-          ts = "#{title.truncate(ts_size-temp.size)} #{temp}"
-        end
-      end
-
-      Twitter.update("#{ts}. #{descr}: #{url}")
-    end
+    Tour.find(selection).each { |tour| twitt_tour(tour) }
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
 
@@ -237,6 +188,7 @@ ActiveAdmin.register Tour do
         program.inputs do
           program.input :day_number
           program.input :regions, :collection => option_groups_from_collection_for_select(Country.all, :regions, :name, :id, :name, program.object.regions.map(&:id)), :input_html => { :size => 10 }
+          program.input(:_destroy, :as => :boolean, :label => "Destroy?") if program.object
         end
         program.translated_inputs switch_locale: true do |t|
           t.input :description, as: :html_editor
