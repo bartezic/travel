@@ -1,7 +1,3 @@
-require 'faraday'
-require 'typhoeus'
-require 'typhoeus/adapters/faraday'
-
 ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }
 
@@ -13,7 +9,7 @@ ActiveAdmin.register Tour do
       currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
       bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
 
-      img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original)}".split('?').first))
+      img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
       url = bitly.shorten(tour_url(tour), :history => 1).short_url
       title = tour.title
       descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
@@ -121,12 +117,12 @@ ActiveAdmin.register Tour do
   end
 
   batch_action :to_facebook do |selection|
-    Tour.find(selection).each { |tour| fb_tour(tour) }
+    Tour.find(selection).reverse.each { |tour| fb_tour(tour) }
     redirect_to :back, {:notice => I18n.t('active_admin.shared') }
   end
 
   batch_action :to_twitter do |selection|
-    Tour.find(selection).each { |tour| twitt_tour(tour) }
+    Tour.find(selection).reverse.each { |tour| twitt_tour(tour) }
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
 

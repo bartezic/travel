@@ -22,8 +22,6 @@ gem 'kaminari'
 gem 'fb_graph'
 gem 'bitly'
 gem 'twitter'
-gem 'faraday'
-gem 'typhoeus'
 gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
