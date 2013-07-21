@@ -73,11 +73,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
 
   add_index "attractions", ["slug"], :name => "index_attractions_on_slug", :unique => true
 
-  create_table "attractions_keywords", :force => true do |t|
-    t.integer "attraction_id"
-    t.integer "keyword_id"
-  end
-
   create_table "continent_translations", :force => true do |t|
     t.integer  "continent_id"
     t.string   "locale"
@@ -107,11 +102,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
     t.integer "country_id"
   end
 
-  create_table "continents_keywords", :force => true do |t|
-    t.integer "continent_id"
-    t.integer "keyword_id"
-  end
-
   create_table "countries", :force => true do |t|
     t.string   "name"
     t.text     "kitchen"
@@ -129,11 +119,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
-
-  create_table "countries_keywords", :force => true do |t|
-    t.integer "country_id"
-    t.integer "keyword_id"
-  end
 
   create_table "country_translations", :force => true do |t|
     t.integer  "country_id"
@@ -261,28 +246,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
 
   add_index "hotels", ["slug"], :name => "index_hotels_on_slug", :unique => true
 
-  create_table "hotels_keywords", :force => true do |t|
-    t.integer "hotel_id"
-    t.integer "keyword_id"
-  end
-
-  create_table "keyword_translations", :force => true do |t|
-    t.integer  "keyword_id"
-    t.string   "locale"
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "keyword_translations", ["keyword_id"], :name => "index_keyword_translations_on_keyword_id"
-  add_index "keyword_translations", ["locale"], :name => "index_keyword_translations_on_locale"
-
-  create_table "keywords", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "photo_translations", :force => true do |t|
     t.integer  "photo_id"
     t.string   "locale"
@@ -334,11 +297,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
-
-  create_table "regions_keywords", :force => true do |t|
-    t.integer "region_id"
-    t.integer "keyword_id"
-  end
 
   create_table "request_actions", :force => true do |t|
     t.string   "name"
@@ -491,11 +449,6 @@ ActiveRecord::Schema.define(:version => 20130626205237) do
   create_table "tours_food_types", :force => true do |t|
     t.integer "tour_id"
     t.integer "food_type_id"
-  end
-
-  create_table "tours_keywords", :force => true do |t|
-    t.integer "tour_id"
-    t.integer "keyword_id"
   end
 
   create_table "tours_regions", :force => true do |t|

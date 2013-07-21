@@ -2,13 +2,13 @@ ActiveAdmin.register Country do
   menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }
   
   scope :all, :default => true
-  proc{ 
-    Continent.all.each do |continent|
-      scope continent.slug do |countries|
-        continent.countries
-      end
-    end
-  }.call
+  # proc{ 
+  #   Continent.all.each do |continent|
+  #     scope continent.slug do |countries|
+  #       continent.countries
+  #     end
+  #   end
+  # }.call
 
   index do
     selectable_column

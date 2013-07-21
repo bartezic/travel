@@ -6,7 +6,23 @@
   = "#{@tour.title} - #{tour_subtitle(@tour, true, true)}"
 - content_for :image_src do
   = @tour.photo.asset(:big_1170x)
-
+- content_for :scripts do
+  %script{ src: "//yandex.st/share/share.js", charset: "utf-8" }
+  :javascript
+    new Ya.share({
+      element: 'ya-share',
+      l10n: '#{locale}',
+      elementStyle: {
+        'type': 'button',
+        'border': true,
+        'quickServices': ['vkontakte', 'facebook', 'twitter', 'gplus', 'yaru', 'blogger', 'delicious', 'diary', 'digg', 'evernote',  'friendfeed',  'juick', 'liveinternet', 'linkedin', 'lj', 'moikrug', 'moimir', 'myspace', 'odnoklassniki', 'pinterest', 'surfingbird', 'tutby', 'yazakladki']
+      },
+      link: '#{tour_url(@tour)}',
+      title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour, true, true)].join(' - '))}',
+      description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
+      image: window.location.href + '#{@tour.photo.asset(:original, timestamp: false)}'
+    });
+    
 .push-20
 .row.tour
   .span9
@@ -17,19 +33,7 @@
           = raw tour_subtitle(@tour)
         .row-fluid
           .span12
-            .fleft.con
-              :javascript
-                document.write(VK.Share.button({
-                  url: '#{tour_url(@tour)}',
-                  title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour, true, true)].join(' - '))}',
-                  description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
-                  image: 'window.location.href + #{@tour.photo.asset(:big_1170x)}',
-                  noparse: false
-                },{
-                  type: "button_nocount", 
-                  text: "Зберегти"
-                }));
-            .fleft.con.fb-send{ data: { href: tour_url(@tour), font: 'arial' } }
+            .fleft#ya-share
 
         %dl
           - if @tour.price_from

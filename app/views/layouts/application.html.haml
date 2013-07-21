@@ -11,7 +11,6 @@
     = stylesheet_link_tag "application", :media => "all"
     %link(href="/favicon.ico" rel="shortcut icon")
     %link{ rel: :image_src, href: request.protocol + request.host_with_port + (content_for?(:image_src) ? yield(:image_src) : '/assets/logo.png') }
-    %script{:charset => "windows-1251", :src => "http://vk.com/js/api/share.js?85", :type => "text/javascript"}
     :javascript
       window.app = {
         locale: '#{locale}'
@@ -38,19 +37,9 @@
             ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+
             ((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random()+
             '" style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /><\/a><\/div>');})(window,navigator,document);
-    #fb-root
-    / Javascripts
-    / Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
 
-    :javascript
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/uk_UA/all.js#xfbml=1&appId=256487544493099";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+    = javascript_include_tag "application"
+    = yield :scripts
 
     :javascript
       var _gaq = _gaq || [];
