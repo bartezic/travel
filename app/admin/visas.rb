@@ -1,12 +1,28 @@
 ActiveAdmin.register Visa do
   menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visas') }
+  
+  member_action :clone, :method => :put do
+    o_visa = Visa.find(params[:id])
+    
+    n_visa = o_visa.dup
+    Visa.reflect_on_all_associations(:has_many).map{|i| i.name}.each{ |i|
+      o_visa.send(i).each_with_index{|as,j|
+        n_visa.send(i)[j] = as.dup
+      }
+    }
+
+    n_visa.save
+    redirect_to :back, {:notice => I18n.t('active_admin.cloned') }
+  end
+
   index do
     selectable_column
     id_column
     column :country
     column :visa_type
-    translation_status
-    default_actions
+    actions do |visa|
+      link_to(I18n.t('active_admin.clone'), {:action => 'clone', :id => visa }, :method => :put)
+    end
   end
 
   form do |f|
