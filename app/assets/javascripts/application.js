@@ -21,6 +21,7 @@
 //= require jquery.imagesloaded
 //= require photobox.min
 //= require localization
+//= require stroll.min
   
 $(function() {
 
@@ -92,6 +93,8 @@ $(function() {
       alert(window.app.l.v_email_or_phone)
     }
   });
+
+  //stroll.bind('.country ul.media-list.stroll');
 });
 
 $('ul.grid li a img').imagesLoaded(function() {

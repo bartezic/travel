@@ -115,7 +115,9 @@ window.adminApp.trasl = {
 
 $(function() {
   window.adminApp.trasl.init();
+});
 
+$(function() {
   var photoFile = $('#photo_asset');
   photoFile.change(function() {
     var reader;
@@ -130,7 +132,7 @@ $(function() {
   });
   $('#photo_asset_remote_url').change(function() {
     $('#photoAsset').attr("src", $(this).val()).width(150);
-    photoFile.replaceWith( photoFile = photoFile.val('').clone( true ) )
+    photoFile.replaceWith( photoFile = photoFile.val('').clone( true ) );
   });
 
   // $('#photoAsset').error(function() {
@@ -153,7 +155,7 @@ $(function() {
 
   if($('.has_many.tags li.input .inline-errors').length == 0){
     $('.has_many.tags li.input').remove();
-  }
+  };
 
   //$('#country_continent_ids').select2();
   var select2Width = $('.select2-container').outerWidth()+50;
