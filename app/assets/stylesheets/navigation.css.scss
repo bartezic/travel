@@ -134,10 +134,25 @@
   }
 }
 
+.custom {
+  .navbar.navbar-static-top {
+    border-bottom: 1px solid #D4D4D4;
+    .contacts  {
+      border-bottom: 1px solid #D4D4D4;
+    }
+  }
+}
+
+.locales.btn-group {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) { 
   .custom {
-    .navbar-inner.contacts  {
+    .contacts  {
       .social {
         a > div {
           float: right;
@@ -159,11 +174,16 @@
 
       .nav {
         padding-left: 10px;
-        .text {
+        .text-p, .text-e {
           float: left;
-          padding: 15px 15px 15px 10px;
           color: #777777;
         }
+        .text-p {
+          padding: 6px;          
+        }
+        .text-e {
+          padding: 15px 6px;          
+        } 
         .phone, .email {
           float: left;
           background-size: 40px 40px;
@@ -199,38 +219,17 @@
           -o-transition: all 0.3s ease-in-out;
         }
       }
-      .brand {
-        width: 220px;
+      .navbar-brand {
+        max-width: none;
+        width: 240px;
         .bg-logo{
           position: absolute;
           top: 0px;
           padding: 5px;
-          background-color: #F9F9F9;
-          background-image: -moz-linear-gradient(top, white, #F2F2F2);
-          background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
-          background-image: -webkit-linear-gradient(top, white, #F2F2F2);
-          background-image: -o-linear-gradient(top, white, #F2F2F2);
-          background-image: linear-gradient(to bottom, white, #F2F2F2);
-          background-repeat: repeat-x;
-          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF2F2F2', GradientType=0);
+          background-color: #EEE;
           border: 1px solid #D4D4D4;
           border-top: 0;
-          -webkit-border-radius: 0 0 4px 4px;
-          -moz-border-radius: 0 0 4px 4px;
-          border-radius: 0 0 4px 4px;
-          -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          &:hover {
-            transition: box-shadow 1s;
-            -moz-transition: -moz-box-shadow 1s;
-            -webkit-transition: -webkit-box-shadow 1s;
-            -o-transition: box-shadow 1s;
-              
-            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-            -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-          }
+
           .logo{
             background: url(/assets/logo.png) no-repeat center;
             background-size: 218px 115px;
@@ -244,9 +243,9 @@
 }
 
 /* Default desctop */
-@media (min-width: 980px) and (max-width: 1199px) { 
+@media (min-width: 768px) and (max-width: 1199px) { 
   .custom {
-    .navbar-inner.contacts{
+    .contacts{
       .social {
         a > div {
           float: right;
@@ -267,11 +266,17 @@
       }
       .nav {
         padding-left: 10px;
-        .text {
+        .text-p, .text-e {
           float: left;
-          padding: 10px 10px 10px 5px;
+          font-size: 13px;
           color: #777777;
         }
+        .text-p {
+          padding: 2px 5px;
+        }
+        .text-e {
+          padding: 10px 5px;
+        } 
         .phone, .email {
           float: left;
           background-size: 30px 30px;
@@ -290,7 +295,7 @@
     .navbar {
       .nav > li {
         &> a{
-          padding: 6px 15px 10px;
+          padding: 6px 12px 10px;
           border-top: 4px solid transparent;
           text-shadow: none;
         }
@@ -307,38 +312,16 @@
           -o-transition: all 0.3s ease-in-out;
         }
       }
-      .brand {
-        width: 150px;
+      .navbar-brand {
+        max-width: none;
+        width: 171px;
         .bg-logo{
           position: absolute;
           top: 0px;
           padding: 5px;
-          background-color: #F9F9F9;
-          background-image: -moz-linear-gradient(top, white, #F2F2F2);
-          background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
-          background-image: -webkit-linear-gradient(top, white, #F2F2F2);
-          background-image: -o-linear-gradient(top, white, #F2F2F2);
-          background-image: linear-gradient(to bottom, white, #F2F2F2);
-          background-repeat: repeat-x;
-          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF2F2F2', GradientType=0);
+          background-color: #EEE;
           border: 1px solid #D4D4D4;
           border-top: 0;
-          -webkit-border-radius: 0 0 4px 4px;
-          -moz-border-radius: 0 0 4px 4px;
-          border-radius: 0 0 4px 4px;
-          -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-          &:hover {
-            transition: box-shadow 1s;
-            -moz-transition: -moz-box-shadow 1s;
-            -webkit-transition: -webkit-box-shadow 1s;
-            -o-transition: box-shadow 1s;
-              
-            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-            -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-          }
           .logo{
             background: url(/assets/logo_small.png) no-repeat center;
             background-size: 150px 79px;
@@ -352,51 +335,8 @@
 }
 
 /* Portrait tablet to landscape and desktop */
-@media (max-width: 979px) { 
+@media (max-width: 767px) { 
   .custom {
-    .navbar-inner.contacts {
-      .brand {
-        display: hidden;
-      }
-      .social {
-        a > div {
-          float: right;
-          background-size: 30px 30px;
-          width: 30px;
-          height: 30px;
-          margin: 5px;
-        }
-        .facebook {
-          background: url(social/facebook_30.png) no-repeat center;
-        }
-        .vkontakte {
-          background: url(social/vkontakte_30.png) no-repeat center;
-        }
-        .twitter {
-          background: url(social/twitter_30.png) no-repeat center;
-        }
-      }
-      .nav {
-        .text {
-          float: left;
-          padding: 10px 10px 10px 5px;
-          color: #777777;
-        }
-        .phone, .email {
-          float: left;
-          background-size: 30px 30px;
-          width: 30px;
-          height: 30px;
-          margin: 5px;
-        }
-        .phone {
-          background: url(social/phone_30.png) no-repeat center;
-        }
-        .email {
-          background: url(social/email_30.png) no-repeat center;
-        }
-      }
-    }
     .nav-collapse .nav > li > a, 
     .nav-collapse .dropdown-menu a {
       -webkit-border-radius: 0;
@@ -428,6 +368,7 @@
           background-size: 150px 79px;
           width: 150px;
           height: 79px;
+          margin: 0 auto;
         }
       }
     }

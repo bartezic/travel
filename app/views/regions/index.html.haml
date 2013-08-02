@@ -4,10 +4,8 @@
   = @regions.map(&:all_tags).flatten.uniq.map(&:title).join(',')
 
 .row
-  .span12
-    .push-20
+  .col-lg-12
     %h2= t 'menu.travel_regions'
-
     - Continent.all.each do |continent|
       %h3= link_to continent.name, continent
       .f16

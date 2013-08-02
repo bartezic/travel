@@ -1,52 +1,57 @@
 .custom 
   .navbar.navbar-static-top
-    .navbar-inner.contacts
-      .container
-        .brand
-        .social
-          %a{ href: 'http://vk.com/mongrasse', target: :_blank }
-            .vkontakte
-          %a{ href: 'https://twitter.com/mongrasse', target: :_blank }
-            .twitter
-          %a{ href: 'http://www.facebook.com/pages/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D0%B0-%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D1%96%D1%8F-%D0%9C%D0%BE%D0%BD%D0%93%D1%80%D0%B0%D1%81%D1%81%D0%B5/188624577866386', target: :_blank }
-            .facebook
-        .nav
-          .email 
-          .text 
-            %a{ href: 'mailto:mongrasse@ukr.net', target: :_blank } mongrasse@ukr.net
-          .phone 
-          .text +38 098 036 55 35, +38 032 232 00 03
-
-    .navbar-inner
-      .container
-        %a.btn.btn-navbar(data-target=".nav-collapse-cog" data-toggle="collapse")
-          %span.icon-cog
-        %a.btn.btn-navbar(data-target=".nav-collapse-menu" data-toggle="collapse")
-          %span.icon-th-list
-        %a.brand{ href: '/' }
-          .bg-logo
-            .logo
-        .nav-collapse.nav-collapse-menu
-          %ul.nav
-            %li{class: request.path == tours_path && 'active'}= link_to t('tours.title'), tours_path
-            %li.dropdown{class: request.path.include?('countries') && 'active'}
-              %a.dropdown-toggle(data-toggle="dropdown" href="#")
-                = t 'menu.countries_of_world'
-                %b.caret
-              %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
-                - Continent.includes(:countries).all.each do |continent|
-                  - if continent.countries.any?
-                    %li.dropdown-submenu
-                      = link_to continent.name, continent
-                      %ul.dropdown-menu.f16{"aria-labelledby" => "dLabel", :role => "menu"}
-                        - continent.countries.each do |country|
-                          %li= link_to country.name, country
-                  - else
-                    %li= link_to continent.name, continent
-            %li{class: request.path == visas_path && 'active'}= link_to t('menu.visas'), visas_path
-            %li= link_to t('menu.request_action'), "#myModal", 'data-toggle' => 'modal'
-            %li{class: request.path == contacts_path && 'active'}= link_to "Контакти", contacts_path
-        .nav-collapse.nav-collapse-cog
-          %ul.nav.pull-right
-            %li{class: locale == :uk && 'active'}= link_to "Укр", "?locale=uk"
-            %li{class: locale == :ru && 'active'}= link_to "Рус", "?locale=ru"
+    .container.contacts.hidden-sm
+      .navbar-brand
+      .social
+        %a{ href: 'http://vk.com/mongrasse', target: :_blank }
+          .vkontakte
+        %a{ href: 'https://twitter.com/mongrasse', target: :_blank }
+          .twitter
+        %a{ href: 'http://www.facebook.com/pages/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D0%B0-%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D1%96%D1%8F-%D0%9C%D0%BE%D0%BD%D0%93%D1%80%D0%B0%D1%81%D1%81%D0%B5/188624577866386', target: :_blank }
+          .facebook
+      .nav.navbar-nav
+        .email 
+        .text-e 
+          %a{ href: 'mailto:mongrasse@ukr.net', target: :_blank } mongrasse@ukr.net
+        .phone 
+        .text-p
+          +38 098 036 55 35 
+          %br/
+          +38 032 232 00 03
+    .container
+      .locales.btn-group.visible-sm
+        %button.btn.locale{class: locale == :uk && 'active', type: :button, data: { locale: :uk } } Укр
+        %button.btn.locale{class: locale == :ru && 'active', type: :button, data: { locale: :ru } } Рус
+      %button.navbar-toggle(data-target=".nav-collapse-menu" data-toggle="collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{ href: '/' }
+        .bg-logo
+          .logo
+      .nav-collapse.nav-collapse-menu.collapse
+        %ul.nav.navbar-nav
+          %li{class: request.path == tours_path && 'active'}= link_to t('tours.title'), tours_path
+          %li.dropdown{class: request.path.include?('countries') && 'active'}
+            %a.dropdown-toggle(data-toggle="dropdown" href="#")
+              = t 'menu.countries_of_world'
+              %b.caret
+            %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
+              - Continent.includes(:countries).all.each do |continent|
+                - if continent.countries.any?
+                  %li.dropdown-submenu
+                    = link_to continent.name, continent
+                    %ul.dropdown-menu.f16{"aria-labelledby" => "dLabel", :role => "menu"}
+                      - continent.countries.each do |country|
+                        %li= link_to country.name, country
+                - else
+                  %li= link_to continent.name, continent
+          %li.hidden-md{class: request.path == visas_path && 'active'}= link_to t('menu.visas'), visas_path
+          %li.visible-md{class: request.path == visas_path && 'active'}= link_to t('menu.visas_sm'), visas_path
+          %li.hidden-md= link_to t('menu.request_action'), "#myModal", 'data-toggle' => 'modal'
+          %li.visible-md= link_to t('menu.request_action_sm'), "#myModal", 'data-toggle' => 'modal'
+          %li{class: request.path == contacts_path && 'active'}= link_to "Контакти", contacts_path
+      .nav-collapse.nav-collapse-cog.collapse.hidden-sm
+        %ul.nav.navbar-nav.pull-right.locales
+          %li.locale{class: locale == :uk && 'active', data: { locale: :uk }}= link_to "Укр", "?locale=uk"
+          %li.locale{class: locale == :ru && 'active', data: { locale: :ru }}= link_to "Рус", "?locale=ru"

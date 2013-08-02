@@ -23,95 +23,88 @@
       image: window.location.href + '#{@tour.photo.asset(:original, timestamp: false)}'
     });
     
-.push-20
 .row.tour
-  .span9
-    .row-fluid
-      .span12
-        %h2
-          = @tour.title
-          = raw tour_subtitle(@tour)
-        .row-fluid
-          .span12
-            .fleft#ya-share
+  .col-lg-9
+    %h2
+      = @tour.title
+      = raw tour_subtitle(@tour)
+    .row
+      .col-lg-12
+        .fleft#ya-share
+    %dl
+      - if @tour.price_from
+        %dt= t 'tours.price'
+        %dd= "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
+      - unless @tour.transports.empty?
+        %dt= t('tours.transport')
+        %dd= @tour.transports.map(&:title).join(', ')
+      - unless @tour.durations.empty?
+        %dt= t('tours.duration')
+        %dd= @tour.durations.map(&:count_of_night).join(', ')
+      - unless @tour.food_types.empty?
+        %dt= t('tours.food_type')
+        %dd= raw @tour.food_types.map{ |t| "<span class='label label-warning' data-toggle='tooltip' title='#{t.title}'>#{t.code.upcase}</span>" }.join(' ')
+      - unless @tour.tour_types.empty?
+        %dt= t('tours.tour_type')
+        %dd= @tour.tour_types.map(&:title).join(', ')
+      - unless @tour.regions.empty?
+        %dt= t('tours.departure')
+        %dd= raw @tour.regions.map{ |r| link_to r.name, r }.join(', ')
+      
+      - if @tour.departure_calendar
+        %dt= t('tours.callendar')
+        %dd= raw full_year_callendar(@tour.departure_calendar)
+      
+      - unless @tour.description.empty?
+        %dt= t('tours.description')
+        %dd= raw @tour.description
 
-        %dl
-          - if @tour.price_from
-            %dt= t 'tours.price'
-            %dd= "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
-          - unless @tour.transports.empty?
-            %dt= t('tours.transport')
-            %dd= @tour.transports.map(&:title).join(', ')
-          - unless @tour.durations.empty?
-            %dt= t('tours.duration')
-            %dd= @tour.durations.map(&:count_of_night).join(', ')
-          - unless @tour.food_types.empty?
-            %dt= t('tours.food_type')
-            %dd= raw @tour.food_types.map{ |t| "<span class='label label-warning' data-toggle='tooltip' title='#{t.title}'>#{t.code.upcase}</span>" }.join(' ')
-          - unless @tour.tour_types.empty?
-            %dt= t('tours.tour_type')
-            %dd= @tour.tour_types.map(&:title).join(', ')
-          - unless @tour.regions.empty?
-            %dt= t('tours.departure')
-            %dd= raw @tour.regions.map{ |r| link_to r.name, r }.join(', ')
-          
-          - if @tour.departure_calendar
-            %dt= t('tours.callendar')
-            %dd= raw full_year_callendar(@tour.departure_calendar)
-          
-          - unless @tour.description.empty?
-            %dt= t('tours.description')
-            %dd= raw @tour.description
+      - if temp = marshrut(@tour.tour_programs)
+        %dt= t('tours.marshrut')
+        %dd= raw temp
+        
+      - if temp = tour_program(@tour.tour_programs)
+        %dt= t('tours.tour_program')
+        %dd= raw temp
 
-          - if temp = marshrut(@tour.tour_programs)
-            %dt= t('tours.marshrut')
-            %dd= raw temp
-            
-          - if temp = tour_program(@tour.tour_programs)
-            %dt= t('tours.tour_program')
-            %dd= raw temp
+      - unless @tour.price_list.empty?
+        %dt= "#{t('tours.prices')} в #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
+        %dd= raw @tour.price_list
+      - unless @tour.price_included.empty?
+        %dt= t('tours.price_inc')
+        %dd= raw @tour.price_included
+      - unless @tour.price_excluded.empty?
+        %dt= t('tours.price_exc')
+        %dd= raw @tour.price_excluded
+      - unless @tour.note.empty?
+        %dt= t('tours.note')
+        %dd= raw @tour.note
+      - unless @tour.transport_description.empty?
+        %dt= t('tours.transport_description')
+        %dd= raw @tour.transport_description
+      - unless @tour.excursions.empty?
+        %dt= t('tours.excursions')
+        %dd= raw @tour.excursions
+      %dt= t 'region.gallery'
+      %dd 
+        - if @tour.gallery && @tour.gallery.photos.any?
+          .row
+            .col-lg-12
+              %h5= t 'tours.gallery' 
+              = render 'layouts/gallery', photos: @tour.gallery.photos
+        - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
+          - @tour.tour_programs.map { |program| program.regions }.flatten.uniq.each do |region|
+            .row
+              .col-lg-12
+                %h5
+                  = link_to region.name, region
+                  %small= link_to region.country.name, region.country
+                = render 'layouts/gallery', photos: region.gallery.photos
 
-          - unless @tour.price_list.empty?
-            %dt= "#{t('tours.prices')} в #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
-            %dd= raw @tour.price_list
-          - unless @tour.price_included.empty?
-            %dt= t('tours.price_inc')
-            %dd= raw @tour.price_included
-          - unless @tour.price_excluded.empty?
-            %dt= t('tours.price_exc')
-            %dd= raw @tour.price_excluded
-          - unless @tour.note.empty?
-            %dt= t('tours.note')
-            %dd= raw @tour.note
-          - unless @tour.transport_description.empty?
-            %dt= t('tours.transport_description')
-            %dd= raw @tour.transport_description
-          - unless @tour.excursions.empty?
-            %dt= t('tours.excursions')
-            %dd= raw @tour.excursions
-          %dt= t 'region.gallery'
-          %dd 
-            - if @tour.gallery && @tour.gallery.photos.any?
-              .row-fluid
-                .span12
-                  %h5= t 'tours.gallery' 
-                  = render 'layouts/gallery', photos: @tour.gallery.photos
-            - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
-              - @tour.tour_programs.map { |program| program.regions }.flatten.uniq.each do |region|
-                .row-fluid
-                  .span12
-                    %h5
-                      = link_to region.name, region
-                      %small= link_to region.country.name, region.country
-                    = render 'layouts/gallery', photos: region.gallery.photos
-
-  .span3
-    .row-fluid
-      %h4= t 'tours.related'
-      %ul.thumbnails
-        - @related.each do |tour|
-          %li.span12
-            .thumbnail
-              .caption
-                = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
-                %h4= link_to tour.title, tour
+  .col-lg-3
+    %h4= t 'tours.related'
+    - @related.each do |tour|
+      .thumbnail
+        .caption
+          = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
+          %h4= link_to tour.title, tour

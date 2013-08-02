@@ -1,3 +1,4 @@
 %ul.grid
   - photos.each do |photo|
     %li= link_to image_tag(photo.asset.url(:thumb_150x), { alt: photo.title }), photo.asset.url(:original)
+  .clearfix

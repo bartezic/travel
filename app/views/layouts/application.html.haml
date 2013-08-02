@@ -3,13 +3,14 @@
   %head
     %meta{ charset: "utf-8" }
     %meta{ name: 'google-site-verification', content: 'XP1GGT3KLTm25Mk3S-WiuClOII2X6Ie5eW3HtrXGvaI' }
+    %meta{ name: :viewport, content: "width=device-width, initial-scale=1.0" }
     %meta{ name: :description, content: content_for?(:seo_meta) ? yield(:seo_meta) : t('seo.descr') }
     %meta{ name: :keywords, content: content_for?(:tags) ? yield(:tags) : t('seo.keywords') }
     %meta{ name: :title, content: content_for?(:title) ? yield(:title).strip << t('seo.title_s') : t('seo.title') }
     %title= content_for?(:title) ? yield(:title).strip << t('seo.title_s') : t('seo.title')
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
-    %link(href="/favicon.ico" rel="shortcut icon")
+    %link{ href: "/favicon.ico", rel: "shortcut icon" }
     %link{ rel: :image_src, href: request.protocol + request.host_with_port + (content_for?(:image_src) ? yield(:image_src) : '/assets/logo.png') }
     :javascript
       window.app = {
@@ -27,13 +28,15 @@
     
     #footer
       .container
-        %p.pull-left.muted
+        %p.pull-left.text-muted
           &copy; 2010-2013. Монграссе. 
-        %p.pull-right.muted
+          %button.btn.btn-mini.toggle-popover-stat{ type: :button }
+            %span.glyphicon.glyphicon-signal
+        %p.pull-right.text-muted
           = t('gen.dev')
-          %a.muted{ href: 'http://ua.linkedin.com/in/bartezic/en' } Олексин Віктор
+          %a.text-muted{ href: 'http://ua.linkedin.com/in/bartezic/en' } Олексин Віктор
           :javascript
-            (function(w,n,d,r,s){d.write('<div><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
+            (function(w,n,d,r,s){d.write('<div class="hidden popover-stat"><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
             ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+
             ((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random()+
             '" style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /><\/a><\/div>');})(window,navigator,document);

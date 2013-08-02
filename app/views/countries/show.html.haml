@@ -6,11 +6,9 @@
   = "#{@country.name} - #{@country.continents.map{ |c| c.name }.join(',')}"
 
 .row.country
-  .span12
+  .col-lg-12
     - if @country.photo && @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
       = image_tag @country.photo.asset.url(:big_1170x), { alt: @country.photo.title }
-    - else 
-      .push-20
     %h2
       = @country.name
       - @country.continents.each_with_index do |continent, i|

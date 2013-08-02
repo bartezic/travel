@@ -1,5 +1,5 @@
 @import "bootstrap";
-@import "bootstrap-responsive";
+// @import "bootstrap-responsive";
 // @import "active_admin/editor/wysiwyg";
 
 html, body {
@@ -14,11 +14,11 @@ body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -70px;
+  margin: 0 auto -60px;
 }
 
 #push {
-  height: 70px;
+  height: 60px;
 }
 
 #footer {
@@ -47,6 +47,14 @@ body {
   padding-left: 10px; 
 }
 
+.icon-arrow-left:before{
+  content:"\e091"
+}
+
+.icon-arrow-right:before{
+  content:"\e092"
+}
+
 .country {
   .div-block:nth-child(3n) {
     border-left: 4px solid #f8991f;
@@ -67,12 +75,20 @@ body {
   }
 }
 
-.carousel-control {
-  top: 50%;
+.carousel-indicators {
+  width: 130px;
+  margin-left: -65px;
 }
 
-#slider {
-  margin-top: 20px;
+.carousel-caption {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.btn-small, .btn-mini {
+  padding: 3px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
 }
 
 .row-fluid {
@@ -92,6 +108,9 @@ body {
     padding: 10px;
     border-radius: 5px;
     background-color: #FDFDFD;
+    .media-body {
+      min-width: 200px;
+    }
   }
 }
 
@@ -111,6 +130,12 @@ body {
     p {
       margin: 0;
     }
+    .label {
+      font-size: 100%;
+    }
+  }
+  .b-share__handle {
+    height: 26px;
   }
 }
 
@@ -121,43 +146,8 @@ body {
   margin-right: 10px 
 }
 
-/**
- * Grid container
- */
-/*.grid {
-  list-style-type: none;
-  position: relative; 
-  margin: 0 5px;
-  padding: 0;
-  li {
-    display: none;
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-  }
-}*/
 .text-orange {
   color: #e36300
-}
-
-.modal form {
-  margin: 0;
-  &.form-horizontal {
-    .controls {
-      margin-left: 220px;
-    }
-    .control-label {
-      float: left;
-      width: 200px;
-      padding-top: 5px;
-      text-align: right;
-    }
-    select#request_action_currency_id {
-      width: 112px;
-    }
-  }
 }
 
 .tour_program {
@@ -253,34 +243,5 @@ ul.grid {
       }
     }
   }
-}
-
-
-/* Large desktop */
-@media (min-width: 1200px) { 
-  .tours .form-search input.search-query{
-    width: 180px;
-  }
-}
-
-/* Default desctop */
-@media (min-width: 980px) and (max-width: 1199px) { 
-  .tours .form-search input.search-query{
-    width: 130px;
-  }
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
-  .tours .form-search input.search-query{
-    width: 75px;
-  }
-}
- 
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) { 
-  .tours .form-search input.search-query{
-    width: 100%;
-  } 
 }
 

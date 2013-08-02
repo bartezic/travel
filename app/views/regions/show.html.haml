@@ -6,11 +6,7 @@
   = "#{@region.name} - #{@region.country.name}"
   
 .row.country
-  .span12
-    - if false && @region.gallery && @region.gallery.photos.any? && @region.gallery.photos.first.asset.url(:big_1170x) != '/images/ph/logos_big.png'
-      = image_tag @region.gallery.photos.first.asset.url(:big_1170x), { alt: @region.gallery.photos.first.title }
-    - else 
-      .push-20
+  .col-lg-12
     %h2
       = @region.name
       %small= link_to @region.country.name, @region.country

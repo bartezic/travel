@@ -4,10 +4,8 @@
   = @attractions.map(&:all_tags).flatten.uniq.map(&:title).join(',')
   
 .row.tours
-  .span12
-    .push-20
+  .col-lg-12
     %h2= t 'country.attractions'
-
     - if @attractions.any?
       %ul.media-list
         - @attractions.each do |attraction|

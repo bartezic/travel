@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/intridea/bootstrap-sass.git
+  revision: 368bd4bccf49efa5caac493cd16e29bedbbf545a
+  branch: 3.0.0-wip
+  specs:
+    bootstrap-sass (2.3.1.0)
+      sass (~> 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,8 +67,6 @@ GEM
       oauth2 (>= 0.5.0, < 0.9)
     bootstrap-datepicker-rails (1.1.1.1)
       railties (>= 3.0)
-    bootstrap-sass (2.3.1.0)
-      sass (~> 3.2)
     bourbon (3.1.4)
       sass (>= 3.2.0)
       thor
@@ -271,7 +277,7 @@ DEPENDENCIES
   babosa
   bitly
   bootstrap-datepicker-rails
-  bootstrap-sass (~> 2.3.1.0)
+  bootstrap-sass!
   capistrano
   coffee-rails (~> 3.2.1)
   fb_graph

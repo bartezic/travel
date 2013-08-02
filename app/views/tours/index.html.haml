@@ -2,5 +2,4 @@
   = t 'tours.title'
 - content_for :tags do
   = @tours.map(&:all_tags).flatten.uniq.map(&:title).join(',')
-.push-20
 = render 'layouts/tours', f2: true

@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-tooltip
-//= require bootstrap-popover
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.uk.js
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
@@ -22,7 +20,44 @@
 //= require photobox.min
 //= require localization
 //= require stroll.min
-  
+
+//////////////////////////////////////////////////
+//          METHODS FOR LOCATION HASH           //
+//////////////////////////////////////////////////
+Hashovka = {
+  sep: '&',
+  keyValSep: '=',
+  getByKey: function(type, key){
+    var hash = window.location[type];
+    if (hash != ""){ 
+      hash = hash.substring(1).split(this.sep); 
+      for (var i = hash.length - 1; i >= 0; i--) {
+        if((hash[i].indexOf(key) !== -1) && (hash[i].split(this.keyValSep)[0] === key)){
+          return hash[i].split(this.keyValSep)[1];
+        };
+      };
+    };
+    return false;
+  },
+  setToKey: function(type, key, value) {
+    var hash = window.location[type], arr = [];
+    if (hash != ""){ 
+      hash = hash.substring(1).split(this.sep); 
+      for (var i = hash.length - 1; i >= 0; i--) {
+        if((hash[i].indexOf(key) === -1) && (hash[i].split(this.keyValSep)[0] !== key)){
+          arr.push(hash[i]);
+        };
+      };
+      arr.push(key+this.keyValSep+value)
+      hash = arr.join(this.sep);
+    } else {
+      hash = key+this.keyValSep+value;
+    };
+    window.location[type] = hash;
+    return value
+  }
+};
+
 $(function() {
 
   $('#myCarousel').carousel({
@@ -94,7 +129,24 @@ $(function() {
     }
   });
 
+  $('.icon-arrow-right').removeClass('icon-arrow-right').addClass('glyphicon glyphicon-arrow-right');
+  $('.icon-arrow-left').removeClass('icon-arrow-left').addClass('glyphicon glyphicon-arrow-left');
+
   //stroll.bind('.country ul.media-list.stroll');
+
+  $('.locales .locale').click(function(e) {
+    if(!$(this).hasClass('active')){
+      Hashovka.setToKey('search', 'locale', $(this).data('locale'));
+    }
+  });
+
+  $('.toggle-popover-stat').popover({
+    html: true,
+    title: 'Статистика',
+    placement: 'top',
+    trigger: 'hover',
+    content: $('.popover-stat').removeClass('hidden').remove()
+  })
 });
 
 $('ul.grid li a img').imagesLoaded(function() {
