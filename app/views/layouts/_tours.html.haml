@@ -1,4 +1,3 @@
-- filters_2 = [:country]
 .row.tours
   .col-lg-3
     .div
@@ -12,35 +11,28 @@
                 %span.glyphicon.glyphicon-search
       %form.filters
         %h4= t 'filters.search_by_params' 
-        
-        / Фільтр по країнах
-        - if f2
-          .well.well-small 
-            %p.bold= t 'filters.country'
-            - Country.all.each do |f|
-              %label.checkbox
-                %input{ type: :checkbox, name: "country[]", value: f.id, checked: params[:country] && params[:country].include?(f.id.to_s) }= f.name
-        
         / Фільтр по місті виїзду
         .well.well-small 
           %p.bold= t 'filters.regions'
-          - Country.where(code: :ua).first.regions.each do |f|
+          - Country.where(code: :ua).first.regions.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "from[]", value: f.id, checked: params[:from] && params[:from].include?(f.id.to_s) }= f.name
-
-        / Фільтр по типі туру
-        .well.well-small 
+          / Фільтр по типі туру
           %p.bold= t 'filters.tour_type'
-          - TourType.all.each do |f|
+          - TourType.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "tour_type[]", value: f.id, checked: params[:tour_type] && params[:tour_type].include?(f.id.to_s) }= f.title
-
-        / Фільтр по типі пранспорту
-        .well.well-small 
+          / Фільтр по типі пранспорту 
           %p.bold= t 'filters.transport'
-          - Transport.all.each do |f|
+          - Transport.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "transport[]", value: f.id, checked: params[:transport] && params[:transport].include?(f.id.to_s) }= f.title
+          / Фільтр по країнах
+          - if f2 
+            %p.bold= t 'filters.country'
+            - Country.with_translations(locale).each do |f|
+              %label.checkbox
+                %input{ type: :checkbox, name: "country[]", value: f.id, checked: params[:country] && params[:country].include?(f.id.to_s) }= f.name
 
   .col-lg-9
     - if @tours.any?
@@ -52,7 +44,7 @@
             .media-body
               %h4.media-heading
                 = link_to tour.title, tour
-                = raw tour_subtitle(tour)
+                %em= raw tour_subtitle(tour)
               .p= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}</b> <i>#{tour.currency && tour.currency.code}</i> за #{t(tour.price_type, :scope => [:tours, :price_type])}"
               - if tour.days.any? 
                 - if tour.days.count > 4

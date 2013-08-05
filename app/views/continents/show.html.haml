@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @continent.seo_meta
 - content_for :tags do
-  = @continent.all_tags.map(&:title).join(',')
+  = @continent.all_tags.join(',')
 - content_for :title do
   = @continent.name
   
@@ -10,7 +10,7 @@
     %h2= @continent.name
     %p= raw @continent.description
     .f16
-      - @continent.countries.each do |country|
+      - @continent.countries.includes({regions: :translations}).with_translations(locale).each do |country|
         %h5
           = link_to country.name, country, { class: "flag #{country.code}"}
           - country.regions.each do |region|

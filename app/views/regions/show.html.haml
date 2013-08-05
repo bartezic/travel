@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @region.seo_meta
 - content_for :tags do
-  = @region.all_tags.map(&:title).join(',')
+  = @region.all_tags.join(',')
 - content_for :title do
   = "#{@region.name} - #{@region.country.name}"
   

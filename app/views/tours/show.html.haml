@@ -1,7 +1,7 @@
 - content_for :seo_meta do
   = @tour.seo_meta
 - content_for :tags do
-  = @tour.all_tags.map(&:title).join(',')
+  = @tour.all_tags.join(',')
 - content_for :title do
   = "#{@tour.title} - #{tour_subtitle(@tour, true, true)}"
 - content_for :image_src do

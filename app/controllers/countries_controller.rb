@@ -2,7 +2,8 @@ class CountriesController < InheritedResources::Base
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.all
+    @countries = Country.with_translations(locale)
+    @continents = Continent.with_translations(locale)
 
     respond_to do |format|
       format.html # index.html.erb

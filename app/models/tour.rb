@@ -51,13 +51,12 @@ class Tour < ActiveRecord::Base
   end
 
   def all_tags
-    tags + tour_programs.map(&:all_tags).flatten.uniq
+    tags.pluck(:title) + tour_programs.map(&:all_tags).flatten.uniq
   end
 
   def self.search(params, ids = [])
-    includes({:tour_programs => :regions}).
+    includes(:translations, {tour_programs: {regions: :translations}}).
       active.
-      # with_days.
       with_transports(params[:transport]).
       with_tour_types(params[:tour_type]).
       with_countries(params[:country]).

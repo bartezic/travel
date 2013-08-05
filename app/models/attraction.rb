@@ -19,7 +19,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def all_tags
-    tags + region.tags + region.country.tags
+    tags.pluck(:title) + region.tags.pluck(:title) + region.country.tags.pluck(:title)
   end
 
   def normalize_friendly_id(input)

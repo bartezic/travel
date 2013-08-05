@@ -17,7 +17,7 @@ class Continent < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   def all_tags
-    tags + countries.map(&:tags).flatten.uniq    
+    tags.pluck(:title) + countries.joins(:tags).pluck(:'tags.title').flatten.uniq    
   end
 
   def normalize_friendly_id(input)

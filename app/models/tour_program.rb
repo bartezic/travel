@@ -10,6 +10,6 @@ class TourProgram < ActiveRecord::Base
   active_admin_translates :description
 
   def all_tags
-    regions.map{ |i| [i.tags, i.country.tags] }.flatten.uniq
+    regions.map{ |i| i.tags.pluck(:title) + i.country.tags.pluck(:title) }.flatten.uniq
   end
 end

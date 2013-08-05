@@ -68,17 +68,14 @@ module ApplicationHelper
   end
 
   def marshrut(programs)
-    if programs.any? && programs.size > 1
-      regions = programs.map { |program| program.regions }.flatten.uniq
-      
-      regions.map {|region|
-        "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
-      }.join(' - ') if regions.map(&:id).uniq.size > 1
-    end
+    regions = programs.map { |program| program.regions }.flatten.uniq
+    regions.map {|region|
+      "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
+    }.join(' - ') if regions.uniq.size > 1
   end
 
   def tour_subtitle(tour, marshrut = false, seo = false)
-    if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+    if tour.tour_programs.any?
       regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
       if regions.size == 1
         if seo 

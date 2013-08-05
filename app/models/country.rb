@@ -24,7 +24,7 @@ class Country < ActiveRecord::Base
   end
 
   def all_tags
-    regions.map(&:tags).flatten.uniq
+    tags.pluck(:title) + regions.joins(:tags).pluck(:'tags.title')
   end
 
   def normalize_friendly_id(input)
