@@ -146,9 +146,14 @@ $(function() {
   };
 
   $('#tour_photo_id, #country_photo_id').select2({
-    formatResult: format,
+    //formatResult: format,
     formatSelection: format,
     escapeMarkup: function(m) { return m; }
+  });
+
+  $('#tour_photo_id, #country_photo_id').change(function(e,v){
+    $('#tour-photo')
+    console.log({e: e, v: v, this: this})
   });
 
   $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();

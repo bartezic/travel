@@ -142,7 +142,7 @@ $(function() {
 
   $('.toggle-popover-stat').popover({
     html: true,
-    title: 'Статистика',
+    //title: 'Статистика',
     placement: 'top',
     trigger: 'hover',
     content: $('.popover-stat').removeClass('hidden').remove()

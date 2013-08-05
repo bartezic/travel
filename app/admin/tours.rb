@@ -81,6 +81,8 @@ ActiveAdmin.register Tour do
     tours.where(active: :false)
   end
 
+  filter :title
+
   member_action :clone, :method => :put do
     o_tour = Tour.find(params[:id])
     
@@ -163,6 +165,11 @@ ActiveAdmin.register Tour do
       f.input :photo, as: :select, collection: Photo.all.sort_by(&:title).map{ |photo|
         [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
       }
+      f.inputs 'Photo' do
+        div :class => "selected-photo" do 
+          tour.photo ? image_tag(tour.photo.asset(:thumb_150x)) : '' 
+        end
+      end
       f.input :gallery
       f.input :currency, as: :radio
       f.input :price_from
