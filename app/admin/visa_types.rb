@@ -1,5 +1,5 @@
 ActiveAdmin.register VisaType do
-  menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visa_types') }
+  menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visa_types') }, :parent => 'Візи'
   index do
     selectable_column
     id_column
@@ -12,6 +12,6 @@ ActiveAdmin.register VisaType do
     f.translated_inputs switch_locale: true do |t|
       t.input :title
     end
-    f.buttons
+    f.actions
   end
 end

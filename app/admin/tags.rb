@@ -4,6 +4,6 @@ ActiveAdmin.register Tag do
     f.translated_inputs switch_locale: true do |t|
       t.input :title
     end
-    f.buttons
+    f.actions
   end
 end

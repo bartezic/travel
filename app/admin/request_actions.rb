@@ -45,6 +45,6 @@ ActiveAdmin.register RequestAction do
       f.input :transports
       f.input :tour_types
     end
-    f.buttons
+    f.actions
   end
 end

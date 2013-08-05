@@ -151,10 +151,20 @@ $(function() {
     escapeMarkup: function(m) { return m; }
   });
 
-  $('#tour_photo_id, #country_photo_id').change(function(e,v){
-    $('#tour-photo')
-    console.log({e: e, v: v, this: this})
+  $('#tour_photo_id, #country_photo_id').change(function(e){
+    var input = $(this).closest('li.input'),
+        thumb = input.find('div.thumb'),
+        img = '<img src="'+ $(this).find(":selected").first().data('thumb')+'"/>';
+
+    if(thumb.length){
+      thumb.html(img)
+    } else {
+      input.append('<div class="thumb">'+img+'</div>')
+    }
   });
+
+  $('#tour_photo_id').change();
+  // $('select#tour_photo_id option:selected').data(thumb)
 
   $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();
 

@@ -1,11 +1,18 @@
 ActiveAdmin.register Gallery do
-  menu :priority => 7, :label => proc{ I18n.t('active_admin.menu.galleries') }
+  menu :priority => 7, :label => proc{ I18n.t('active_admin.menu.galleries') }, :parent => 'Фото'
+  
+  controller do
+    def scoped_collection
+      Gallery.includes(:photos).with_translations(I18n.locale)
+    end
+  end
+
   index do
     selectable_column
     id_column
     column :title
     column :photos_count do |gallery| 
-      gallery.photos.count
+      gallery.photos.size
     end
     translation_status
     default_actions
@@ -27,6 +34,6 @@ ActiveAdmin.register Gallery do
     f.translated_inputs switch_locale: true do |t|
       t.input :title
     end
-    f.buttons
+    f.actions
   end
 end

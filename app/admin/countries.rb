@@ -1,14 +1,24 @@
+# encoding: utf-8
 ActiveAdmin.register Country do
-  menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }
+  menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }, :parent => 'Місця'
   
+  controller do
+    def scoped_collection
+      Country.includes([:photo, :continents, { continents: :translations }]).with_translations(I18n.locale)
+    end
+  end
+
   scope :all, :default => true
-  # proc{ 
-  #   Continent.all.each do |continent|
-  #     scope continent.slug do |countries|
-  #       continent.countries
-  #     end
-  #   end
-  # }.call
+  Continent.with_translations(I18n.locale).each do |continent|
+    scope continent.name do |countries|
+      continent.countries
+    end
+  end
+
+  # filter :continents, as: :select, collection: Continent.with_translations(I18n.locale)
+  filter :name
+  filter :description
+  filter :code
 
   index do
     selectable_column
@@ -31,7 +41,7 @@ ActiveAdmin.register Country do
   form do |f|
     f.inputs do
       f.input :continents
-      f.input :photo, as: :select, collection: Photo.all.sort_by(&:title).map{ |photo|
+      f.input :photo, as: :select, collection: Photo.with_translations(I18n.locale).sort_by(&:title).map{ |photo|
         [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
       }
       f.input :code
@@ -54,6 +64,6 @@ ActiveAdmin.register Country do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

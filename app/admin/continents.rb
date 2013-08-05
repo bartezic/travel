@@ -1,5 +1,5 @@
 ActiveAdmin.register Continent do
-  menu :priority => 3, :label => proc{ I18n.t('active_admin.menu.continents') }
+  menu :priority => 3, :label => proc{ I18n.t('active_admin.menu.continents') }, :parent => 'Місця'
   index do
     selectable_column
     id_column
@@ -25,6 +25,6 @@ ActiveAdmin.register Continent do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

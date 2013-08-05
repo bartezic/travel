@@ -9,7 +9,7 @@
         %p.text-orange= t 'request_action.msg_2'
         = simple_form_for(RequestAction.new, html: { class: 'form-horizontal' }, :remote => true) do |f|
           = f.error_notification
-          = f.input :name, required: true
+          = f.input :name
           = f.input :email
           = f.input :phone
           = f.input :countries
@@ -26,7 +26,7 @@
             .datepicker
           = f.input :duration
           = f.input :node, input_html: {rows: 4}
-        %p.muted= "* #{t('request_action.msg_3')}"
+        /%p.muted= "* #{t('request_action.msg_3')}"
         %p.muted= t 'request_action.msg_4'
         %p.muted= t 'request_action.msg_5'
         %p.muted= t 'request_action.msg_6'

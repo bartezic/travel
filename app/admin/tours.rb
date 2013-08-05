@@ -1,18 +1,39 @@
 ActiveAdmin.register Tour do
-  menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }
+  menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }, :parent => 'Тури'
 
   controller do
+    @@bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
+    @@currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+
+    def scoped_collection
+      Tour.includes(:days, :currency, :photo).with_translations(I18n.locale)
+    end
+
+    # def resource
+    #   Tour.includes([
+    #     :days, 
+    #     {currency: :translations}, 
+    #     {photo: :translations}, 
+    #     {regions: :translations}, 
+    #     {tour_programs: :translations}
+    #   ]).with_translations(I18n.locale).find(params[:id])
+    # end
+
+    # def resource
+    #   Tour.includes(:days, :currency, :photo, :regions, :tour_programs).with_translations(I18n.locale).find(params[:id])
+    # end
+
+    def resource
+      Tour.with_translations(I18n.locale).find(params[:id])
+    end
 
     private
 
     def twitt_tour(tour)
-      currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
       img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
-      url = bitly.shorten(tour_url(tour), :history => 1).short_url
+      url = @@bitly.shorten(tour_url(tour), :history => 1).short_url
       title = tour.title
-      descr = "Від #{tour.price_from}#{currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      descr = "Від #{tour.price_from}#{@@currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
       subtitle = ''
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
@@ -47,8 +68,6 @@ ActiveAdmin.register Tour do
     end
 
     def fb_tour(tour)
-      bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-
       name = [tour.title]
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
@@ -57,18 +76,18 @@ ActiveAdmin.register Tour do
       end
 
       massage = [ tour.title,
-                  "Від #{tour.price_from} #{tour.currency && tour.currency.code}",
+                  "Від #{tour.price_from} #{@@currencies[tour.currency && tour.currency.code]}",
                   "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
-                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"]
+                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"].join('
+      ')
 
       pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
       pages.feed!(
-        :message => massage.join('
-          '),
-        :link => bitly.shorten(tour_url(tour), :history => 1).short_url,
-        :description => tour.seo_meta,
-        :picture => "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
-        :name => name.join(' - ')
+        message: massage,
+        link: @@bitly.shorten(tour_url(tour), :history => 1).short_url,
+        description: tour.seo_meta,
+        picture: "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
+        name: name.join(' - ')
       )
     end
   end
@@ -81,7 +100,17 @@ ActiveAdmin.register Tour do
     tours.where(active: :false)
   end
 
+  filter :price_from
+  filter :active
   filter :title
+  filter :description
+  filter :price_list
+  filter :price_included
+  filter :price_excluded
+  filter :note
+  filter :excursions
+  filter :transport_description
+  filter :seo_meta
 
   member_action :clone, :method => :put do
     o_tour = Tour.find(params[:id])
@@ -128,10 +157,10 @@ ActiveAdmin.register Tour do
     redirect_to :back, {:notice => I18n.t('active_admin.twited') }
   end
 
-  action_item :only => :show do
-    span { link_to I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put }
-    span { link_to I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put }
-    span { link_to I18n.t('active_admin.twitt'), {:action => 'twitt', :id => tour }, :method => :put }
+  action_item only: :show do
+    span { link_to I18n.t('active_admin.share'), {action: 'share', id: tour }, method: :put }
+    span { link_to I18n.t('active_admin.clone'), {action: 'clone', id: tour }, method: :put }
+    span { link_to I18n.t('active_admin.twitt'), {action: 'twitt', id: tour }, method: :put }
   end
 
   index do
@@ -145,7 +174,7 @@ ActiveAdmin.register Tour do
       "#{tour.currency && tour.currency.code} #{tour.price_from}+"
     end
     column :days do |tour|
-      tour.days.count
+      tour.days.size
     end
     column :active do |tour|
       status_tag(tour.active.to_s)
@@ -154,44 +183,39 @@ ActiveAdmin.register Tour do
       raw tour.seo_meta
     end
     actions do |tour|
-      link_to(I18n.t('active_admin.clone'), {:action => 'clone', :id => tour }, :method => :put) +
-      link_to(I18n.t('active_admin.share'), {:action => 'share', :id => tour }, :method => :put) +
-      link_to(I18n.t('active_admin.twitt'), {:action => 'twitt', :id => tour }, :method => :put)
+      link_to(I18n.t('active_admin.clone'), {action: 'clone', id: tour }, method: :put) +
+      link_to(I18n.t('active_admin.share'), {action: 'share', id: tour }, method: :put) +
+      link_to(I18n.t('active_admin.twitt'), {action: 'twitt', id: tour }, method: :put)
     end
   end
 
   form do |f|
     f.inputs do
-      f.input :photo, as: :select, collection: Photo.all.sort_by(&:title).map{ |photo|
+      f.input :photo, as: :select, collection: Photo.with_translations(I18n.locale).sort_by(&:title).map{ |photo|
         [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
       }
-      f.inputs 'Photo' do
-        div :class => "selected-photo" do 
-          tour.photo ? image_tag(tour.photo.asset(:thumb_150x)) : '' 
-        end
-      end
-      f.input :gallery
-      f.input :currency, as: :radio
+      f.input :gallery, collection: Gallery.with_translations(I18n.locale)
+      f.input :currency, as: :radio, collection: Currency.with_translations(I18n.locale)
       f.input :price_from
-      f.input :price_type, as: :radio, :collection => [
+      f.input :price_type, as: :radio, collection: [
         [I18n.t('active_admin.room'), 'room'],
         [I18n.t('active_admin.person'), 'person']
       ]
       # f.input :price_to
       f.input :active
       f.input :days, member_label: :day_of_life
-      f.input :tour_types, as: :check_boxes
-      f.input :food_types, as: :check_boxes
+      f.input :tour_types, as: :check_boxes, collection: TourType.with_translations(I18n.locale)
+      f.input :food_types, as: :check_boxes, collection: FoodType.with_translations(I18n.locale)
       f.input :durations, member_label: :count_of_night, as: :check_boxes
-      f.input :transports, as: :check_boxes
-      f.input :regions, as: :check_boxes, :collection => Country.where(code: :ua).first.regions
+      f.input :transports, as: :check_boxes, collection: Transport.with_translations(I18n.locale)
+      f.input :regions, as: :check_boxes, collection: Country.where(code: :ua).first.regions.with_translations(I18n.locale)
     end
     f.inputs "tour_programs" do
       f.has_many :tour_programs do |program|
         program.inputs do
           program.input :day_number
-          program.input :regions, :collection => option_groups_from_collection_for_select(Country.all, :regions, :name, :id, :name, program.object.regions.map(&:id)), :input_html => { :size => 10 }
-          program.input(:_destroy, :as => :boolean, :label => "Destroy?") if program.object
+          program.input :regions, collection: option_groups_from_collection_for_select(Country.includes([:translations, { :regions => :translations }]), :regions, :name, :id, :name, program.object.regions.map(&:id)), :input_html => { :size => 10 }
+          program.input(:_destroy, as: :boolean, label: "Destroy?") if program.object
         end
         program.translated_inputs switch_locale: true do |t|
           t.input :description, as: :html_editor
@@ -210,13 +234,13 @@ ActiveAdmin.register Tour do
       t.input :seo_meta
     end
     f.inputs 'Tags' do
-      f.input :tags
+      f.input :tags, as: :select, collection: Tag.with_translations(I18n.locale)
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|
           t.input :title
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

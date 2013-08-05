@@ -1,18 +1,33 @@
 ActiveAdmin.register Region do
-  menu :priority => 5, :label => proc{ I18n.t('active_admin.menu.regions') }
+  menu :priority => 5, :label => proc{ I18n.t('active_admin.menu.regions') }, :parent => 'Місця'
+
+  controller do
+    def scoped_collection
+      Region.includes([:gallery, :tour_programs, :tours, { country: :translations }]).with_translations(I18n.locale)
+    end
+  end
+
+  filter :country, collection: Country.with_translations(I18n.locale)
+  filter :name
+  filter :description
+  filter :recomendation
+  filter :infrastructure
+  filter :seo_meta
+
   index do
     selectable_column
     id_column
     column :name
     column :photo do |region|
-      div { image_tag(region.gallery.photos.first.asset(:thumb_150x)) if region.gallery && region.gallery.photos.any? }
+      photo = region.gallery && region.gallery.photos.limit(1).try(:first)
+      div { image_tag(photo.asset(:thumb_150x)) if photo }
     end
     column :country
     column :tours_to do |region|
-      region.tour_programs.group_by(&:tour_id).count
+      region.tour_programs.group_by(&:tour_id).size
     end
     column :tours_from do |region|
-      region.tours.count
+      region.tours.size
     end
     column :seo do |a|
       raw a.seo_meta
@@ -40,6 +55,6 @@ ActiveAdmin.register Region do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

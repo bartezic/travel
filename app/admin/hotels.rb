@@ -1,5 +1,14 @@
 ActiveAdmin.register Hotel do
-  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.hotels') }
+  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.hotels') }, :parent => 'Місця'
+  
+  filter :region, collection: Region.with_translations(I18n.locale)
+  filter :name
+  filter :description
+  filter :amenities
+  filter :policies
+  filter :seo_meta
+
+
   index do
     selectable_column
     id_column
@@ -42,6 +51,6 @@ ActiveAdmin.register Hotel do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

@@ -1,11 +1,24 @@
 ActiveAdmin.register Attraction do
-  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.attractions') }
+  menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.attractions') }, :parent => 'Місця'
+  
+  controller do
+    def scoped_collection
+      Attraction.includes([{ region: :translations }, { gallery: :translations }]).with_translations(I18n.locale)
+    end
+  end
+
+  filter :region, collection: Region.with_translations(I18n.locale)
+  filter :name
+  filter :description
+  filter :seo_meta
+
   index do
     selectable_column
     id_column
     column :name
     column :photo do |a|
-      div { image_tag(a.gallery.photos.first.asset(:thumb_150x)) if a.gallery && a.gallery.photos.any? }
+      photo = a.gallery && a.gallery.photos.limit(1).try(:first)
+      div { image_tag(photo.asset(:thumb_150x)) if photo }
     end
     column :region
     column :gallery
@@ -33,6 +46,6 @@ ActiveAdmin.register Attraction do
         end
       end
     end
-    f.buttons
+    f.actions
   end
 end

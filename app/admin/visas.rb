@@ -1,6 +1,21 @@
 ActiveAdmin.register Visa do
-  menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visas') }
+  menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visas') }, :parent => 'Візи'
   
+  controller do
+    def scoped_collection
+      Visa.includes([{ visa_type: :translations }, { country: :translations }]).with_translations(I18n.locale)
+    end
+  end
+
+  filter :visa_type, collection: VisaType.with_translations(I18n.locale)
+  filter :country, collection: Country.with_translations(I18n.locale)
+  filter :description
+  filter :foreign_pas
+  filter :foreign_pas_duration
+  filter :foreign_pas_additional
+  filter :service_pas
+  filter :diplomatic_pas
+
   member_action :clone, :method => :put do
     o_visa = Visa.find(params[:id])
     
@@ -38,6 +53,6 @@ ActiveAdmin.register Visa do
       t.input :service_pas
       t.input :diplomatic_pas
     end
-    f.buttons
+    f.actions
   end
 end
