@@ -20,9 +20,9 @@ ActiveAdmin.register Tour do
     #   Tour.includes(:days, :currency, :photo, :regions, :tour_programs).with_translations(I18n.locale).find(params[:id])
     # end
 
-    def resource
-      params[:id] ? Tour.with_translations(I18n.locale).find(params[:id]) : Tour.new
-    end
+    # def resource
+    #   params[:id] ? Tour.with_translations(I18n.locale).find(params[:id]) : Tour.new
+    # end
 
     private
     CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
