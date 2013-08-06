@@ -2,9 +2,6 @@ ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }, :parent => 'Тури'
 
   controller do
-    @@bitly = Bitly.new('o_7bdn4eemnu', 'R_95733437b5cb4c07b976dfa185964cab')
-    @@currencies = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
-
     def scoped_collection
       Tour.includes(:days, :currency, :photo).with_translations(I18n.locale)
     end
@@ -28,12 +25,13 @@ ActiveAdmin.register Tour do
     end
 
     private
+    CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
 
     def twitt_tour(tour)
       img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
-      url = @@bitly.shorten(tour_url(tour), :history => 1).short_url
+      url = Bitly.client.shorten(tour_url(tour), :history => 1).short_url
       title = tour.title
-      descr = "Від #{tour.price_from}#{@@currencies[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      descr = "Від #{tour.price_from}#{CURRENCIES[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
       subtitle = ''
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
@@ -76,7 +74,7 @@ ActiveAdmin.register Tour do
       end
 
       massage = [ tour.title,
-                  "Від #{tour.price_from} #{@@currencies[tour.currency && tour.currency.code]}",
+                  "Від #{tour.price_from} #{CURRENCIES[tour.currency && tour.currency.code]}",
                   "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
                   "Виїзди із: #{tour.regions.map(&:name).join(', ')}"].join('
       ')
@@ -84,7 +82,7 @@ ActiveAdmin.register Tour do
       pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first
       pages.feed!(
         message: massage,
-        link: @@bitly.shorten(tour_url(tour), :history => 1).short_url,
+        link: Bitly.client.shorten(tour_url(tour), :history => 1).short_url,
         description: tour.seo_meta,
         picture: "#{request.protocol + request.host_with_port + tour.photo.asset.url(:thumb_250x)}",
         name: name.join(' - ')
