@@ -21,7 +21,7 @@ ActiveAdmin.register Tour do
     # end
 
     def resource
-      Tour.with_translations(I18n.locale).find(params[:id])
+      params[:id] ? Tour.with_translations(I18n.locale).find(params[:id]) : Tour.new
     end
 
     private
