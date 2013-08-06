@@ -1,5 +1,5 @@
 .row
-  .col-lg-8
+  .col-lg-8.col-sm-12
     - if @hot_tours.any?
       #myCarousel.carousel.slide
         %ol.carousel-indicators
@@ -23,60 +23,74 @@
           %span.icon-prev.glyphicon.glyphicon-chevron-left
         %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"}
           %span.icon-next.glyphicon.glyphicon-chevron-right
-    .row.country
-      .col-lg-6.col-sm-6
-        %h4= t 'home.popular_countries'
-        .thumbnail
-          .caption
-            %ul.media-list
-              - @countries.each do |country|
-                %li.media
-                  - if country.photo
-                    = link_to image_tag(country.photo.asset(:thumb_150x), { class: 'media-object', alt: country.photo.title }), country, {class: 'pull-left'}
-                  .media-body
-                    %h5.media-heading
-                      = link_to country.name, country
-                      - country.continents.each_with_index do |continent, i|
-                        %small
-                          %em
-                            = ', ' if i != 0
-                            = link_to continent.name, continent
-                    %div= t 'home.region.tours', count: country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count
-                    %div= t 'home.region.regions', count: country.regions.count
-                    /%div= t 'home.region.hotels', count: 0
-            %a.btn.btn-default.btn-small.pull-right{ href: countries_path }= t 'home.all_countries'
-      .col-lg-6.col-sm-6
-        %h4= t 'home.popular_regions'
-        .thumbnail
-          .caption
-            %ul.media-list
-              - @regions.each do |region|
-                %li.media
-                  - if region.gallery && region.gallery.photos.any?
-                    = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), [region.country, region], {class: 'pull-left'}
-                  .media-body
-                    %h5.media-heading
-                      = link_to region.name, [region.country, region]
-                      %small
-                        %em= link_to region.country.name, region.country
-                    %div= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
-                    /%div= t 'home.region.hotels', count: region.hotels.count
-            %a.btn.btn-default.btn-small.pull-right{ href: regions_path }= t 'home.all_regions'
-  .col-lg-4
-    .row.country
-      .col-lg-12
-        %h4= t 'home.last_tours'
-        .thumbnail
-          .caption
-            %ul.media-list
-              - @tours.each do |tour|
-                %li.media
-                  - if tour.photo
-                    = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
-                  .media-body
-                    %h5.media-heading
-                      = link_to tour.title, tour
-                      %em= raw tour_subtitle(tour, true)
-                    %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{currency_sym(tour)}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
-                    %div= "#{tour.tour_types.map(&:title).join(', ')}"
-            %a.btn.btn-default.btn-small.pull-right{ href: tours_path }= t 'home.all_tours'
+  .col-lg-4.col-sm-12
+    .row.hot-tours
+      - @hot_tours2.each_with_index do |tour, i|
+        .col-lg-6.col-sm-4.col-6.block
+          = image_tag tour.cover(:thumb), { alt: tour.title }
+          - if i == 5
+            .shadow
+            .all-hot-tours 
+              %a{ href: '/hot_tours'} 
+                = t 'home.more_hot_tours'
+                %span.glyphicon.glyphicon-arrow-right
+          - else
+            .title 
+              = tour.title
+              .descr= tour.description
+        
+.row.country
+  .col-lg-4.col-sm-6
+    %h4= t 'home.popular_countries'
+    .thumbnail
+      .caption
+        %ul.media-list
+          - @countries.each do |country|
+            %li.media
+              - if country.photo
+                = link_to image_tag(country.photo.asset(:thumb_150x), { class: 'media-object', alt: country.photo.title }), country, {class: 'pull-left'}
+              .media-body
+                %h5.media-heading
+                  = link_to country.name, country
+                  - country.continents.each_with_index do |continent, i|
+                    %small
+                      %em
+                        = ', ' if i != 0
+                        = link_to continent.name, continent
+                %div= t 'home.region.tours', count: country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count
+                %div= t 'home.region.regions', count: country.regions.count
+                /%div= t 'home.region.hotels', count: 0
+        %a.btn.btn-default.btn-small.pull-right{ href: countries_path }= t 'home.all_countries'
+  .col-lg-4.col-sm-6
+    %h4= t 'home.popular_regions'
+    .thumbnail
+      .caption
+        %ul.media-list
+          - @regions.each do |region|
+            %li.media
+              - if region.gallery && region.gallery.photos.any?
+                = link_to image_tag(region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), [region.country, region], {class: 'pull-left'}
+              .media-body
+                %h5.media-heading
+                  = link_to region.name, [region.country, region]
+                  %small
+                    %em= link_to region.country.name, region.country
+                %div= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
+                /%div= t 'home.region.hotels', count: region.hotels.count
+        %a.btn.btn-default.btn-small.pull-right{ href: regions_path }= t 'home.all_regions'
+  .col-lg-4.col-sm-12
+    %h4= t 'home.last_tours'
+    .thumbnail
+      .caption
+        %ul.media-list
+          - @tours.each do |tour|
+            %li.media
+              - if tour.photo
+                = link_to image_tag(tour.photo.asset(:thumb_150x), { class: 'media-object', alt: tour.photo.title }), tour, {class: 'pull-left'}
+              .media-body
+                %h5.media-heading
+                  = link_to tour.title, tour
+                  %em= raw tour_subtitle(tour, true)
+                %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{currency_sym(tour)}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
+                %div= "#{tour.tour_types.map(&:title).join(', ')}"
+        %a.btn.btn-default.btn-small.pull-right{ href: tours_path }= t 'home.all_tours'

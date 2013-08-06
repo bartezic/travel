@@ -30,6 +30,7 @@ ru:
       visas: Визы
       tags: Теги
       request_action: Рег. на акции
+      hot_tours: Горящие туры
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."

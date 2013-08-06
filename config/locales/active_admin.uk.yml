@@ -33,6 +33,7 @@ uk:
       visas: Візи
       tags: Теги
       request_action: Реє. на акції
+      hot_tours: Гарячі тури
     dashboard: "Панель керування"
     dashboard_welcome:
       welcome: "Ласкаво просимо в Active Admin. Це стандартна сторінка керування сайтом."

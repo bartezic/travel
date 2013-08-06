@@ -1,0 +1,15 @@
+- content_for :seo_meta do
+  = t 'seo.hot_tours'
+- content_for :tags do
+  = @hot_tours.map(&:title).join(',')
+- content_for :title do
+  = t 'menu.hot_tours'
+
+.row.hot-tours
+  %h2= t 'menu.hot_tours'
+  - @hot_tours.each do |tour|
+    .col-lg-3.col-sm-4.col-6.block
+      = image_tag tour.cover(:thumb), { alt: tour.title }
+      .title 
+        = tour.title
+        .descr= tour.description

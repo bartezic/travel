@@ -9,11 +9,11 @@ ActiveAdmin.register Country do
   end
 
   scope :all, :default => true
-  Continent.with_translations(I18n.locale).each do |continent|
-    scope continent.name do |countries|
-      continent.countries
-    end
-  end
+  # Continent.with_translations(I18n.locale).each do |continent|
+  #   scope continent.name do |countries|
+  #     continent.countries
+  #   end
+  # end
 
   # filter :continents, as: :select, collection: Continent.with_translations(I18n.locale)
   filter :name

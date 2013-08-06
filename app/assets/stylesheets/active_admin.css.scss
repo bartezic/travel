@@ -19,6 +19,9 @@ body.active_admin {
       margin: 5px 0 0 20%;
     }
   }
+  #index_table_hot_tours .photo img {
+    max-width: 150px;
+  }
   #header {
     padding: 9px;
     h1 {
