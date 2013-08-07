@@ -1,4 +1,5 @@
 class HotTours < ActiveRecord::Base
+  default_scope :order => 'hot_tours.id DESC'
   attr_accessible :cover, :description, :title, :active, :cover_remote_url
 
   translates  :title, :description
