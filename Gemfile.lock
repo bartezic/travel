@@ -287,6 +287,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  mail
   meta_search (>= 1.1.0.pre)
   newrelic_rpm
   paperclip (~> 3.0)

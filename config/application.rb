@@ -62,5 +62,17 @@ module Travel
     config.i18n.fallbacks = true
     config.i18n.available_locales = [:uk, :ru]
     config.i18n.default_locale = :uk
+    config.action_mailer.delivery_method = :smtp
+
   end
+
+  ActionMailer::Base.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "mongrasse.com.ua",
+    user_name:            "noty.mongrasse@gmail.com",
+    password:             "mongrasse=8",
+    authentication:       "plain",
+    enable_starttls_auto: true
+  }
 end

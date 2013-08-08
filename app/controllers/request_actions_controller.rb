@@ -4,6 +4,7 @@ class RequestActionsController < InheritedResources::Base
 
     respond_to do |format|
       if @request_action.save
+        RequestActionsMailer.new_request(@request_action, request.host_with_port).deliver
         format.html { redirect_to :back, notice: 'Successfully created.' }
         format.json { render json: { success: true }, status: :created }
       else

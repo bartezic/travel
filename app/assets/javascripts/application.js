@@ -123,6 +123,7 @@ $(function() {
           success.addClass('hidden');
           failure.removeClass('hidden');
         }
+        btn.attr('disabled', false);
       });
     } else {
       alert(window.app.l.v_email_or_phone)

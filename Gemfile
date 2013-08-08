@@ -7,6 +7,8 @@ gem 'rails'
 
 gem 'pg'
 
+gem 'mail'
+
 gem 'haml'
 gem "haml-rails"
 gem 'activeadmin', "~> 0.6.0"
