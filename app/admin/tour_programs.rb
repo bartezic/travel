@@ -3,12 +3,6 @@ ActiveAdmin.register TourProgram do
   # belongs_to :tour
   # navigation_menu :tour
 
-  controller do
-    def scoped_collection
-      TourProgram.with_translations(I18n.locale)
-    end
-  end
-
   filter :tour, collection: Tour.with_translations(I18n.locale)
   filter :day_number
   filter :description

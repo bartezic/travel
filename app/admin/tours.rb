@@ -2,14 +2,6 @@ ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }, :parent => 'Тури'
 
   controller do
-    def scoped_collection
-      Tour.includes(:days, :currency, :photo).with_translations(I18n.locale)
-    end
-
-    def resource
-      params[:id] ? Tour.includes(:translations, :days, :currency, :photo, :regions, :tour_programs).find(params[:id]) : Tour.new
-    end
-
     private
     CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
 

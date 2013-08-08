@@ -1,12 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Country do
   menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }, :parent => 'Місця'
-  
-  controller do
-    def scoped_collection
-      Country.includes([:photo, :continents, { continents: :translations }]).with_translations(I18n.locale)
-    end
-  end
 
   scope :all, :default => true
   # Continent.with_translations(I18n.locale).each do |continent|

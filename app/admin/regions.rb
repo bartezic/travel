@@ -1,12 +1,6 @@
 ActiveAdmin.register Region do
   menu :priority => 5, :label => proc{ I18n.t('active_admin.menu.regions') }, :parent => 'Місця'
 
-  controller do
-    def scoped_collection
-      Region.includes([:gallery, :tour_programs, :tours, { country: :translations }]).with_translations(I18n.locale)
-    end
-  end
-
   filter :country, collection: Country.with_translations(I18n.locale)
   filter :name
   filter :description

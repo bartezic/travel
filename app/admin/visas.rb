@@ -1,11 +1,5 @@
 ActiveAdmin.register Visa do
   menu :priority => 9, :label => proc{ I18n.t('active_admin.menu.visas') }, :parent => 'Візи'
-  
-  controller do
-    def scoped_collection
-      Visa.includes([{ visa_type: :translations }, { country: :translations }]).with_translations(I18n.locale)
-    end
-  end
 
   filter :visa_type, collection: VisaType.with_translations(I18n.locale)
   filter :country, collection: Country.with_translations(I18n.locale)

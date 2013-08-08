@@ -1,11 +1,5 @@
 ActiveAdmin.register Attraction do
   menu :priority => 6, :label => proc{ I18n.t('active_admin.menu.attractions') }, :parent => 'Місця'
-  
-  controller do
-    def scoped_collection
-      Attraction.includes([{ region: :translations }, { gallery: :translations }]).with_translations(I18n.locale)
-    end
-  end
 
   filter :region, collection: Region.with_translations(I18n.locale)
   filter :name

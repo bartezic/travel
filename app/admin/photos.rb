@@ -1,12 +1,6 @@
 ActiveAdmin.register Photo do
   menu :priority => 8, :label => proc{ I18n.t('active_admin.menu.photos') }, :parent => 'Фото'
 
-  controller do
-    def scoped_collection
-      Photo.includes([{countries: :translations}, {galleries: :translations}, {tours: :translations}]).with_translations(I18n.locale)
-    end
-  end
-
   filter :id
   filter :meta_galleries, :as => :select, :collection => proc{ Gallery.with_translations(I18n.locale) }
   filter :meta_countries, :as => :select, :collection => proc{ Country.with_translations(I18n.locale) }

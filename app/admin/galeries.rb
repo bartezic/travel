@@ -1,11 +1,5 @@
 ActiveAdmin.register Gallery do
   menu :priority => 7, :label => proc{ I18n.t('active_admin.menu.galleries') }, :parent => 'Фото'
-  
-  controller do
-    def scoped_collection
-      Gallery.includes(:photos).with_translations(I18n.locale)
-    end
-  end
 
   index do
     selectable_column
