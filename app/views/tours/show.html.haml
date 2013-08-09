@@ -5,7 +5,7 @@
 - content_for :title do
   = "#{@tour.title} - #{tour_subtitle(@tour, true, true)}"
 - content_for :image_src do
-  = @tour.photo.asset(:big_1170x)
+  = @tour.photo.asset(:original)
 - content_for :scripts do
   %script{ src: "//yandex.st/share/share.js", charset: "utf-8" }
   :javascript
@@ -24,13 +24,13 @@
     });
     
 .row.tour
-  .col-lg-9
+  .col-lg-8
     %h2
       = @tour.title
       = raw tour_subtitle(@tour)
     .row
       .col-lg-12
-        .fleft#ya-share
+        .pull-fleft#ya-share
     %dl
       - if @tour.price_from
         %dt= t 'tours.price'
@@ -101,10 +101,15 @@
                   %small= link_to region.country.name, region.country
                 = render 'layouts/gallery', photos: region.gallery.photos
 
-  .col-lg-3
-    %h4= t 'tours.related'
-    - @related.each do |tour|
-      .thumbnail
-        .caption
-          = link_to image_tag(tour.photo.asset(:thumb_250x), { alt: tour.photo.title }), tour
-          %h4= link_to tour.title, tour
+  .col-lg-4
+    .row.related
+      %h4= t 'tours.related'
+      - @related.each do |tour|
+        .col-lg-12.col-sm-4.col-6.block
+          = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title })
+          .title 
+            = link_to tour.title, tour
+            %em= raw tour_subtitle(tour, true)
+            .descr
+              %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{currency_sym(tour)}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
+              %div= "#{tour.tour_types.map(&:title).join(', ')}"

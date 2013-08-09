@@ -91,15 +91,16 @@ ru:
   region:
     gallery: Галерея изображений
   home:
+    recommends: Рекомендуем
     last_tours: Последние добавления туры
     popular_regions: Популярные направления
     popular_countries: Популярные страны
     blog_sorry: Блог находится в стадии разработки
     news: Новости туризма
-    all_news: Все новости ...
-    all_tours: Все туры ...
-    all_regions: Все направления ...
-    all_countries: Все страны ...
+    all_news: Больше новостей
+    all_tours: Больше туры
+    all_regions: Больше направлений
+    all_countries: Больше стран
     more_hot_tours: Больше горящих туров
     region:
       hotels: "Отелей: %{count}"

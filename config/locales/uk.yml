@@ -92,15 +92,16 @@ uk:
   region:
     gallery: Галерея зображень
   home:
+    recommends: Рекомендуємо
     last_tours: Останні додані тури
     popular_regions: Популярні напрямки
     popular_countries: Популярні країни
     blog_sorry: Блог знаходиться у стадії розробки
     news: Новини туризму
-    all_news: Всі новини ...
-    all_tours: Всі тури ...
-    all_regions: Всі напрямки ...
-    all_countries: Всі країни ...
+    all_news: Більше новин
+    all_tours: Більше турів
+    all_regions: Більше напрямків
+    all_countries: Більше країн
     more_hot_tours: Більше гарячих турів
     region:
       hotels: "Готелів: %{count}"

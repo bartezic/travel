@@ -13,9 +13,10 @@ class Region < ActiveRecord::Base
   has_many :taggings, :as => :taggable
 
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, 
-                  :infrastructure, :tag_ids, :tags_attributes, :all_tags
+                  :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes
 
   accepts_nested_attributes_for :tags
+  accepts_nested_attributes_for :gallery, allow_destroy: true
   
   friendly_id :name, use: :slugged
 

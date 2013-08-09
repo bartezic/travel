@@ -64,7 +64,7 @@ $(function() {
     interval: 5000
   });
 
-  $('.tour').find('table').not('#vkshare0').addClass('table table-striped table-bordered table-condensed');
+  $('.tour table').addClass('table table-striped table-bordered table-condensed');
 
   $('ul.grid li img').error(function(){
     $(this).closest('li').remove()

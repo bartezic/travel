@@ -10,7 +10,7 @@ body {
   background: #F8F7E7 url(/assets/color_bg.jpg) repeat;
 }
 
-.hot-tours {
+.hot-tours, .related, .styled {
   padding: 0 15px 0;
   img {
     width: 100%;
@@ -70,6 +70,7 @@ body {
         -webkit-transition: 500ms;
       }
       &:hover{
+        background-color: rgba(0,0,0,0.75);
         .descr {
           color: #FFFFFF;
           opacity: 1;
@@ -162,16 +163,6 @@ body {
   border-radius: 3px;
 }
 
-.row-fluid {
-  ul.thumbnails {
-    li.span12 + li { margin-left : 0px; }
-    li.span6:nth-child(2n + 3) { margin-left : 0px; }
-    li.span4:nth-child(3n + 4) { margin-left : 0px; }
-    li.span3:nth-child(4n + 5) { margin-left : 0px; }
-    li.span2:nth-child(6n + 7) { margin-left : 0px; }
-    li.span1:nth-child(12n + 13) { margin-left : 0px; }
-  }
-}
 .tours {
   //font-size: 0.9em;
   .media {
@@ -213,35 +204,24 @@ body {
   }
 }
 
-.fleft {
-  float: left
-}
-.con {
-  margin-right: 10px 
-}
-
-.text-orange {
-  color: #e36300
-}
-
 .tour_program {
   .regions-links {
     font-size: 1.1em;
   }
 }
 
-h1, h2, h3, h4, h5 {
-  small small {
-    font-size: 80%;
-  }
+.text-orange {
+  color: #e36300
 }
 
 *[data-toggle=tooltip] {
   cursor: pointer;
 }
 
-a.read-more {
-  margin-left: 15px
+.custom {
+  h1, h2, h3 {
+    margin-top: 5px;
+  }
 }
 
 /* Galleries */

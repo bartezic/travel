@@ -1,6 +1,6 @@
 module ApplicationHelper
   def full_year_callendar(days)
-    p = "<table><thead><tr><th>#{t 'callendar.month_year'}</th>"
+    p = "<table class='table table-striped table-bordered table-condensed'><thead><tr><th>#{t 'callendar.month_year'}</th>"
     days.each { |k,v| p << "<th>#{k}</th>" }
     p << "<tr></thead><tbody>"
     arr = Array.new(12) { Array.new(days.size) }
@@ -38,7 +38,7 @@ module ApplicationHelper
     # }
     # p << '</tbody></table>'
     if programs.any? && programs.size > 1
-      p = "<table class=tour_program>
+      p = "<table class='tour_program table table-striped table-bordered table-condensed'>
             <thead>
               <tr>
                 <th><p class=text-center>#{t 'tours.day'}</p></th>
@@ -48,7 +48,7 @@ module ApplicationHelper
           <tbody>"
       programs.each { |program|
         regions = program.regions.map {|region|
-          "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
+          "#{link_to region.name, region} <small><em>(#{link_to region.country.name, region.country})</em></small>"
         }
 
         p << "<tr>
@@ -70,7 +70,7 @@ module ApplicationHelper
   def marshrut(programs)
     regions = programs.map { |program| program.regions }.flatten.uniq
     regions.map {|region|
-      "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
+      "#{link_to region.name, region} <small><em>(#{link_to region.country.name, region.country})</em></small>"
     }.join(' - ') if regions.uniq.size > 1
   end
 
@@ -83,7 +83,9 @@ module ApplicationHelper
         else
           res = "<small>#{link_to regions.first.name, regions.first}
                   <small>
-                    (#{link_to regions.first.country.name, regions.first.country})
+                    <em>
+                      (#{link_to regions.first.country.name, regions.first.country})
+                    </em>
                   </small>
                 </small>"
         end

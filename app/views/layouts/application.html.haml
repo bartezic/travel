@@ -28,18 +28,20 @@
     
     #footer
       .container
-        %p.pull-left.text-muted
-          &copy; 2010-2013. Монграссе. 
-          %button.btn.btn-mini.toggle-popover-stat{ type: :button }
-            %span.glyphicon.glyphicon-signal
-        %p.pull-right.text-muted
-          = t('gen.dev')
-          %a.text-muted{ href: 'http://ua.linkedin.com/in/bartezic/en' } Олексин Віктор
-          :javascript
-            (function(w,n,d,r,s){d.write('<div class="hidden popover-stat"><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
-            ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+
-            ((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random()+
-            '" style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /><\/a><\/div>');})(window,navigator,document);
+        .row
+          .col-lg-12
+            .pull-left.text-muted
+              &copy; 2010-2013. ТК Монграссе. 
+              %button.btn.btn-mini.toggle-popover-stat{ type: :button }
+                %span.glyphicon.glyphicon-signal
+              :javascript
+                (function(w,n,d,r,s){d.write('<div class="hidden popover-stat"><a href="http://top.mail.ru/jump?from=2043077"><img src="'+
+                ('https:'==d.location.protocol?'https:':'http:')+'//top-fwz1.mail.ru/counter?id=2043077;t=55;js=13'+
+                ((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random()+
+                '" style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /><\/a><\/div>');})(window,navigator,document);
+            .pull-right.text-muted
+              = t('gen.dev')
+              %a.text-muted{ href: 'http://ua.linkedin.com/in/bartezic/en' } Олексин Віктор
 
     = javascript_include_tag "application"
     = yield :scripts

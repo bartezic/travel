@@ -18,7 +18,7 @@ class CountriesController < InheritedResources::Base
     @tours = Tour.search(params.merge({ region: @country.region_ids}))
     @attractions = @country.regions.map { |i| i.attractions }.flatten
     @hotels = @country.regions.map { |i| i.hotels }.flatten
-    @photos = @country.regions.map { |i| i.gallery.photos }.flatten.uniq
+    @photos = @country.regions.map { |i| i.gallery.photos if i.gallery }.flatten.uniq.compact
 
     respond_to do |format|
       format.html # show.html.erb

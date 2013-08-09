@@ -14,9 +14,10 @@ class Photo < ActiveRecord::Base
 
   has_attached_file :asset,
     :styles => { 
+      :thumb_370 => '370x290#',
+      :thumb_770 => '770x433#',
       :thumb_150x => '150x', 
-      :thumb_250x => '250x',
-      :big_1170x => '1170x1000>' 
+      :thumb_250x => '250x'
     },
     :default_url => "/assets/ph/:attachment_:style.gif", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",

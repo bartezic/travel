@@ -7,8 +7,8 @@
 
 .row.country
   .col-lg-12
-    - if @country.photo && @country.photo.asset.url(:big_1170x) != '/images/ph/logos_big.png'
-      = image_tag @country.photo.asset.url(:big_1170x), { alt: @country.photo.title }
+    - if @country.photo && @country.photo.asset.url(:original) != '/images/ph/logos_big.png'
+      = image_tag @country.photo.asset.url(:original), { class: 'img-responsive', alt: @country.photo.title }
     %h2
       = @country.name
       - @country.continents.each_with_index do |continent, i|
@@ -16,7 +16,9 @@
           %em
             = ', ' if i != 0
             = link_to continent.name, continent
-
+  .col-lg-4
+.row.country
+  .col-lg-12
     .tabbable
       %ul.nav.nav-tabs
         %li.active
