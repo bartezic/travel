@@ -52,4 +52,4 @@ production:
   database: travel_mongrasse_production
   pool: 5
   username: travel_mongrasse
-  password: 'travel_mongrasse_123Q#r='
+  password: travel_mongrasse_123Q
