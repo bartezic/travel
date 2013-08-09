@@ -105,7 +105,7 @@
     .row.related
       %h4= t 'tours.related'
       - @related.each do |tour|
-        .col-lg-12.col-sm-4.col-6.block
+        .col-lg-6.col-sm-4.col-6.block
           = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title })
           .title 
             = link_to tour.title, tour

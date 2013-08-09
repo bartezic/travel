@@ -10,7 +10,7 @@
         .carousel-inner
           - @hot_tours.each_with_index do |tour, i|
             .item{ class: ('active' if i == 0), "data-slide-number" => i}
-              = image_tag tour.photo.asset.url(:original), { alt: tour.photo.title }
+              = image_tag tour.photo.asset.url(:thumb_770), { alt: tour.photo.title }
               .carousel-caption
                 %h4
                   = link_to tour.title, tour
