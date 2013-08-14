@@ -49,7 +49,7 @@
         .col-lg-6.col-sm-4.col-6.block
           - if tour.photo
             = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title })
-          - if i == 11
+          - if i == 5
             .shadow
             .all-hot-tours 
               %a{ href: tours_path } 
@@ -69,7 +69,7 @@
         .col-lg-6.col-sm-6.col-6.block
           - if country.photo
             = image_tag(country.photo.asset(:thumb_370), { alt: country.photo.title })
-          - if i == 11
+          - if i == 5
             .shadow
             .all-hot-tours 
               %a{ href: countries_path } 
@@ -93,7 +93,7 @@
         .col-lg-6.col-sm-6.col-6.block
           - if region.gallery && region.gallery.photos.any?
             = image_tag(region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title })
-          - if i == 11
+          - if i == 5
             .shadow
             .all-hot-tours 
               %a{ href: regions_path } 

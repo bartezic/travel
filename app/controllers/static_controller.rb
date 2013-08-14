@@ -5,7 +5,7 @@ class StaticController < ApplicationController
 
     @regions = popular_regions
     @countries = popular_countries
-    @tours = Tour.search(params).limit(12)
+    @tours = Tour.search(params).limit(6)
     @hot_tours2 = HotTours.where(active: true).with_translations(I18n.locale).limit(6)
     @hot_tours = Tour.search(params.merge({ tour_type: TourType.where(code: :hot).map(&:id) }))
     respond_to do |format|
@@ -50,7 +50,7 @@ class StaticController < ApplicationController
     Region.includes(:tour_programs).inject({}){|mem, region| 
       mem[region] = region.tour_programs.map(&:tour_id).uniq.size; 
       mem
-    }.sort_by(&:last).map(&:first).uniq.last(12).reverse
+    }.sort_by(&:last).map(&:first).uniq.last(6).reverse
   end
 
   # regions it is array of hash of popular regions in format { region => tours_count }
@@ -58,6 +58,6 @@ class StaticController < ApplicationController
     Country.includes(:regions, :regions => :tour_programs).inject({}){|mem, country|
       mem[country] = country.regions.map{ |region| region.tour_programs.map(&:tour_id) }.flatten.uniq.size
       mem
-    }.sort_by(&:last).map(&:first).uniq.last(12).reverse
+    }.sort_by(&:last).map(&:first).uniq.last(6).reverse
   end
 end
