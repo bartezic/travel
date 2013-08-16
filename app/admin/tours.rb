@@ -167,9 +167,11 @@ ActiveAdmin.register Tour do
 
   form do |f|
     f.inputs do
-      f.input :photo, as: :select, collection: Photo.with_translations(I18n.locale).sort_by(&:title).map{ |photo|
-        [photo.title, photo.id, { :'data-thumb' => photo.asset(:thumb_150x) }]
-      }
+      if f.object.photo
+        f.input :photo, as: :string, input_html: { class: :photo2, data: { text: f.object.photo.title, id: f.object.photo.id, thumb: f.object.photo.asset(:thumb_150x) }}
+      else
+        f.input :photo, as: :string, input_html: { class: :photo2 }
+      end
       f.input :gallery, collection: Gallery.with_translations(I18n.locale)
       f.input :currency, as: :radio, collection: Currency.with_translations(I18n.locale)
       f.input :price_from
@@ -209,8 +211,20 @@ ActiveAdmin.register Tour do
       t.input :transport_description, as: :html_editor
       t.input :seo_meta
     end
-    f.inputs 'Tags' do
-      f.input :tags, as: :select, collection: Tag.with_translations(I18n.locale)
+    f.inputs "Keywords" do
+      if f.object.tags && f.object.tags.any?
+        f.input :tags, as: :string, input_html: { 
+          class: :tag2, 
+          value: '', 
+          data: { 
+            tags: f.object.tags.map{ |tag| 
+              { text: tag.title, id: tag.id } 
+            }.to_json
+          } 
+        }
+      else
+        f.input :tags, as: :string, input_html: { class: :tag2, value: '' }
+      end
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|
           t.input :title

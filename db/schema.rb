@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806114916) do
+ActiveRecord::Schema.define(:version => 20130816142109) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130806114916) do
     t.string   "slug"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "geo"
   end
 
   add_index "attractions", ["slug"], :name => "index_attractions_on_slug", :unique => true
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20130806114916) do
     t.string   "slug"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "geo"
   end
 
   add_index "continents", ["slug"], :name => "index_continents_on_slug", :unique => true
@@ -116,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130806114916) do
     t.datetime "updated_at",     :null => false
     t.string   "code"
     t.integer  "photo_id"
+    t.text     "geo"
   end
 
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
@@ -267,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20130806114916) do
     t.string   "slug"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "geo"
   end
 
   add_index "hotels", ["slug"], :name => "index_hotels_on_slug", :unique => true
@@ -319,6 +323,7 @@ ActiveRecord::Schema.define(:version => 20130806114916) do
     t.string   "slug"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "geo"
   end
 
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true

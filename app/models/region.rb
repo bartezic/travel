@@ -13,7 +13,7 @@ class Region < ActiveRecord::Base
   has_many :taggings, :as => :taggable
 
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, 
-                  :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes
+                  :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes, :geo, :geo_input
 
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :gallery, allow_destroy: true
@@ -23,6 +23,14 @@ class Region < ActiveRecord::Base
   translates :name, :description, :seo_meta, :recomendation, :infrastructure
   active_admin_translates :name, :description, :recomendation, :infrastructure, :seo_meta do
     validates_presence_of :name
+  end
+
+  def geo_input
+    ''
+  end
+
+  def geo_input=(val)
+    ''
   end
 
   def all_tags

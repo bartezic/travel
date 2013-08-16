@@ -113,8 +113,152 @@ window.adminApp.trasl = {
   }
 };
 
+window.adminApp.geo = {
+  initHandlers: function() {
+    var _ = this; 
+
+    _.elems.geoInputs.select2({
+      minimumInputLength: 2,
+      ajax: {
+        url: 'http://maps.googleapis.com/maps/api/geocode/json',
+        dataType: 'JSON',
+        data: function (term, page) {
+          return {
+            address: term,
+            sensor: true,
+            language: 'uk'
+          };
+        },
+        results: function (res, page) {
+          var data = [];
+
+          if(res.status == 'OK'){
+            data = $.map(res.results, function(el, index) {
+              return { id: el.formatted_address, text: el.formatted_address, full: el }
+            });
+          };
+
+          return { results: data }
+        }
+      }
+    });
+    
+    _.elems.geoInputs.on('change', function(el) {
+      _.elems.geo.val(JSON.stringify(el.added.full));
+    });
+  },
+
+  init: function() {
+    this.elems = {
+      form: $('#active_admin_content form'),
+      geoInputs: $('.geo_input2'),
+      geo: $('.geo2')
+    };
+
+    this.initHandlers();
+  }
+};
+
+window.adminApp.photos = {
+
+  initHandlers: function() {
+    var _ = this; 
+
+    _.elems.photos.select2({
+      minimumInputLength: 2,
+      escapeMarkup: function(m) { return m; },
+      formatResult: function(state) {
+        var option = state.element;
+        if (!state.id) return state.text; // optgroup
+        return "<img class='select-photo-thumb' src='" + state.thumb + "'/>" + state.text;
+      },
+      formatSelection: function(state) {
+        var option = state.element;
+        if (!state.id) return state.text; // optgroup
+        return "<img class='select-photo-thumb' src='" + state.thumb + "'/>" + state.text;
+      },
+      ajax: {
+        url: '/api/photos',
+        dataType: 'JSON',
+        data: function (term, page) {
+          return {
+            query: term
+          };
+        },
+        results: function (res, page) {
+          return { results: res }
+        }
+      }
+    });
+    
+    _.elems.photos.on('change', function(el, el2) {
+      var input = $(this).closest('li.input'),
+          thumb = input.find('div.thumb'),
+          img = '<img src="'+ (el.added !== undefined ? el.added.thumb : $(el.target).data('thumb'))+'"/>';
+
+      if(thumb.length){
+        thumb.html(img)
+      } else {
+        input.append('<div class="thumb">'+img+'</div>')
+      }
+    });
+
+    if(_.elems.photos.data('id')){
+      _.elems.photos.select2('data', _.elems.photos.data()).change();
+    }
+  },
+
+  init: function() {
+    this.elems = {
+      photos: $('.photo2')
+    };
+
+    this.initHandlers();
+  }
+};
+
+window.adminApp.tags = {
+
+  initHandlers: function() {
+    var _ = this, data = eval(_.elems.tags.data('tags')); 
+
+    _.elems.tags.select2({
+      minimumInputLength: 2,
+      multiple: true,
+      ajax: {
+        url: '/api/tags',
+        dataType: 'JSON',
+        data: function (term, page) {
+          return {
+            query: term
+          };
+        },
+        results: function (res, page) {
+          return { results: res }
+        }
+      }
+    });
+
+    if(data){
+      _.elems.tags.select2('data', data);
+    }
+  },
+
+  init: function() {
+    this.elems = {
+      tags: $('.tag2')
+    };
+
+    this.initHandlers();
+  }
+};
+
+
 $(function() {
   window.adminApp.trasl.init();
+  window.adminApp.geo.init();
+  window.adminApp.photos.init();
+  window.adminApp.tags.init();
 });
 
 $(function() {
@@ -141,41 +285,41 @@ $(function() {
   //   $('#photo_asset_remote_url').val("");
   // });
 
-  function format(state) {
-    var option = state.element;
-    if (!state.id) return state.text; // optgroup
-    return "<img class='select-photo-thumb' src='" + $(option).data('thumb') + "'/>" + state.text;
-  };
+  // function format(state) {
+  //   var option = state.element;
+  //   if (!state.id) return state.text; // optgroup
+  //   return "<img class='select-photo-thumb' src='" + $(option).data('thumb') + "'/>" + state.text;
+  // };
 
-  $('#tour_photo_id, #country_photo_id').select2({
-    //formatResult: format,
-    formatSelection: format,
-    escapeMarkup: function(m) { return m; }
-  });
+  // $('#tour_photo_id, #country_photo_id').select2({
+  //   //formatResult: format,
+  //   formatSelection: format,
+  //   escapeMarkup: function(m) { return m; }
+  // });
 
-  $('#tour_photo_id, #country_photo_id').change(function(e){
-    var input = $(this).closest('li.input'),
-        thumb = input.find('div.thumb'),
-        img = '<img src="'+ $(this).find(":selected").first().data('thumb')+'"/>';
+  // $('#tour_photo_id, #country_photo_id').change(function(e){
+  //   var input = $(this).closest('li.input'),
+  //       thumb = input.find('div.thumb'),
+  //       img = '<img src="'+ $(this).find(":selected").first().data('thumb')+'"/>';
 
-    if(thumb.length){
-      thumb.html(img)
-    } else {
-      input.append('<div class="thumb">'+img+'</div>')
-    }
-  });
+  //   if(thumb.length){
+  //     thumb.html(img)
+  //   } else {
+  //     input.append('<div class="thumb">'+img+'</div>')
+  //   }
+  // });
 
-  $('#tour_photo_id').change();
+  //$('#tour_photo_id').change();
   // $('select#tour_photo_id option:selected').data(thumb)
 
-  $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();
+  // $("#tour_tag_ids, #continent_tag_ids, #country_tag_ids, #region_tag_ids, #hotel_tag_ids, #attraction_tag_ids").select2();
 
   if($('.has_many.tags li.input .inline-errors').length == 0){
     $('.has_many.tags li.input').remove();
   };
 
   //$('#country_continent_ids').select2();
-  var select2Width = $('.select2-container').outerWidth()+50;
-  $('.select2-container').width(500);
-  $('#tour_photo_input .select2-container, #country_photo_input .select2-container').width(select2Width);
+  // var select2Width = $('.select2-container').outerWidth()+50;
+  // $('.select2-container').width(500);
+  // $('#tour_photo_input .select2-container, #country_photo_input .select2-container').width(select2Width);
 });

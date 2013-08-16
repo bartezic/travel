@@ -35,6 +35,8 @@ ActiveAdmin.register Hotel do
       f.input :phone
       f.input :email
       f.input :site
+      f.input :geo_input, input_html: { class: :geo_input2 }
+      f.input :geo, input_html: { class: :geo2 }
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name
@@ -44,7 +46,19 @@ ActiveAdmin.register Hotel do
       t.input :seo_meta
     end
     f.inputs "Keywords" do
-      f.input :tags
+      if f.object.tags && f.object.tags.any?
+        f.input :tags, as: :string, input_html: { 
+          class: :tag2, 
+          value: '', 
+          data: { 
+            tags: f.object.tags.map{ |tag| 
+              { text: tag.title, id: tag.id } 
+            }.to_json
+          } 
+        }
+      else
+        f.input :tags, as: :string, input_html: { class: :tag2, value: '' }
+      end
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|
           t.input :title

@@ -5,7 +5,7 @@ class Continent < ActiveRecord::Base
   has_many :taggings, :as => :taggable
 
   translates :description, :name, :seo_meta
-  attr_accessible :description, :name, :tag_ids, :tags_attributes, :all_tags
+  attr_accessible :description, :name, :tag_ids, :tags_attributes, :all_tags, :geo, :geo_input
 
   accepts_nested_attributes_for :tags
 
@@ -15,6 +15,14 @@ class Continent < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  def geo_input
+    ''
+  end
+
+  def geo_input=(val)
+    ''
+  end
 
   def all_tags
     tags.pluck(:title) + countries.joins(:tags).pluck(:'tags.title').flatten.uniq    

@@ -4,7 +4,26 @@
   = @region.all_tags.join(',')
 - content_for :title do
   = "#{@region.name} - #{@region.country.name}"
-  
+- content_for :scripts do
+  %script{ src: 'http://www.panoramio.com/wapi/wapi.js?v=1&hl=uk' }
+  :javascript
+    var myRequest = {
+      //'set': 'all',
+      //'tag': 'landscape',
+      //'rect': {'sw': {'lat': 49.76790710, 'lng': 23.90628010}, 'ne': {'lat': 49.8974710, 'lng': 24.1181910}}
+      "rect" : { 'ne': { "lat" : 64.26510929999999, "lng" : -21.10780480 }, "sw" : { "lat" : 64.25541780, "lng" : -21.13981960 }}
+    };
+    var myOptions = {
+      'width': 1170,
+      'height': 700,
+      //'croppedPhotos': panoramio.Cropping.TO_FILL
+    };
+    var widget = new panoramio.PhotoWidget('pano-photos', myRequest, myOptions);
+    widget.setPosition(0);
+
+.row
+  .col-lg-12
+    #pano-photos
 .row.country
   .col-lg-12
     %h2

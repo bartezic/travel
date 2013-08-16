@@ -7,7 +7,7 @@ class Attraction < ActiveRecord::Base
   has_many :taggings, :as => :taggable
   
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, 
-                  :tag_ids, :tags_attributes, :all_tags
+                  :tag_ids, :tags_attributes, :all_tags, :geo, :geo_input
 
   accepts_nested_attributes_for :tags
   
@@ -16,6 +16,14 @@ class Attraction < ActiveRecord::Base
   translates :name, :description, :seo_meta
   active_admin_translates :name, :description, :seo_meta do
     validates_presence_of :name
+  end
+
+  def geo_input
+    ''
+  end
+
+  def geo_input=(val)
+    ''
   end
 
   def all_tags

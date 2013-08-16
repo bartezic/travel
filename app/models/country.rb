@@ -1,5 +1,6 @@
 class Country < ActiveRecord::Base
   extend FriendlyId
+  serialize :geo, JSON
 
   default_scope :order => 'countries.name ASC'
   
@@ -12,7 +13,7 @@ class Country < ActiveRecord::Base
   
   attr_accessible :id, :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, 
                   :recomendation, :climate, :culture, :infrastructure, :code, :tag_ids, 
-                  :tags_attributes, :all_tags
+                  :tags_attributes, :all_tags, :geo, :geo_input
 
   accepts_nested_attributes_for :tags
   
@@ -21,6 +22,14 @@ class Country < ActiveRecord::Base
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
+  end
+
+  def geo_input
+    ''
+  end
+
+  def geo_input=(val)
+    ''
   end
 
   def all_tags

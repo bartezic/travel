@@ -8,7 +8,7 @@ class Hotel < ActiveRecord::Base
 
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, :policies, 
                   :amenities, :star, :address, :phone, :email, :site, :tag_ids, 
-                  :tags_attributes
+                  :tags_attributes, :geo, :geo_input
 
   accepts_nested_attributes_for :tags
 
@@ -17,6 +17,14 @@ class Hotel < ActiveRecord::Base
   translates :name, :description, :seo_meta, :policies, :amenities
   active_admin_translates :name, :description, :seo_meta, :policies, :amenities do
     validates_presence_of :name
+  end
+
+  def geo_input
+    ''
+  end
+
+  def geo_input=(val)
+    ''
   end
 
   def normalize_friendly_id(input)

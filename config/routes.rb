@@ -14,6 +14,12 @@ Travel::Application.routes.draw do
     end
   end
 
+  resources :api, :except => :all do
+    get 'geocode',  on: :collection
+    get 'photos',   on: :collection
+    get 'tags',     on: :collection
+  end
+
   match 'hot_tours' => 'static#hot_tours'
   match 'contacts' => 'static#contacts'
   match 'visas' => 'static#visas'
