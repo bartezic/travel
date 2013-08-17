@@ -32,8 +32,7 @@ class Region < ActiveRecord::Base
   end
 
   def static_map
-    puts parsed_geo.class
-    "https://maps.googleapis.com/maps/api/staticmap?center=#{parsed_geo['formatted_address']}&size=570x400&visual_refresh=true&sensor=true&language=#{I18n.locale}" if geo
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{parsed_geo['formatted_address']}&size=570x400&visual_refresh=true&sensor=true&language=#{I18n.locale}" if parsed_geo
   end
 
   def parsed_geo

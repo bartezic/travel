@@ -13,7 +13,8 @@ class Country < ActiveRecord::Base
   
   attr_accessible :id, :continent_ids, :photo_id, :name, :description, :seo_meta, :kitchen, 
                   :recomendation, :climate, :culture, :infrastructure, :code, :tag_ids, 
-                  :tags_attributes, :all_tags, :geo, :geo_input
+                  :tags_attributes, :all_tags, :geo, :geo_input, :static_map, :geo_viewport, 
+                  :parsed_geo
 
   accepts_nested_attributes_for :tags
   
@@ -22,6 +23,18 @@ class Country < ActiveRecord::Base
   translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure
   active_admin_translates :name, :description, :seo_meta, :kitchen, :recomendation, :climate, :culture, :infrastructure do
     validates_presence_of :name
+  end
+
+  def geo_viewport
+    parsed_geo['geometry']['viewport'] if parsed_geo
+  end
+
+  def static_map
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{parsed_geo['formatted_address']}&size=570x400&visual_refresh=true&sensor=true&language=#{I18n.locale}" if parsed_geo
+  end
+
+  def parsed_geo
+    JSON.parse(geo) if geo
   end
 
   def geo_input
