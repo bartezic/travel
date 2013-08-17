@@ -37,7 +37,7 @@ class Region < ActiveRecord::Base
   end
 
   def parsed_geo
-    JSON.parse(geo)
+    JSON.parse(geo) if geo
   end
   
   def geo_input

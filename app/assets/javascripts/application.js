@@ -58,6 +58,46 @@ Hashovka = {
   }
 };
 
+window.app.panoramio = {
+  configs: {
+    original:     'http://static.panoramio.com/photos/original/9363990.jpg',
+    medium:       'http://mw2.google.com/mw-panoramio/photos/medium/9363990.jpg', //width 500x...
+    small:        'http://mw2.google.com/mw-panoramio/photos/small/9363990.jpg', //width 240x...
+    thumbnail:    'http://mw2.google.com/mw-panoramio/photos/thumbnail/9363990.jpg', //width 100x...
+    square:       'http://mw2.google.com/mw-panoramio/photos/square/9363990.jpg', //width 60x60
+    mini_square:  'http://mw2.google.com/mw-panoramio/photos/mini_square/9363990.jpg', //width 32x32
+  },
+  getPhotos: function() {
+    $.ajax({
+      url: 'http://www.panoramio.com/map/get_panoramas.php',
+      dataType: 'JSONP',
+      data: {
+        set: 'public',
+        from: 0,
+        to: 20,
+        minx: -180,
+        miny: -90,
+        maxx: 180,
+        maxy: 90,
+        size: 'medium',
+        mapfilter: true,
+      }
+    }).done(function(res) {
+      console.log(res)
+    })
+  },
+  initHandlers: function() {
+    
+  },
+  init: function() {
+    this.elems = {
+
+    };
+
+    this.initHandlers();
+  }
+};
+
 $(function() {
 
   $('#myCarousel').carousel({
