@@ -1,5 +1,6 @@
 class Region < ActiveRecord::Base
   extend FriendlyId
+  serialize :geo, JSON
 
   default_scope :order => 'regions.country_id ASC, regions.name ASC'
 
@@ -13,7 +14,8 @@ class Region < ActiveRecord::Base
   has_many :taggings, :as => :taggable
 
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, 
-                  :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes, :geo, :geo_input
+                  :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes, 
+                  :geo, :geo_input, :static_map, :geo_viewport, :parsed_geo
 
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :gallery, allow_destroy: true
@@ -25,6 +27,19 @@ class Region < ActiveRecord::Base
     validates_presence_of :name
   end
 
+  def geo_viewport
+    parsed_geo['geometry']['viewport'] if parsed_geo
+  end
+
+  def static_map
+    puts parsed_geo.class
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{parsed_geo['formatted_address']}&size=570x400&visual_refresh=true&sensor=true&language=#{I18n.locale}" if geo
+  end
+
+  def parsed_geo
+    JSON.parse(geo)
+  end
+  
   def geo_input
     ''
   end

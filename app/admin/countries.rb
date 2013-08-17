@@ -2,6 +2,25 @@
 ActiveAdmin.register Country do
   menu :priority => 4, :label => proc{ I18n.t('active_admin.menu.countries') }, :parent => 'Місця'
 
+  controller do
+    def create
+      formating_tag_ids
+      super
+    end
+
+    def update
+      formating_tag_ids
+      super
+    end
+
+    private
+    def formating_tag_ids
+      type = :country
+      params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
+    end
+  end
+
+
   scope :all, :default => true
   # Continent.with_translations(I18n.locale).each do |continent|
   #   scope continent.name do |countries|
@@ -37,7 +56,7 @@ ActiveAdmin.register Country do
       f.input :continents
       f.input :code
       if f.object.photo
-        f.input :photo, as: :string, input_html: { 
+        f.input :photo_id, as: :string, input_html: { 
           class: :photo2, 
           data: { 
             text: f.object.photo.title, 
@@ -63,7 +82,7 @@ ActiveAdmin.register Country do
     end
     f.inputs "Keywords" do
       if f.object.tags && f.object.tags.any?
-        f.input :tags, as: :string, input_html: { 
+        f.input :tag_ids, as: :string, input_html: { 
           class: :tag2, 
           value: '', 
           data: { 
@@ -73,7 +92,7 @@ ActiveAdmin.register Country do
           } 
         }
       else
-        f.input :tags, as: :string, input_html: { class: :tag2, value: '' }
+        f.input :tag_ids, as: :string, input_html: { class: :tag2, value: '' }
       end
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|

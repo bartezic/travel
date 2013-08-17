@@ -1,5 +1,6 @@
 class Hotel < ActiveRecord::Base
   extend FriendlyId
+  serialize :geo, JSON
 
   belongs_to :gallery
   belongs_to :region

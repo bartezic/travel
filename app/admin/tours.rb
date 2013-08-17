@@ -2,8 +2,22 @@ ActiveAdmin.register Tour do
   menu :priority => 2, :label => proc{ I18n.t('active_admin.menu.tours') }, :parent => 'Тури'
 
   controller do
+    def create
+      formating_tag_ids
+      super
+    end
+
+    def update
+      formating_tag_ids
+      super
+    end
+
     private
     CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+    def formating_tag_ids
+      type = :tour
+      params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
+    end
 
     def twitt_tour(tour)
       img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
@@ -213,7 +227,7 @@ ActiveAdmin.register Tour do
     end
     f.inputs "Keywords" do
       if f.object.tags && f.object.tags.any?
-        f.input :tags, as: :string, input_html: { 
+        f.input :tag_ids, as: :string, input_html: { 
           class: :tag2, 
           value: '', 
           data: { 
@@ -223,7 +237,7 @@ ActiveAdmin.register Tour do
           } 
         }
       else
-        f.input :tags, as: :string, input_html: { class: :tag2, value: '' }
+        f.input :tag_ids, as: :string, input_html: { class: :tag2, value: '' }
       end
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|

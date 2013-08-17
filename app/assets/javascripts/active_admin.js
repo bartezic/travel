@@ -151,7 +151,7 @@ window.adminApp.geo = {
   init: function() {
     this.elems = {
       form: $('#active_admin_content form'),
-      geoInputs: $('.geo_input2'),
+      geoInputs: $('input.geo_input2'),
       geo: $('.geo2')
     };
 
@@ -191,7 +191,7 @@ window.adminApp.photos = {
       }
     });
     
-    _.elems.photos.on('change', function(el, el2) {
+    _.elems.photos.on('change', function(el) {
       var input = $(this).closest('li.input'),
           thumb = input.find('div.thumb'),
           img = '<img src="'+ (el.added !== undefined ? el.added.thumb : $(el.target).data('thumb'))+'"/>';
@@ -210,7 +210,7 @@ window.adminApp.photos = {
 
   init: function() {
     this.elems = {
-      photos: $('.photo2')
+      photos: $('input.photo2')
     };
 
     this.initHandlers();
@@ -239,6 +239,10 @@ window.adminApp.tags = {
       }
     });
 
+    // _.elems.tags.on('change', function(el) {
+    //   console.log(el)
+    // })
+
     if(data){
       _.elems.tags.select2('data', data);
     }
@@ -246,8 +250,10 @@ window.adminApp.tags = {
 
   init: function() {
     this.elems = {
-      tags: $('.tag2')
+      tags: $('input.tag2')
     };
+
+    this.elems.tags.attr('type', 'hidden');
 
     this.initHandlers();
   }
@@ -320,6 +326,6 @@ $(function() {
 
   //$('#country_continent_ids').select2();
   // var select2Width = $('.select2-container').outerWidth()+50;
-  // $('.select2-container').width(500);
+  $('.select2-container').width('78%');
   // $('#tour_photo_input .select2-container, #country_photo_input .select2-container').width(select2Width);
 });

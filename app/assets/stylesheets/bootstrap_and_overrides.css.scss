@@ -281,6 +281,13 @@ ul.grid {
   }
 }
 
+/* Panoramio */
+#div_attr_ex {
+  float: left;
+}
+#div_attr_ex_list {
+  float: right;
+}
 /*------- media queries -----------*/
 @media all and (max-width:767px){
   ul.grid {

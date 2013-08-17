@@ -1,4 +1,5 @@
 class Continent < ActiveRecord::Base
+  serialize :geo, JSON
   default_scope :order => 'continents.name ASC'
   has_and_belongs_to_many :countries, :join_table => :continents_countries
   has_many :tags, :through => :taggings

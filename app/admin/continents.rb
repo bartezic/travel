@@ -1,5 +1,24 @@
 ActiveAdmin.register Continent do
   menu :priority => 3, :label => proc{ I18n.t('active_admin.menu.continents') }, :parent => 'Місця'
+  
+  controller do
+    def create
+      formating_tag_ids
+      super
+    end
+
+    def update
+      formating_tag_ids
+      super
+    end
+
+    private
+    def formating_tag_ids
+      type = :continent
+      params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
+    end
+  end
+  
   index do
     selectable_column
     id_column
@@ -23,7 +42,7 @@ ActiveAdmin.register Continent do
     end
     f.inputs "Keywords" do
       if f.object.tags && f.object.tags.any?
-        f.input :tags, as: :string, input_html: { 
+        f.input :tag_ids, as: :string, input_html: { 
           class: :tag2, 
           value: '', 
           data: { 
@@ -33,7 +52,7 @@ ActiveAdmin.register Continent do
           } 
         }
       else
-        f.input :tags, as: :string, input_html: { class: :tag2, value: '' }
+        f.input :tag_ids, as: :string, input_html: { class: :tag2, value: '' }
       end
       f.has_many :tags do |k|
         k.translated_inputs switch_locale: true do |t|
