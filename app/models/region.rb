@@ -28,7 +28,7 @@ class Region < ActiveRecord::Base
   end
 
   def geo_viewport
-    parsed_geo['geometry']['viewport'] if parsed_geo
+    (parsed_geo['geometry']['bounds'] || parsed_geo['geometry']['viewport']) if parsed_geo
   end
 
   def static_map
