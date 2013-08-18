@@ -65,7 +65,7 @@ ActiveAdmin.register Country do
           }
         }
       else
-        f.input :photo, as: :string, input_html: { class: :photo2 }
+        f.input :photo_id, as: :string, input_html: { class: :photo2 }
       end
       f.input :geo_input, input_html: { class: :geo_input2 }
       f.input :geo, input_html: { class: :geo2 }

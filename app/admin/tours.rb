@@ -182,9 +182,16 @@ ActiveAdmin.register Tour do
   form do |f|
     f.inputs do
       if f.object.photo
-        f.input :photo, as: :string, input_html: { class: :photo2, data: { text: f.object.photo.title, id: f.object.photo.id, thumb: f.object.photo.asset(:thumb_150x) }}
+        f.input :photo_id, as: :string, input_html: { 
+          class: :photo2, 
+          data: { 
+            text: f.object.photo.title, 
+            id: f.object.photo.id, 
+            thumb: f.object.photo.asset(:thumb_150x) 
+          }
+        }
       else
-        f.input :photo, as: :string, input_html: { class: :photo2 }
+        f.input :photo_id, as: :string, input_html: { class: :photo2 }
       end
       f.input :gallery, collection: Gallery.with_translations(I18n.locale)
       f.input :currency, as: :radio, collection: Currency.with_translations(I18n.locale)
