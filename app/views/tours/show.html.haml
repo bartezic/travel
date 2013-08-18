@@ -94,12 +94,13 @@
               = render 'layouts/gallery', photos: @tour.gallery.photos
         - if @tour.tour_programs.any? && @tour.tour_programs.first.regions.any?
           - @tour.tour_programs.map { |program| program.regions }.flatten.uniq.each do |region|
-            .row
-              .col-lg-12
-                %h5
-                  = link_to region.name, region
-                  %small= link_to region.country.name, region.country
-                = render 'layouts/gallery', photos: region.gallery.photos
+            - if region.gallery && region.gallery.photos.any?
+              .row
+                .col-lg-12
+                  %h5
+                    = link_to region.name, region
+                    %small= link_to region.country.name, region.country
+                  = render 'layouts/gallery', photos: region.gallery.photos
 
   .col-lg-4
     .row.related
