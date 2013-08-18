@@ -69,9 +69,16 @@ module ApplicationHelper
 
   def marshrut(programs)
     regions = programs.map { |program| program.regions }.flatten.uniq
-    regions.map {|region|
-      "#{link_to region.name, region} <small><em>(#{link_to region.country.name, region.country})</em></small>"
-    }.join(' - ') if regions.uniq.size > 1
+    countries = regions.map(&:country).uniq 
+    if regions.size > 1 
+      if countries.size > 1
+        regions.map {|region|
+          "#{link_to region.name, region} <small><em>(#{link_to region.country.name, region.country})</em></small>"
+        }.join(' - ')
+      else
+        regions.map {|region| link_to(region.name, region) }.join(' - ') << " <small><em>(#{link_to countries.first.name, countries.first})</em></small>"
+      end
+    end
   end
 
   def tour_subtitle(tour, marshrut = false, seo = false)
@@ -90,7 +97,13 @@ module ApplicationHelper
                 </small>"
         end
       elsif marshrut
-        res = regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - ')
+        countries = regions.map(&:country).uniq
+        res = if countries.size == 1
+          regions.map {|region| "#{region.name}" }.join(' - ') << " (#{countries.first.name})"
+        else
+          regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - ')
+        end
+        
         res = "<span class='label label-warning' data-toggle='tooltip' title='#{res}'>#{t 'tours.marshrut'}</span>" unless seo
       end
     end
