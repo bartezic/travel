@@ -19,7 +19,7 @@ ActiveAdmin.register Region do
     end
   end
   
-  filter :country, collection: Country.with_translations(I18n.locale)
+  filter :country, collection: Country.with_translations(I18n.locale).all
   filter :name
   filter :description
   filter :recomendation
