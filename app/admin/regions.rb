@@ -19,7 +19,9 @@ ActiveAdmin.register Region do
     end
   end
   
-  filter :country, collection: Country.with_translations(I18n.locale).all
+  filter :country, collection: Country.with_translations(I18n.locale).map do |country| 
+    [country.id, country.name]
+  end
   filter :name
   filter :description
   filter :recomendation

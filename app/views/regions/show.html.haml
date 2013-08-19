@@ -4,63 +4,16 @@
   = @region.all_tags.join(',')
 - content_for :title do
   = "#{@region.name} - #{@region.country.name}"
-- content_for :scripts do
-  %script{ src: "http://www.panoramio.com/wapi/wapi.js?v=1&hl=#{locale}" }
-  :javascript
-    if(!#{@region.geo_viewport.nil?}){
-      var sand = {
-        "rect" : { 
-          'ne': #{@region.geo_viewport['northeast'].to_json if @region.geo_viewport}, 
-          'sw': #{@region.geo_viewport['southwest'].to_json if @region.geo_viewport}
-        }
-      };
-      var sandRequest = new panoramio.PhotoRequest(sand);
-      var attr_ex_photo_options = {
-        'width': 500,
-        'height': 380,
-        'attributionStyle': panoramio.tos.Style.HIDDEN};
-      var attr_ex_photo_widget = new panoramio.PhotoWidget(
-          'div_attr_ex_photo', sandRequest, attr_ex_photo_options);
 
-      var attr_ex_list_options = {
-        'width': 70,
-        'height': 380,
-        'columns': 1,
-        'rows': 5,
-        'croppedPhotos': true,
-        'disableDefaultEvents': [panoramio.events.EventType.PHOTO_CLICKED],
-        'orientation': panoramio.PhotoListWidgetOptions.Orientation.VERTICAL,
-        'attributionStyle': panoramio.tos.Style.HIDDEN};
-      var attr_ex_list_widget = new panoramio.PhotoListWidget(
-        'div_attr_ex_list', sandRequest, attr_ex_list_options);
-
-      var attr_ex_attr_options = {'width': 578};
-      var attr_ex_attr_widget = new panoramio.TermsOfServiceWidget(
-        'div_attr_ex_attr', attr_ex_attr_options);
-
-      function onListPhotoClicked(event) {
-        var position = event.getPosition();
-        if (position !== null) attr_ex_photo_widget.setPosition(position);
-      }
-      panoramio.events.listen(
-        attr_ex_list_widget, panoramio.events.EventType.PHOTO_CLICKED,
-        function(e) { onListPhotoClicked(e); });
-      // attr_ex_photo_widget.enablePreviousArrow(false);
-      // attr_ex_photo_widget.enableNextArrow(false);
-
-      attr_ex_photo_widget.setPosition(0);
-      attr_ex_list_widget.setPosition(0);
-    }
-
-.row
-  .col-lg-6
-    - if @region.static_map
-      = image_tag(@region.static_map, { class: 'map img-responsive', alt: @region.name })
-  .col-lg-6
-    #div_attr_ex
-      #div_attr_ex_list
-      #div_attr_ex_photo
-      #div_attr_ex_attr
+- if @region.geo_viewport
+  .row
+    .col-lg-6
+      #satatic-map{ data: { address: @region.parsed_geo['formatted_address'] } }
+    .col-lg-6
+      #div_attr_ex{ data: { ne: @region.geo_viewport['northeast'].to_json, sw: @region.geo_viewport['southwest'].to_json } }
+        #div_attr_ex_photo
+        #div_attr_ex_list
+        #div_attr_ex_attr
 
 .row.country
   .col-lg-12

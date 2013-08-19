@@ -285,9 +285,17 @@ ul.grid {
 /* Panoramio */
 
 #div_attr_ex {
-  .panoramio-wapi-photo .panoramio-wapi-title {
-    background-color: rgba(0,0,0,0.6);
-    width: 100%;
+  * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  .panoramio-wapi-photo {
+    float: left;
+    .panoramio-wapi-title {
+      background-color: rgba(0,0,0,0.6);
+      width: 100%;
+    }
   }
   #div_attr_ex_list {
     float: right;

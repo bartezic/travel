@@ -44,7 +44,7 @@ end
 
 gem 'jquery-rails'
 gem 'simple_form'
-gem 'bootstrap-sass', :git => 'git://github.com/intridea/bootstrap-sass.git', :branch => '3.0.0-wip'
+gem 'bootstrap-sass', :git => 'git://github.com/intridea/bootstrap-sass.git', :branch => '3'
 gem 'bootstrap-datepicker-rails'
 
 # To use ActiveModel has_secure_password

@@ -58,14 +58,79 @@ Hashovka = {
   }
 };
 
+window.app.staticMap = {
+  configs: {
+    initedContWidth: 0,
+    initedMapType: 1
+  },
+  mapType: function() {
+    switch($('.container').width()){
+      case 1170:
+        return 1;
+        break;
+      case 940:
+        return 2;
+        break;
+      default:
+        return 3;
+    }
+  },
+  initStaticMap: function() {
+    var _ = this, 
+        type = _.mapType(),
+        size;
+    
+    switch(type){
+      case 1:
+        size = '570x400';
+        break;
+      case 2:
+        size = '455x429';
+        break;
+      default:
+        size = '364x215&scale=2';
+    }
+    _.configs.initedMapType = type;
+
+    _.elems.map.html(
+      $('<img>',{
+        src: 'https://maps.googleapis.com/maps/api/staticmap?center='+ _.elems.map.data('address')
+        +'&size='+ size +'&visual_refresh=true&sensor=true&language='+ window.app.locale,
+        class: 'map img-responsive'
+      })
+    );
+  },
+  initHandlers: function() {
+    var _ = this;
+
+    $(window).resize(function() {
+      if(_.configs.initedMapType !== _.mapType()){
+        _.initStaticMap();
+      }
+    });
+  },
+  init: function() {
+    this.elems = {
+      map: $('#satatic-map')
+    };
+
+    if(this.elems.map.length){
+      this.initStaticMap();
+    }
+
+    this.initHandlers();
+  }
+};
+
 window.app.panoramio = {
   configs: {
-    original:     'http://static.panoramio.com/photos/original/9363990.jpg',
-    medium:       'http://mw2.google.com/mw-panoramio/photos/medium/9363990.jpg', //width 500x...
-    small:        'http://mw2.google.com/mw-panoramio/photos/small/9363990.jpg', //width 240x...
-    thumbnail:    'http://mw2.google.com/mw-panoramio/photos/thumbnail/9363990.jpg', //width 100x...
-    square:       'http://mw2.google.com/mw-panoramio/photos/square/9363990.jpg', //width 60x60
-    mini_square:  'http://mw2.google.com/mw-panoramio/photos/mini_square/9363990.jpg', //width 32x32
+    initedContWidth: 0
+  //   original:     'http://static.panoramio.com/photos/original/9363990.jpg',
+  //   medium:       'http://mw2.google.com/mw-panoramio/photos/medium/9363990.jpg', //width 500x...
+  //   small:        'http://mw2.google.com/mw-panoramio/photos/small/9363990.jpg', //width 240x...
+  //   thumbnail:    'http://mw2.google.com/mw-panoramio/photos/thumbnail/9363990.jpg', //width 100x...
+  //   square:       'http://mw2.google.com/mw-panoramio/photos/square/9363990.jpg', //width 60x60
+  //   mini_square:  'http://mw2.google.com/mw-panoramio/photos/mini_square/9363990.jpg', //width 32x32
   },
   getPhotos: function() {
     $.ajax({
@@ -86,20 +151,135 @@ window.app.panoramio = {
       console.log(res)
     })
   },
-  initHandlers: function() {
+  initPanoramioWidgets: function() {
+    var _ = this;
+
+    var sand = {
+      "rect" : this.elems.panRoot.data()
+    };
+    var sandRequest = new panoramio.PhotoRequest(sand);
+    if($('.container').width() == 1170){
+      var attr_ex_photo_options = {
+        'width': 500,
+        'height': 380,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_list_options = {
+        'width': 70,
+        'height': 380,
+        'columns': 1,
+        'rows': 5,
+        'croppedPhotos': true,
+        'disableDefaultEvents': [panoramio.events.EventType.PHOTO_CLICKED],
+        'orientation': panoramio.PhotoListWidgetOptions.Orientation.VERTICAL,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_attr_options = {'width': 570};
+    } else if ($('.container').width() == 940){
+      var attr_ex_photo_options = {
+        'width': 455,
+        'height': 340,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_list_options = {
+        'width': 455,
+        'height': 70,
+        'columns': 5,
+        'rows': 1,
+        'croppedPhotos': true,
+        'disableDefaultEvents': [panoramio.events.EventType.PHOTO_CLICKED],
+        'orientation': panoramio.PhotoListWidgetOptions.Orientation.HORIZONTAL,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_attr_options = {'width': 455};
+    } else {
+      var attr_ex_photo_options = {
+        'width': _.elems.panRoot.width(),
+        'height': 340,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_list_options = {
+        'width': _.elems.panRoot.width(),
+        'height': 70,
+        'columns': 5,
+        'rows': 1,
+        'croppedPhotos': true,
+        'disableDefaultEvents': [panoramio.events.EventType.PHOTO_CLICKED],
+        'orientation': panoramio.PhotoListWidgetOptions.Orientation.HORIZONTAL,
+        'attributionStyle': panoramio.tos.Style.HIDDEN
+      };
+
+      var attr_ex_attr_options = {'width': _.elems.panRoot.width()};
+    }
+    _.configs.initedContWidth = $('.container').width() || _.elems.panRoot.width();
     
+    var attr_ex_photo_widget = new panoramio.PhotoWidget(
+        'div_attr_ex_photo', sandRequest, attr_ex_photo_options);
+   
+    var attr_ex_list_widget = new panoramio.PhotoListWidget(
+      'div_attr_ex_list', sandRequest, attr_ex_list_options);
+
+    var attr_ex_attr_widget = new panoramio.TermsOfServiceWidget(
+      'div_attr_ex_attr', attr_ex_attr_options);
+
+    function onListPhotoClicked(event) {
+      var position = event.getPosition();
+      if (position !== null) attr_ex_photo_widget.setPosition(position);
+    }
+    
+    panoramio.events.listen(
+      attr_ex_list_widget, 
+      panoramio.events.EventType.PHOTO_CLICKED,
+      function(e) { onListPhotoClicked(e); }
+    );
+    // attr_ex_photo_widget.enablePreviousArrow(false);
+    // attr_ex_photo_widget.enableNextArrow(false);
+    attr_ex_photo_widget.setPosition(0);
+    attr_ex_list_widget.setPosition(0);
+  },
+  includePanoramioJS: function() {
+    var _ = this;
+
+    $.ajax({
+      url: 'http://www.panoramio.com/wapi/wapi.js?v=1&hl=' + window.app.locale,
+      dataType: "script",
+      success: function(res) {
+        _.initPanoramioWidgets();
+        $(window).resize();
+      }
+    });
+  },
+  initHandlers: function() {
+    var _ = this;
+
+    $(window).resize(function() {
+      if(($('.container').width() == 0 && _.elems.panRoot.width() !== _.configs.initedContWidth) || _.configs.initedContWidth !== $('.container').width()){
+        _.initPanoramioWidgets();
+      }
+    });
   },
   init: function() {
     this.elems = {
-
+      panRoot: $('#div_attr_ex')
     };
+
+    if(this.elems.panRoot.length){
+      this.includePanoramioJS();
+    }
 
     this.initHandlers();
   }
 };
 
 $(function() {
-
+  window.app.panoramio.init();
+  window.app.staticMap.init();
+  
   $('#myCarousel').carousel({
     interval: 5000
   });
