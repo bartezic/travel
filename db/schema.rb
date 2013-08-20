@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816142109) do
+ActiveRecord::Schema.define(:version => 20130820071028) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -70,8 +70,10 @@ ActiveRecord::Schema.define(:version => 20130816142109) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "geo"
+    t.integer  "photo_id"
   end
 
+  add_index "attractions", ["photo_id"], :name => "index_attractions_on_photo_id"
   add_index "attractions", ["slug"], :name => "index_attractions_on_slug", :unique => true
 
   create_table "continent_translations", :force => true do |t|
@@ -95,8 +97,10 @@ ActiveRecord::Schema.define(:version => 20130816142109) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "geo"
+    t.integer  "photo_id"
   end
 
+  add_index "continents", ["photo_id"], :name => "index_continents_on_photo_id"
   add_index "continents", ["slug"], :name => "index_continents_on_slug", :unique => true
 
   create_table "continents_countries", :force => true do |t|
@@ -271,8 +275,10 @@ ActiveRecord::Schema.define(:version => 20130816142109) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.text     "geo"
+    t.integer  "photo_id"
   end
 
+  add_index "hotels", ["photo_id"], :name => "index_hotels_on_photo_id"
   add_index "hotels", ["slug"], :name => "index_hotels_on_slug", :unique => true
 
   create_table "photo_translations", :force => true do |t|
@@ -324,8 +330,10 @@ ActiveRecord::Schema.define(:version => 20130816142109) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.text     "geo"
+    t.integer  "photo_id"
   end
 
+  add_index "regions", ["photo_id"], :name => "index_regions_on_photo_id"
   add_index "regions", ["slug"], :name => "index_regions_on_slug", :unique => true
 
   create_table "request_actions", :force => true do |t|

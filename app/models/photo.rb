@@ -4,6 +4,10 @@ class Photo < ActiveRecord::Base
   has_and_belongs_to_many :galleries, :join_table => :galleries_photos
   has_many :countries
   has_many :tours
+  has_many :continents
+  has_many :regions
+  has_many :attractions
+  has_many :hotels
 
   attr_accessible :title, :asset, :gallery_ids, :asset_remote_url
   translates :title

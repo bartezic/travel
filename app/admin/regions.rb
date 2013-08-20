@@ -32,9 +32,8 @@ ActiveAdmin.register Region do
     selectable_column
     id_column
     column :name
-    column :photo do |region|
-      photo = region.gallery && region.gallery.photos.limit(1).try(:first)
-      div { image_tag(photo.asset(:thumb_150x)) if photo }
+    column :photo do |a|
+      div { image_tag(a.photo.asset(:thumb_150x)) if a.photo }
     end
     column :country
     column :tours_to do |region|
@@ -51,6 +50,18 @@ ActiveAdmin.register Region do
 
   form do |f|
     f.inputs do
+      if f.object.photo
+        f.input :photo_id, as: :string, input_html: { 
+          class: :photo2, 
+          data: { 
+            text: f.object.photo.title, 
+            id: f.object.photo.id, 
+            thumb: f.object.photo.asset(:thumb_150x) 
+          }
+        }
+      else
+        f.input :photo_id, as: :string, input_html: { class: :photo2 }
+      end
       f.input :gallery
       f.input :country
       f.input :geo_input, input_html: { class: :geo_input2 }

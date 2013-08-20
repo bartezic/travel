@@ -7,10 +7,11 @@ class Continent < ActiveRecord::Base
   has_and_belongs_to_many :countries, :join_table => :continents_countries
   has_many :tags, :through => :taggings
   has_many :taggings, :as => :taggable
+  belongs_to :photo
 
   translates :description, :name, :seo_meta
   attr_accessible :description, :name, :tag_ids, :tags_attributes, :all_tags, :geo, :geo_input,
-                  :static_map, :geo_viewport, :parsed_geo
+                  :static_map, :geo_viewport, :parsed_geo, :photo_id
 
   accepts_nested_attributes_for :tags
   

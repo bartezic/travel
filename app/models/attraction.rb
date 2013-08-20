@@ -2,13 +2,14 @@ class Attraction < ActiveRecord::Base
   extend FriendlyId
   serialize :geo, JSON
 
+  belongs_to :photo
   belongs_to :gallery
   belongs_to :region
   has_many :tags, :through => :taggings
   has_many :taggings, :as => :taggable
   
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, 
-                  :tag_ids, :tags_attributes, :all_tags, :geo, :geo_input
+                  :tag_ids, :tags_attributes, :all_tags, :geo, :geo_input, :photo_id
 
   accepts_nested_attributes_for :tags
   

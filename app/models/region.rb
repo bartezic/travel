@@ -4,6 +4,7 @@ class Region < ActiveRecord::Base
 
   default_scope :order => 'regions.country_id ASC, regions.name ASC'
 
+  belongs_to :photo
   belongs_to :gallery
   belongs_to :country
   has_many :attractions
@@ -15,7 +16,7 @@ class Region < ActiveRecord::Base
 
   attr_accessible :country_id, :description, :gallery_id, :name, :seo_meta, :recomendation, 
                   :infrastructure, :tag_ids, :tags_attributes, :all_tags, :gallery_attributes, 
-                  :geo, :geo_input, :static_map, :geo_viewport, :parsed_geo
+                  :geo, :geo_input, :static_map, :geo_viewport, :parsed_geo, :photo_id
 
   accepts_nested_attributes_for :tags
   accepts_nested_attributes_for :gallery, allow_destroy: true

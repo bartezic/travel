@@ -29,8 +29,7 @@ ActiveAdmin.register Attraction do
     id_column
     column :name
     column :photo do |a|
-      photo = a.gallery && a.gallery.photos.limit(1).try(:first)
-      div { image_tag(photo.asset(:thumb_150x)) if photo }
+      div { image_tag(a.photo.asset(:thumb_150x)) if a.photo }
     end
     column :region
     column :gallery
@@ -42,6 +41,18 @@ ActiveAdmin.register Attraction do
 
   form do |f|
     f.inputs do
+      if f.object.photo
+        f.input :photo_id, as: :string, input_html: { 
+          class: :photo2, 
+          data: { 
+            text: f.object.photo.title, 
+            id: f.object.photo.id, 
+            thumb: f.object.photo.asset(:thumb_150x) 
+          }
+        }
+      else
+        f.input :photo_id, as: :string, input_html: { class: :photo2 }
+      end
       f.input :gallery
       f.input :region
     end

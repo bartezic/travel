@@ -2,6 +2,7 @@ class Hotel < ActiveRecord::Base
   extend FriendlyId
   serialize :geo, JSON
 
+  belongs_to :photo
   belongs_to :gallery
   belongs_to :region
   has_many :tags, :through => :taggings
@@ -9,7 +10,7 @@ class Hotel < ActiveRecord::Base
 
   attr_accessible :name, :description, :seo_meta, :gallery_id, :region_id, :slug, :policies, 
                   :amenities, :star, :address, :phone, :email, :site, :tag_ids, 
-                  :tags_attributes, :geo, :geo_input
+                  :tags_attributes, :geo, :geo_input, :photo_id
 
   accepts_nested_attributes_for :tags
 

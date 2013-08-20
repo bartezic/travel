@@ -32,7 +32,7 @@ ActiveAdmin.register Hotel do
     id_column
     column :name
     column :photo do |a|
-      div { image_tag(a.gallery.photos.first.asset(:thumb_150x)) if a.gallery && a.gallery.photos.any? }
+      div { image_tag(a.photo.asset(:thumb_150x)) if a.photo }
     end
     column :star
     column :site
@@ -46,6 +46,18 @@ ActiveAdmin.register Hotel do
 
   form do |f|
     f.inputs do
+      if f.object.photo
+        f.input :photo_id, as: :string, input_html: { 
+          class: :photo2, 
+          data: { 
+            text: f.object.photo.title, 
+            id: f.object.photo.id, 
+            thumb: f.object.photo.asset(:thumb_150x) 
+          }
+        }
+      else
+        f.input :photo_id, as: :string, input_html: { class: :photo2 }
+      end
       f.input :gallery
       f.input :region
       f.input :star
