@@ -15,11 +15,9 @@ ActiveAdmin.register Gallery do
   form do |f|
     f.inputs "photos" do
       f.has_many :photos do |photo|
-        photo.inputs do
-          photo.input :asset
-          photo.input :asset_remote_url
-          photo.input(:_destroy, :as => :boolean, :label => "Destroy?") if photo.object
-        end
+        photo.input :asset
+        photo.input :asset_remote_url
+        photo.input(:_destroy, :as => :boolean, :label => "Destroy?") if photo.object
         photo.translated_inputs switch_locale: true do |t|
           t.input :title
         end

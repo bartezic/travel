@@ -229,19 +229,13 @@ window.adminApp.tags = {
         url: '/api/tags',
         dataType: 'JSON',
         data: function (term, page) {
-          return {
-            query: term
-          };
+          return { query: term };
         },
         results: function (res, page) {
           return { results: res }
         }
       }
     });
-
-    // _.elems.tags.on('change', function(el) {
-    //   console.log(el)
-    // })
 
     if(data){
       _.elems.tags.select2('data', data);
@@ -259,12 +253,70 @@ window.adminApp.tags = {
   }
 };
 
+window.adminApp.regions = {
+
+  initSelect2: function() {
+    var _ = this, data, 
+        regions = _.elems.regions()
+
+    regions.select2({
+      minimumInputLength: 2,
+      multiple: true,
+      ajax: {
+        url: '/api/regions',
+        dataType: 'JSON',
+        data: function (term, page) {
+          return { query: term };
+        },
+        results: function (res, page) {
+          return { results: res }
+        }
+      }
+    });
+
+    $.each(regions, function(i, el) {
+      if( ($(el).data("regions") !== undefined) && ($(el).val().length == 0)  ){
+        data = eval($(el).data("regions"));
+        $(el).select2('data', data);
+      };
+    });
+    
+
+    $('.select2-container').width('78%');
+  },
+
+  initHandlers: function() {
+    var _ = this;
+
+    _.elems.form.on('click', '.has_many .button', function() {
+      _.initSelect2();
+    });
+
+    _.initSelect2();
+  },
+
+  init: function() {
+    this.elems = {
+      form: $('#active_admin_content form'),
+      regions: function(){
+        return $('input.region2:not(.select2-offscreen)')
+      }
+    };
+
+    this.elems.regions().attr('type', 'hidden');
+
+    this.initHandlers();
+  }
+};
+
+
 
 $(function() {
   window.adminApp.trasl.init();
   window.adminApp.geo.init();
   window.adminApp.photos.init();
   window.adminApp.tags.init();
+  window.adminApp.regions.init();
 });
 
 $(function() {

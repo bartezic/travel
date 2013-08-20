@@ -17,6 +17,9 @@ ActiveAdmin.register Tour do
     def formating_tag_ids
       type = :tour
       params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
+      params[type][:tour_programs_attributes].each do |k,v|
+        params[type][:tour_programs_attributes][k][:region_ids] = v[:region_ids].split(',')
+      end
     end
 
     def twitt_tour(tour)
@@ -213,11 +216,21 @@ ActiveAdmin.register Tour do
     end
     f.inputs "tour_programs" do
       f.has_many :tour_programs do |program|
-        program.inputs do
-          program.input :day_number
-          program.input :regions, collection: option_groups_from_collection_for_select(Country.includes([:translations, { :regions => :translations }]), :regions, :name, :id, :name, program.object.regions.map(&:id)), :input_html => { :size => 10 }
-          program.input(:_destroy, as: :boolean, label: "Destroy?") if program.object
+        program.input :day_number
+        if program.object.regions && program.object.regions.any?
+          program.input :region_ids, as: :string, input_html: { 
+            class: :region2,
+            value: '',
+            data: {
+              regions: program.object.regions.map{ |region|
+                { text: "#{region.name}, #{region.country.name}", id: region.id}
+              }
+            }
+          }
+        else
+          program.input :region_ids, as: :string, input_html: { class: :region2, value: '' }
         end
+        program.input(:_destroy, as: :boolean, label: "Destroy?") if program.object
         program.translated_inputs switch_locale: true do |t|
           t.input :description, as: :html_editor
         end

@@ -23,6 +23,22 @@ class ApiController < ApplicationController
     end
   end
 
+  def regions
+    res = Region.includes(:country).
+      where("regions.name ilike ?", "%#{params[:query]}%").
+      with_translations(I18n.locale).
+      sort_by(&:name).map{ |region|
+        { 
+          text: "#{region.name}, #{region.country.name}", 
+          id: region.id 
+        }
+    }
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: res.to_json }
+    end
+  end
+
   def panoramio
     query = 'http://www.panoramio.com/map/get_panoramas.php'
     res = RestClient.get(query, {

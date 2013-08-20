@@ -19,6 +19,7 @@ Travel::Application.routes.draw do
     get 'panoramio',  on: :collection
     get 'photos',     on: :collection
     get 'tags',       on: :collection
+    get 'regions',    on: :collection
   end
 
   match 'hot_tours' => 'static#hot_tours'

@@ -14,6 +14,13 @@
 @import "select2";
 
 body.active_admin {
+  form fieldset > ol > li.check_boxes fieldset ol li, 
+  form fieldset > ol > li.radio fieldset ol li {
+    margin: 0;
+  }
+  form fieldset ol > li {
+    padding: 3px 5px;
+  }
   #tour_photo_input, #country_photo_input { 
     div.thumb {
       margin: 5px 0 0 20%;
