@@ -7,7 +7,7 @@ class StaticController < ApplicationController
     @countries = popular_countries
     @tours = Tour.search(params).limit(6)
     @hot_tours2 = HotTours.where(active: true).with_translations(I18n.locale).limit(6)
-    @hot_tours = Tour.search(params.merge({ tour_type: TourType.where(code: :hot).map(&:id) }))
+    @promote = Tour.search(params.merge({ recommended: true }))
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: {} }

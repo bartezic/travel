@@ -92,6 +92,7 @@ ActiveAdmin.register Tour do
 
   filter :price_from
   filter :active
+  filter :recommended
   filter :title
   filter :description
   filter :price_list
@@ -202,6 +203,7 @@ ActiveAdmin.register Tour do
       ]
       # f.input :price_to
       f.input :active
+      f.input :recommended
       f.input :days, member_label: :day_of_life
       f.input :tour_types, as: :check_boxes, collection: TourType.with_translations(I18n.locale)
       f.input :food_types, as: :check_boxes, collection: FoodType.with_translations(I18n.locale)

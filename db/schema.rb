@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130820071028) do
+ActiveRecord::Schema.define(:version => 20130820160305) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -470,6 +470,7 @@ ActiveRecord::Schema.define(:version => 20130820071028) do
     t.datetime "updated_at",            :null => false
     t.integer  "gallery_id"
     t.string   "price_type"
+    t.boolean  "recommended"
   end
 
   add_index "tours", ["slug"], :name => "index_tours_on_slug", :unique => true

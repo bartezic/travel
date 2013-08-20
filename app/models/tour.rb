@@ -21,14 +21,15 @@ class Tour < ActiveRecord::Base
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
                   :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :tag_ids, 
-                  :tags_attributes, :all_tags
+                  :tags_attributes, :all_tags, :recommended
   
   accepts_nested_attributes_for :tour_programs, allow_destroy: true
   accepts_nested_attributes_for :tags
   
   validates :price_type, inclusion: {in: PRICE_TYPES}
 
-  scope :active,          where(:active => true)
+  scope :active,          where(active: true)
+  scope :recommended,     lambda { |i| where(recommended: true) if i }
   scope :with_days,       joins(:days)
   scope :with_from,       lambda { |ids| joins(:regions).where("regions.id IN (?)",           ids) unless ids.blank? }
   scope :with_transports, lambda { |ids| joins(:transports).where("transports.id IN (?)",     ids) unless ids.blank? }
@@ -57,6 +58,7 @@ class Tour < ActiveRecord::Base
   def self.search(params, ids = [])
     includes(:translations, {tour_programs: {regions: :translations}}).
       active.
+      recommended(params[:recommended]).
       with_transports(params[:transport]).
       with_tour_types(params[:tour_type]).
       with_countries(params[:country]).

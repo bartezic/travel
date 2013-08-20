@@ -1,14 +1,14 @@
 .row
   .col-lg-8.col-sm-12
     %h4= t 'home.recommends'
-    - if @hot_tours.any?
+    - if @promote.any?
       #myCarousel.carousel.slide
         %ol.carousel-indicators
-          - @hot_tours.each_with_index do |tour, i|
+          - @promote.each_with_index do |tour, i|
             %li{ class: ('active' if i == 0), data: {'slide-to' => i, 'target' => "#myCarousel"} }
         / Carousel items
         .carousel-inner
-          - @hot_tours.each_with_index do |tour, i|
+          - @promote.each_with_index do |tour, i|
             .item{ class: ('active' if i == 0), "data-slide-number" => i}
               = image_tag tour.photo.asset.url(:thumb_770), { alt: tour.photo.title }
               .carousel-caption
