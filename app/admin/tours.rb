@@ -13,7 +13,7 @@ ActiveAdmin.register Tour do
     end
 
     private
-    CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€'}
+    CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€', 'GBP' => '£'}
     def formating_tag_ids
       type = :tour
       params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
