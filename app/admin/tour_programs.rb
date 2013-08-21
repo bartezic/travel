@@ -3,7 +3,9 @@ ActiveAdmin.register TourProgram do
   # belongs_to :tour
   # navigation_menu :tour
 
-  filter :tour, collection: Tour.with_translations(I18n.locale)
+  filter :tour, collection: Tour.with_translations(I18n.locale).map{ |i| 
+    [i.id, i.title]
+  }
   filter :day_number
   filter :description
 
