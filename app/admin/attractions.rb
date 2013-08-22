@@ -19,7 +19,7 @@ ActiveAdmin.register Attraction do
     end
   end
 
-  filter :region, collection: Region.with_translations(I18n.locale)
+  filter :region
   filter :name
   filter :description
   filter :seo_meta

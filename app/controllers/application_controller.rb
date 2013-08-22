@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   def set_locale
-    puts "gopdksjgiojsdoigjo gfsdjkgjo[sdj"
     session['locale'] = params[:locale] if params[:locale] && [:ru, :uk].include?(params[:locale].to_sym)
     I18n.locale = (session.has_key? 'locale' || !session['locale'].empty?) ? session['locale'] : I18n.default_locale
   end

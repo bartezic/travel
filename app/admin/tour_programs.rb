@@ -1,11 +1,7 @@
 ActiveAdmin.register TourProgram do
   menu :label => proc{ I18n.t('active_admin.menu.tour_programs') }, :parent => 'Тури'
-  # belongs_to :tour
-  # navigation_menu :tour
 
-  filter :tour, collection: Tour.with_translations(I18n.locale).map{ |i| 
-    [i.id, i.title]
-  }
+  filter :tour
   filter :day_number
   filter :description
 
