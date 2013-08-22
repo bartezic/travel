@@ -21,7 +21,7 @@ class Tour < ActiveRecord::Base
                   :currency_id, :photo_id, :gallery_id, :price_from, :price_to, :active, :title, :description, 
                   :transport_description, :price_list, :price_included, :price_excluded, :note, :excursions, 
                   :seo_meta, :departure_calendar, :tour_programs_attributes, :price_type, :tag_ids, 
-                  :tags_attributes, :all_tags, :recommended
+                  :tags_attributes, :all_tags, :recommended, :currency_sym
   
   accepts_nested_attributes_for :tour_programs, allow_destroy: true
   accepts_nested_attributes_for :tags
@@ -67,6 +67,10 @@ class Tour < ActiveRecord::Base
       with_from(params[:from]).
       uniq.
       page(params[:page] || 0)
+  end
+
+  def currency_sym
+    currency && currency.symbol
   end
 
   def normalize_friendly_id(input)

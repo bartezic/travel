@@ -109,10 +109,4 @@ module ApplicationHelper
     end
     res 
   end
-
-  def currency_sym(tour)
-    if(code = tour.currency && tour.currency.code)
-      {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€', 'GBP' => '£'}[code]
-    end
-  end
 end

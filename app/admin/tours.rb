@@ -13,7 +13,7 @@ ActiveAdmin.register Tour do
     end
 
     private
-    CURRENCIES = {'UAH' => '₴', 'USD' => '$', 'EURO' => '€', 'EUR' => '€', 'GBP' => '£'}
+    
     def formating_tag_ids
       type = :tour
       params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
@@ -26,12 +26,21 @@ ActiveAdmin.register Tour do
       img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
       url = Bitly.client.shorten(tour_url(tour), :history => 1).short_url
       title = tour.title
-      descr = "Від #{tour.price_from}#{CURRENCIES[tour.currency && tour.currency.code]} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      descr = "Від #{tour.price_from}#{tour.currency_sym} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
       subtitle = ''
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
         regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        subtitle = regions.size == 1 ? "#{regions.first.name}(#{regions.first.country.name})" : regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
+        subtitle = if regions.size == 1 
+          "#{regions.first.name}(#{regions.first.country.name})" 
+        else 
+          countries = regions.map(&:country).uniq
+          if countries.size == 1
+            "#{countries.first.name}(#{regions.map {|region| region.name }.join('-')})"
+          else
+            regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
+          end
+        end
       end
 
       ts_size = 140-(descr.size+url.size+8)
@@ -65,13 +74,24 @@ ActiveAdmin.register Tour do
 
       if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
         regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
-        name.push(regions.size == 1 ? "#{regions.first.name} (#{regions.first.country.name})" : regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - '))
+        subtitle = if regions.size == 1 
+          "#{regions.first.name}(#{regions.first.country.name})" 
+        else 
+          countries = regions.map(&:country).uniq
+          if countries.size == 1
+            "#{regions.map {|region| region.name }.join(' - ')}(#{countries.first.name})"
+          else
+            regions.map {|region| "#{region.name}(#{region.country.name})" }.join(' - ')
+          end
+        end
+        name.push(subtitle)
       end
 
-      massage = [ tour.title,
-                  "Від #{tour.price_from} #{CURRENCIES[tour.currency && tour.currency.code]}",
-                  "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
-                  "Виїзди із: #{tour.regions.map(&:name).join(', ')}"].join('
+      massage = [ 
+        tour.title,
+        "Від #{tour.price_from} #{tour.currency_sym}",
+        "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+        "Виїзди із: #{tour.regions.map(&:name).join(', ')}"].join('
       ')
 
       pages = FbGraph::User.me(current_admin_user.fb_token).accounts.first

@@ -3,6 +3,7 @@ ActiveAdmin.register Currency do
   form do |f|
     f.inputs do
       f.input :code
+      f.input :symbol
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :title

@@ -19,7 +19,7 @@
       },
       link: '#{tour_url(@tour)}',
       title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour, true, true)].join(' - '))}',
-      description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
+      description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency_sym} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
       image: window.location.href + '#{@tour.photo.asset(:original, timestamp: false)}'
     });
     
@@ -34,7 +34,7 @@
     %dl
       - if @tour.price_from
         %dt= t 'tours.price'
-        %dd= "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency && @tour.currency.code} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
+        %dd= "#{t('gen.from')}: #{@tour.price_from} #{@tour.currency_sym} за #{t(@tour.price_type, :scope => [:tours, :price_type])}"
       - unless @tour.transports.empty?
         %dt= t('tours.transport')
         %dd= @tour.transports.map(&:title).join(', ')
@@ -112,5 +112,5 @@
             = link_to tour.title, tour
             %em= raw tour_subtitle(tour, true)
             .descr
-              %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{currency_sym(tour)}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
+              %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
               %div= "#{tour.tour_types.map(&:title).join(', ')}"
