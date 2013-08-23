@@ -19,7 +19,7 @@ ActiveAdmin.register Tour do
       params[type][:tag_ids] = params[type][:tag_ids].split(',') if params[type][:tag_ids]
       params[type][:tour_programs_attributes].each do |k,v|
         params[type][:tour_programs_attributes][k][:region_ids] = v[:region_ids].split(',')
-      end
+      end if params[type][:tour_programs_attributes]
     end
 
     def twitt_tour(tour)
@@ -29,7 +29,7 @@ ActiveAdmin.register Tour do
       descr = "Від #{tour.price_from}#{tour.currency_sym} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
       subtitle = ''
 
-      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+      if tour.tour_programs.any?
         regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
         subtitle = if regions.size == 1 
           "#{regions.first.name}(#{regions.first.country.name})" 
@@ -72,7 +72,7 @@ ActiveAdmin.register Tour do
     def fb_tour(tour)
       name = [tour.title]
 
-      if tour.tour_programs.any? && tour.tour_programs.first.regions.any?
+      if tour.tour_programs.any?
         regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
         subtitle = if regions.size == 1 
           "#{regions.first.name}(#{regions.first.country.name})" 
