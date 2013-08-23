@@ -14,7 +14,7 @@
               .carousel-caption
                 %h4
                   = link_to tour.title, tour
-                  = raw tour_subtitle(tour)
+                  = raw tour_subtitle(tour.tour_programs)
                   - if temp = marshrut(tour.tour_programs)
                     %small
                       %em= raw "#{temp}"
@@ -58,7 +58,7 @@
           - else
             .title
               = link_to tour.title, tour
-              %em= raw tour_subtitle(tour, true)
+              %em= raw tour_subtitle(tour.tour_programs, true)
               .descr
                 %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
                 %div= "#{tour.tour_types.map(&:title).join(', ')}"

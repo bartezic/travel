@@ -3,7 +3,7 @@
 - content_for :tags do
   = @tour.all_tags.join(',')
 - content_for :title do
-  = "#{@tour.title} - #{tour_subtitle(@tour, true, true)}"
+  = "#{@tour.title} - #{tour_subtitle(@tour.tour_programs, true, true)}"
 - content_for :image_src do
   = @tour.photo.asset(:original)
 - content_for :scripts do
@@ -18,7 +18,7 @@
         'quickServices': ['vkontakte', 'facebook', 'twitter', 'gplus', 'yaru', 'blogger', 'delicious', 'diary', 'digg', 'evernote',  'friendfeed',  'juick', 'liveinternet', 'linkedin', 'lj', 'moikrug', 'moimir', 'myspace', 'odnoklassniki', 'pinterest', 'surfingbird', 'tutby', 'yazakladki']
       },
       link: '#{tour_url(@tour)}',
-      title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour, true, true)].join(' - '))}',
+      title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour.tour_programs, true, true)].join(' - '))}',
       description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency_sym} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
       image: window.location.href + '#{@tour.photo.asset(:original, timestamp: false)}'
     });
@@ -27,7 +27,7 @@
   .col-lg-8
     %h2
       = @tour.title
-      = raw tour_subtitle(@tour)
+      = raw tour_subtitle(@tour.tour_programs)
     .row
       .col-lg-12
         .pull-fleft#ya-share
@@ -110,7 +110,7 @@
           = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title })
           .title 
             = link_to tour.title, tour
-            %em= raw tour_subtitle(tour, true)
+            %em= raw tour_subtitle(tour.tour_programs, true)
             .descr
               %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
               %div= "#{tour.tour_types.map(&:title).join(', ')}"

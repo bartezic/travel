@@ -185,7 +185,7 @@ ActiveAdmin.register Tour do
       div { image_tag tour.photo.asset(:thumb_150x) }
     end
     column :price do |tour|
-      "#{tour.currency && tour.currency.code} #{tour.price_from}+"
+      "#{tour.price_from}#{tour.currency_sym} +"
     end
     column :days do |tour|
       tour.days.size
@@ -205,19 +205,8 @@ ActiveAdmin.register Tour do
 
   form do |f|
     f.inputs do
-      if f.object.photo
-        f.input :photo_id, as: :string, input_html: { 
-          class: :photo2, 
-          data: { 
-            text: f.object.photo.title, 
-            id: f.object.photo.id, 
-            thumb: f.object.photo.asset(:thumb_150x) 
-          }
-        }
-      else
-        f.input :photo_id, as: :string, input_html: { class: :photo2 }
-      end
-      f.input :gallery, collection: Gallery.with_translations(I18n.locale)
+      photo(f)
+      gallery(f)
       f.input :currency, as: :radio, collection: Currency.with_translations(I18n.locale)
       f.input :price_from
       f.input :price_type, as: :radio, collection: [
@@ -227,7 +216,7 @@ ActiveAdmin.register Tour do
       # f.input :price_to
       f.input :active
       f.input :recommended
-      f.input :days, member_label: :day_of_life
+      f.input :days, member_label: :day_of_life, input_html: { size: 30 }
       f.input :tour_types, as: :check_boxes, collection: TourType.with_translations(I18n.locale)
       f.input :food_types, as: :check_boxes, collection: FoodType.with_translations(I18n.locale)
       f.input :durations, member_label: :count_of_night, as: :check_boxes
@@ -237,19 +226,7 @@ ActiveAdmin.register Tour do
     f.inputs "tour_programs" do
       f.has_many :tour_programs do |program|
         program.input :day_number
-        if program.object.regions && program.object.regions.any?
-          program.input :region_ids, as: :string, input_html: { 
-            class: :region2,
-            value: '',
-            data: {
-              regions: program.object.regions.map{ |region|
-                { text: "#{region.name}, #{region.country.name}", id: region.id}
-              }
-            }
-          }
-        else
-          program.input :region_ids, as: :string, input_html: { class: :region2, value: '' }
-        end
+        regions(program)
         program.input(:_destroy, as: :boolean, label: "Destroy?") if program.object
         program.translated_inputs switch_locale: true do |t|
           t.input :description, as: :html_editor
@@ -267,26 +244,7 @@ ActiveAdmin.register Tour do
       t.input :transport_description, as: :html_editor
       t.input :seo_meta
     end
-    f.inputs "Keywords" do
-      if f.object.tags && f.object.tags.any?
-        f.input :tag_ids, as: :string, input_html: { 
-          class: :tag2, 
-          value: '', 
-          data: { 
-            tags: f.object.tags.map{ |tag| 
-              { text: tag.title, id: tag.id } 
-            }.to_json
-          } 
-        }
-      else
-        f.input :tag_ids, as: :string, input_html: { class: :tag2, value: '' }
-      end
-      f.has_many :tags do |k|
-        k.translated_inputs switch_locale: true do |t|
-          t.input :title
-        end
-      end
-    end
+    keywords(f)
     f.actions
   end
 end

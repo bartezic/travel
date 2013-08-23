@@ -257,21 +257,27 @@ window.adminApp.regions = {
 
   initSelect2: function() {
     var _ = this, data, 
-        regions = _.elems.regions()
+        regions = _.elems.regions(),
+        ajax = {
+          url: '/api/regions',
+          dataType: 'JSON',
+          data: function (term, page) {
+            return { query: term };
+          },
+          results: function (res, page) {
+            return { results: res };
+          }
+        };
 
-    regions.select2({
+    regions.filter(':not(.multy)').select2({
       minimumInputLength: 2,
+      ajax: ajax
+    });
+
+    regions.filter('.multy').select2({
       multiple: true,
-      ajax: {
-        url: '/api/regions',
-        dataType: 'JSON',
-        data: function (term, page) {
-          return { query: term };
-        },
-        results: function (res, page) {
-          return { results: res }
-        }
-      }
+      minimumInputLength: 2,
+      ajax: ajax
     });
 
     $.each(regions, function(i, el) {
@@ -282,7 +288,7 @@ window.adminApp.regions = {
     });
     
 
-    $('.select2-container').width('78%');
+    $('.select2-container').width('76%');
   },
 
   initHandlers: function() {
@@ -309,7 +315,40 @@ window.adminApp.regions = {
   }
 };
 
+window.adminApp.galleries = {
 
+  initHandlers: function() {
+    var _ = this; 
+
+    _.elems.galleries.select2({
+      minimumInputLength: 2,
+      ajax: {
+        url: '/api/galleries',
+        dataType: 'JSON',
+        data: function (term, page) {
+          return {
+            query: term
+          };
+        },
+        results: function (res, page) {
+          return { results: res }
+        }
+      }
+    });
+
+    if(_.elems.galleries.data('id')){
+      _.elems.galleries.select2('data', _.elems.galleries.data());
+    }
+  },
+
+  init: function() {
+    this.elems = {
+      galleries: $('input.gallery2')
+    };
+
+    this.initHandlers();
+  }
+};
 
 $(function() {
   window.adminApp.trasl.init();
@@ -317,6 +356,7 @@ $(function() {
   window.adminApp.photos.init();
   window.adminApp.tags.init();
   window.adminApp.regions.init();
+  window.adminApp.galleries.init();
 });
 
 $(function() {
@@ -378,6 +418,6 @@ $(function() {
 
   //$('#country_continent_ids').select2();
   // var select2Width = $('.select2-container').outerWidth()+50;
-  $('.select2-container').width('78%');
+  $('.select2-container').width('76%');
   // $('#tour_photo_input .select2-container, #country_photo_input .select2-container').width(select2Width);
 });

@@ -23,6 +23,16 @@ class ApiController < ApplicationController
     end
   end
 
+  def galleries
+    res = Gallery.where("galleries.title ilike ?", "%#{params[:query]}%").with_translations(I18n.locale).sort_by(&:title).map{ |gallery|
+      { text: gallery.title, id: gallery.id }
+    }
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: res.to_json }
+    end
+  end
+
   def regions
     res = Region.includes(:country).
       where("regions.name ilike ?", "%#{params[:query]}%").

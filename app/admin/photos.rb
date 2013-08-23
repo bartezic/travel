@@ -37,7 +37,7 @@ ActiveAdmin.register Photo do
       f.inputs 'Photo' do
         image_tag(photo.asset(:thumb_150x), :id => "photoAsset") 
       end
-      f.input :galleries, as: :check_boxes
+      f.input :galleries, input_html: { size: 10 }
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :title

@@ -5,38 +5,22 @@ module ApplicationHelper
     p << "<tr></thead><tbody>"
     arr = Array.new(12) { Array.new(days.size) }
 
-    days.each_with_index { |(k,v),i|
+    days.each_with_index do |(k,v),i|
       v.each { |key, val| 
         arr[key-1][i] = val.join(", ")
       }
-    }
-    arr.each_with_index{ |i,ind| 
+    end
+    arr.each_with_index do |i,ind| 
       if i.compact.any?
         p << "<tr><th>#{t('date.month_names')[ind+1]}</th>"
         i.each{ |j| p << "<td><span class='label label-warning'>#{j}</span></td>" }
         p << '</tr>'
       end
-    }
+    end
     p << '</tbody></table>'  
   end
 
   def tour_program(programs)
-    # p = '<table>
-    #       <thead>
-    #         <tr>
-    #           <th><p class=text-center>Програма туру</p></th>
-    #         </tr>
-    #       </thead>
-    #     <tbody>'
-    # programs.each { |program|
-    #   regions = program.regions.map {|region|
-    #     "#{link_to region.name, region} <small>(#{link_to region.country.name, region.country})</small>"
-    #   }
-
-    #   p << "<tr><td><p class=pull-left><b>День: #{program.day_number}</b></p><p class=pull-right>#{regions.join(', ')}</p></td></tr>"
-    #   p << "<tr><td>#{program.description}</td></tr>"
-    # }
-    # p << '</tbody></table>'
     if programs.any? && programs.size > 1
       p = "<table class='tour_program table table-striped table-bordered table-condensed'>
             <thead>
@@ -68,40 +52,39 @@ module ApplicationHelper
   end
 
   def marshrut(programs)
-    regions = programs.map { |program| program.regions }.flatten.uniq
+    regions = programs.map(&:regions).flatten.uniq
     countries = regions.map(&:country).uniq 
     if regions.size > 1 
       if countries.size > 1
-        regions.map {|region|
+        regions.map{ |region|
           "#{link_to region.name, region} <small><em>(#{link_to region.country.name, region.country})</em></small>"
         }.join(' - ')
       else
-        regions.map {|region| link_to(region.name, region) }.join(' - ') << " <small><em>(#{link_to countries.first.name, countries.first})</em></small>"
+        regions.map{ |region| link_to(region.name, region) }.join(' - ') << " <small><em>(#{link_to countries.first.name, countries.first})</em></small>"
       end
     end
   end
 
-  def tour_subtitle(tour, marshrut = false, seo = false)
-    if tour.tour_programs.any?
-      regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+  def tour_subtitle(programs, marshrut = false, seo = false)
+    if programs.any?
+      regions = programs.map(&:regions).flatten.uniq
       if regions.size == 1
-        if seo 
-          res = "#{regions.first.name} (#{regions.first.country.name})"
+        region = regions.first
+        res = if seo 
+          "#{region.name} (#{region.country.name})"
         else
-          res = "<small>#{link_to regions.first.name, regions.first}
-                  <small>
-                    <em>
-                      (#{link_to regions.first.country.name, regions.first.country})
-                    </em>
-                  </small>
-                </small>"
+          "<small>#{link_to region.name, region}
+            <small>
+              <em>(#{link_to region.country.name, region.country})</em>
+            </small>
+          </small>"
         end
       elsif marshrut
         countries = regions.map(&:country).uniq
         res = if countries.size == 1
-          regions.map {|region| "#{region.name}" }.join(' - ') << " (#{countries.first.name})"
+          regions.map(&:name).join(' - ') << " (#{countries.first.name})"
         else
-          regions.map {|region| "#{region.name} (#{region.country.name})" }.join(' - ')
+          regions.map{ |region| "#{region.name} (#{region.country.name})" }.join(' - ')
         end
         
         res = "<span class='label label-warning' data-toggle='tooltip' title='#{res}'>#{t 'tours.marshrut'}</span>" unless seo

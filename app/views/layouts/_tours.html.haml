@@ -44,7 +44,7 @@
             .media-body
               %h4.media-heading
                 = link_to tour.title, tour
-                %em= raw tour_subtitle(tour)
+                %em= raw tour_subtitle(tour.tour_programs)
               .p= raw "#{t('tours.price')}: #{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> за #{t(tour.price_type, :scope => [:tours, :price_type])}"
               - if tour.days.any? 
                 - if tour.days.count > 4

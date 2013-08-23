@@ -53,22 +53,10 @@ ActiveAdmin.register Country do
 
   form do |f|
     f.inputs do
+      photo(f)
+      geo_block(f)
       f.input :continents
       f.input :code
-      if f.object.photo
-        f.input :photo_id, as: :string, input_html: { 
-          class: :photo2, 
-          data: { 
-            text: f.object.photo.title, 
-            id: f.object.photo.id, 
-            thumb: f.object.photo.asset(:thumb_150x) 
-          }
-        }
-      else
-        f.input :photo_id, as: :string, input_html: { class: :photo2 }
-      end
-      f.input :geo_input, input_html: { class: :geo_input2 }
-      f.input :geo, input_html: { class: :geo2 }
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :name
@@ -80,26 +68,7 @@ ActiveAdmin.register Country do
       t.input :infrastructure, as: :html_editor
       t.input :seo_meta
     end
-    f.inputs "Keywords" do
-      if f.object.tags && f.object.tags.any?
-        f.input :tag_ids, as: :string, input_html: { 
-          class: :tag2, 
-          value: '', 
-          data: { 
-            tags: f.object.tags.map{ |tag| 
-              { text: tag.title, id: tag.id } 
-            }.to_json
-          } 
-        }
-      else
-        f.input :tag_ids, as: :string, input_html: { class: :tag2, value: '' }
-      end
-      f.has_many :tags do |k|
-        k.translated_inputs switch_locale: true do |t|
-          t.input :title
-        end
-      end
-    end
+    keywords(f)
     f.actions
   end
 end

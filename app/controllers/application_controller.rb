@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_admin_locale
-    I18n.locale = I18n.default_locale
+    I18n.locale = session['locale'] = I18n.default_locale.to_s
   end
 
   private
