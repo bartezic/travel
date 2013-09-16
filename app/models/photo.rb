@@ -35,24 +35,24 @@ class Photo < ActiveRecord::Base
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"
 
-  # before_save :upload_asset_from_remote_url
-  # before_save :change_file_name
+  before_save :upload_asset_from_remote_url
+  before_save :change_file_name
 
   scope :meta_galleries_eq, lambda { |ids| includes(:galleries).where("galleries.id IN (?)", ids) unless ids.blank? }
   scope :meta_countries_eq, lambda { |ids| includes(:countries).where("countries.id IN (?)", ids) unless ids.blank? }
   search_method :meta_galleries_eq, :type => :integer  
   search_method :meta_countries_eq, :type => :integer
 
-  # def upload_asset_from_remote_url
-  #   self.asset = open(asset_remote_url) if asset_remote_url.present?
-  #   # self.cover.clear if remove_cover == '1'
-  # rescue OpenURI::HTTPError
-  # end
+  def upload_asset_from_remote_url
+    self.asset = open(asset_remote_url) if asset_remote_url.present?
+    # self.cover.clear if remove_cover == '1'
+  rescue OpenURI::HTTPError
+  end
 
-  # def change_file_name
-  #   extension = File.extname(asset_remote_url.present? ? asset_remote_url : asset_file_name).gsub(/^\.+/, '')
-  #   name = title.to_slug.normalize(transliterations: :ukrainian).to_s
-  #   asset.instance_write(:file_name, "#{name}.#{extension}")
-  # end
+  def change_file_name
+    extension = File.extname(asset_remote_url.present? ? asset_remote_url : asset_file_name).gsub(/^\.+/, '')
+    name = title.to_slug.normalize(transliterations: :ukrainian).to_s
+    asset.instance_write(:file_name, "#{name}.#{extension}")
+  end
 
 end

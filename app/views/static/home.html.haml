@@ -47,7 +47,7 @@
       - @tours.each_with_index do |tour, i|
         .list-group-item
           - if tour.photo
-            = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title, class: 'pull-left' })
+            = image_tag(tour.photo.asset(:thumb_130), { alt: tour.photo.title, class: 'pull-left' })
           %h5.list-group-item-heading
             = link_to tour.title, tour
             %em= raw tour_subtitle(tour.tour_programs, true)
@@ -65,7 +65,7 @@
       - @countries.each_with_index do |country, i|
         .list-group-item
           - if country.photo
-            = image_tag(country.photo.asset(:thumb_370), { alt: country.photo.title, class: 'pull-left' })
+            = image_tag(country.photo.asset(:thumb_130), { alt: country.photo.title, class: 'pull-left' })
           %h5.list-group-item-heading
             = link_to country.name, country
             - country.continents.each_with_index do |continent, i|
@@ -87,9 +87,9 @@
       - @regions.each_with_index do |region, i|
         .list-group-item
           - if region.photo
-            = image_tag(region.photo.asset(:thumb_370), { alt: region.photo.title, class: 'pull-left' })
+            = image_tag(region.photo.asset(:thumb_130), { alt: region.photo.title, class: 'pull-left' })
           - elsif region.gallery && region.gallery.photos.any?
-            = image_tag(region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title, class: 'pull-left'})
+            = image_tag(region.gallery.photos.first.asset(:thumb_130), { alt: region.gallery.photos.first.title, class: 'pull-left'})
           %h5.list-group-item-heading
             = link_to region.name, [region.country, region]
             %small

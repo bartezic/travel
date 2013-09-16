@@ -9,7 +9,7 @@
   %h2= t 'menu.hot_tours'
   - @hot_tours.each do |tour|
     .col-lg-3.col-sm-4.col-6.block
-      = image_tag tour.cover(:thumb), { alt: tour.title }
+      = image_tag tour.photo.asset(:thumb_370), { alt: tour.photo.title }
       .title 
         = tour.title
         .descr= tour.description
