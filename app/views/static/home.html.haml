@@ -40,70 +40,78 @@
             .title 
               = tour.title
               .descr= tour.description
+  / .col-lg-4.col-sm-12
+  /   %h4= t 'menu.hot_tours'
+  /   .list-group
+  /     - @hot_tours2.each_with_index do |tour, i|
+  /       .list-group-item
+  /         = image_tag tour.cover(:thumb), { alt: tour.title, class: 'pull-left' }
+  /         %h4.list-group-item-heading= tour.title
+  /         %p.list-group-item-text= tour.description
+  /         .clearfix
+  /     .list-group-item
+  /       %a{ href: '/hot_tours'} 
+  /         = t 'home.more_hot_tours'
+  /         %span.glyphicon.glyphicon-arrow-right
         
 .row.country
   .col-lg-4.col-sm-12
     %h4= t 'home.last_tours'
-    .row.styled
+    .list-group
       - @tours.each_with_index do |tour, i|
-        .col-lg-6.col-sm-4.col-6.block
+        .list-group-item
           - if tour.photo
-            = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title })
-          - if i == 5
-            .shadow
-            .all-hot-tours 
-              %a{ href: tours_path } 
-                = t 'home.all_tours'
-                %span.glyphicon.glyphicon-arrow-right
-          - else
-            .title
-              = link_to tour.title, tour
-              %em= raw tour_subtitle(tour.tour_programs, true)
-              .descr
-                %div= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
-                %div= "#{tour.tour_types.map(&:title).join(', ')}"
+            = image_tag(tour.photo.asset(:thumb_370), { alt: tour.photo.title, class: 'pull-left' })
+          %h5.list-group-item-heading
+            = link_to tour.title, tour
+            %em= raw tour_subtitle(tour.tour_programs, true)
+          %p.list-group-item-text= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
+          %p.list-group-item-text= "#{tour.tour_types.map(&:title).join(', ')}"
+          .clearfix
+      .list-group-item
+        %h4.list-group-item-heading
+          %a{ href: tours_path } 
+            = t 'home.all_tours'
+            %span.glyphicon.glyphicon-arrow-right
   .col-lg-4.col-sm-6
     %h4= t 'home.popular_countries'
-    .row.styled
+    .list-group
       - @countries.each_with_index do |country, i|
-        .col-lg-6.col-sm-6.col-6.block
+        .list-group-item
           - if country.photo
-            = image_tag(country.photo.asset(:thumb_370), { alt: country.photo.title })
-          - if i == 5
-            .shadow
-            .all-hot-tours 
-              %a{ href: countries_path } 
-                = t 'home.all_countries'
-                %span.glyphicon.glyphicon-arrow-right
-          - else
-            .title
-              = link_to country.name, country
-              - country.continents.each_with_index do |continent, i|
-                %small
-                  %em
-                    = ', ' if i != 0
-                    = link_to continent.name, continent
-              .descr
-                %div= t 'home.region.tours', count: country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count
-                %div= t 'home.region.regions', count: country.regions.count
+            = image_tag(country.photo.asset(:thumb_370), { alt: country.photo.title, class: 'pull-left' })
+          %h5.list-group-item-heading
+            = link_to country.name, country
+            - country.continents.each_with_index do |continent, i|
+              %small
+                %em
+                  = ', ' if i != 0
+                  = link_to continent.name, continent
+          %p.list-group-item-text= t 'home.region.tours', count: country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count
+          %p.list-group-item-text= t 'home.region.regions', count: country.regions.count
+          .clearfix
+      .list-group-item
+        %h4.list-group-item-heading
+          %a{ href: countries_path } 
+            = t 'home.all_countries'
+            %span.glyphicon.glyphicon-arrow-right
   .col-lg-4.col-sm-6
     %h4= t 'home.popular_regions'
-    .row.styled
+    .list-group
       - @regions.each_with_index do |region, i|
-        .col-lg-6.col-sm-6.col-6.block
+        .list-group-item
           - if region.photo
-            = image_tag(region.photo.asset(:thumb_370), { alt: region.photo.title })
+            = image_tag(region.photo.asset(:thumb_370), { alt: region.photo.title, class: 'pull-left' })
           - elsif region.gallery && region.gallery.photos.any?
-            = image_tag(region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title })
-          - if i == 5
-            .shadow
-            .all-hot-tours 
-              %a{ href: regions_path } 
-                = t 'home.all_regions'
-                %span.glyphicon.glyphicon-arrow-right
-          - else
-            .title
-              = link_to region.name, [region.country, region]
-              %small
-                %em= link_to region.country.name, region.country
-              .descr= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
+            = image_tag(region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title, class: 'pull-left'})
+          %h5.list-group-item-heading
+            = link_to region.name, [region.country, region]
+            %small
+              %em= link_to region.country.name, region.country
+          %p.list-group-item-text= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count
+          .clearfix
+      .list-group-item
+        %h4.list-group-item-heading
+          %a{ href: regions_path } 
+            = t 'home.all_regions'
+            %span.glyphicon.glyphicon-arrow-right

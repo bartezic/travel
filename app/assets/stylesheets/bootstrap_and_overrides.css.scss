@@ -10,7 +10,13 @@ body {
   background: #F8F7E7 url(/assets/color_bg.jpg) repeat;
 }
 
-
+.list-group-item {
+  padding: 10px 15px;
+  img {
+    width: 130px;
+    margin-right: 10px;
+  }
+}
 .hot-tours, .related, .styled {
   padding: 0 15px 0;
   img {

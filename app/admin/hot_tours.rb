@@ -8,20 +8,16 @@ ActiveAdmin.register HotTours do
     column :active do |tour|
       status_tag(tour.active.to_s)
     end
-    column :photo do |tour|
-      div { image_tag(tour.cover(:thumb)) }
+    column :photo do |a|
+      div { image_tag(a.photo.asset(:thumb_150x)) if a.photo }
     end
     default_actions
   end
 
   form do |f|
     f.inputs do
+      photo(f)
       f.input :active
-      f.input :cover
-      f.input :cover_remote_url
-      f.inputs 'Cover' do
-        image_tag(f.object.cover(:thumb), id: 'hot-tour-cover')
-      end
     end
     f.translated_inputs switch_locale: true do |t|
       t.input :title
