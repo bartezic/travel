@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916142233) do
+ActiveRecord::Schema.define(:version => 20130916152321) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -236,12 +236,8 @@ ActiveRecord::Schema.define(:version => 20130916142233) do
     t.text     "description"
     t.boolean  "active"
     t.string   "cover_remote_url"
-    t.string   "cover_file_name"
-    t.string   "cover_content_type"
-    t.integer  "cover_file_size"
-    t.datetime "cover_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "photo_id"
   end
 

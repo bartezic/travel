@@ -29,7 +29,7 @@
     .row.hot-tours
       - @hot_tours2.each_with_index do |tour, i|
         .col-lg-6.col-sm-4.col-6.block
-          = image_tag tour.cover(:thumb), { alt: tour.title }
+          = image_tag tour.photo.asset(:thumb_370), { alt: tour.photo.title }
           - if i == 5
             .shadow
             .all-hot-tours 
@@ -40,20 +40,6 @@
             .title 
               = tour.title
               .descr= tour.description
-  / .col-lg-4.col-sm-12
-  /   %h4= t 'menu.hot_tours'
-  /   .list-group
-  /     - @hot_tours2.each_with_index do |tour, i|
-  /       .list-group-item
-  /         = image_tag tour.cover(:thumb), { alt: tour.title, class: 'pull-left' }
-  /         %h4.list-group-item-heading= tour.title
-  /         %p.list-group-item-text= tour.description
-  /         .clearfix
-  /     .list-group-item
-  /       %a{ href: '/hot_tours'} 
-  /         = t 'home.more_hot_tours'
-  /         %span.glyphicon.glyphicon-arrow-right
-        
 .row.country
   .col-lg-4.col-sm-12
     %h4= t 'home.last_tours'
