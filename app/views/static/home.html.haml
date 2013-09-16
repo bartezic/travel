@@ -91,8 +91,10 @@
     .row.styled
       - @regions.each_with_index do |region, i|
         .col-lg-6.col-sm-6.col-6.block
-          - if region.gallery && region.gallery.photos.any?
-            = image_tag(region.photo.asset(:thumb_370) || region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title })
+          - if region.photo
+            = image_tag(region.photo.asset(:thumb_370), { alt: region.photo.title })
+          - elsif region.gallery && region.gallery.photos.any?
+            = image_tag(region.gallery.photos.first.asset(:thumb_370), { alt: region.gallery.photos.first.title })
           - if i == 5
             .shadow
             .all-hot-tours 

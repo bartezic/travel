@@ -76,8 +76,10 @@
             %ul.media-list
               - @country.regions.each do |region|
                 %li.media
-                  - if region.gallery && region.gallery.photos.any?
-                    = link_to image_tag(region.photo.asset(:thumb_370) || region.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: region.gallery.photos.first.title }), [@country, region], {class: 'pull-left'}
+                  - if region.photo
+                    = link_to image_tag(region.photo.asset(:thumb_370), { class: 'media-object', alt: region.photo.title }), [@country, region], { class: 'pull-left' }
+                  - elsif region.gallery && region.gallery.photos.any?
+                    = link_to image_tag(region.gallery.photos.first.asset(:thumb_370), { class: 'media-object', alt: region.gallery.photos.first.title }), [@country, region], { class: 'pull-left' }
                   .media-body
                     %h5.media-heading= link_to region.name, [@country, region]
                     %p= raw region.description.truncate(350)
