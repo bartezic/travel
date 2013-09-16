@@ -30,13 +30,13 @@ ActiveAdmin.register Tour do
       subtitle = ''
 
       if tour.tour_programs.any?
-        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        regions = tour.tour_programs.map(&:regions).flatten.uniq
         subtitle = if regions.size == 1 
           "#{regions.first.name}(#{regions.first.country.name})" 
         else 
           countries = regions.map(&:country).uniq
           if countries.size == 1
-            "#{countries.first.name}(#{regions.map {|region| region.name }.join('-')})"
+            "#{countries.first.name}(#{regions.map(&:name).join('-')})"
           else
             regions.map {|region| "#{region.name}(#{region.country.name})" }.join('-')
           end
@@ -73,15 +73,15 @@ ActiveAdmin.register Tour do
       name = [tour.title]
 
       if tour.tour_programs.any?
-        regions = tour.tour_programs.map { |program| program.regions }.flatten.uniq
+        regions = tour.tour_programs.map(&:regions).flatten.uniq
         subtitle = if regions.size == 1 
           "#{regions.first.name}(#{regions.first.country.name})" 
         else 
           countries = regions.map(&:country).uniq
           if countries.size == 1
-            "#{regions.map {|region| region.name }.join(' - ')}(#{countries.first.name})"
+            "#{regions.map{|region| region.name }.join('-')}(#{countries.first.name})"
           else
-            regions.map {|region| "#{region.name}(#{region.country.name})" }.join(' - ')
+            regions.map{|region| "#{region.name}(#{region.country.name})" }.join('-')
           end
         end
         name.push(subtitle)
