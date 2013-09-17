@@ -13,7 +13,7 @@ module ApplicationHelper
     arr.each_with_index do |i,ind| 
       if i.compact.any?
         p << "<tr><th>#{t('date.month_names')[ind+1]}</th>"
-        i.each{ |j| p << "<td><span class='label label-warning'>#{j}</span></td>" }
+        i.each{ |j| p << if j.empty? ? '<td></td>' : "<td><span class='label label-warning'>#{j}</span></td>" }
         p << '</tr>'
       end
     end
