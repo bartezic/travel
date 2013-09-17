@@ -111,6 +111,6 @@
           %h5.list-group-item-heading
             = link_to tour.title, tour
             %em= raw tour_subtitle(tour.tour_programs, true)
-          %p.list-group-item-text= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.durations.map(&:count_of_night).join(',')} ночей"
+          %p.list-group-item-text= raw "#{t('gen.from')} <b>#{tour.price_from}#{tour.currency_sym}</b> на #{tour.nights} ночей"
           %p.list-group-item-text= "#{tour.tour_types.map(&:title).join(', ')}"
           .clearfix
