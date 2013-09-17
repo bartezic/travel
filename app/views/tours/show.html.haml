@@ -19,7 +19,7 @@
       },
       link: '#{tour_url(@tour)}',
       title: '#{CGI.escapeHTML([@tour.title, tour_subtitle(@tour.tour_programs, true, true)].join(' - '))}',
-      description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency_sym} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.durations.map(&:count_of_night).join(', ')} ночей',
+      description: '#{t('gen.from')} #{@tour.price_from} #{@tour.currency_sym} за #{t(@tour.price_type, :scope => [:tours, :price_type])} <br/>на #{@tour.nights} ночей',
       image: window.location.href + '#{@tour.photo.asset(:original, timestamp: false)}'
     });
     
