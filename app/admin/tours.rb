@@ -26,7 +26,7 @@ ActiveAdmin.register Tour do
       img = File.new(URI.unescape("#{Rails.root}/public#{tour.photo.asset.url(:original, timestamp: false)}".split('?').first))
       url = Bitly.client.shorten(tour_url(tour), :history => 1).short_url
       title = tour.title
-      descr = "Від #{tour.price_from}#{tour.currency_sym} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.durations.map(&:count_of_night).join(',')} ночей" 
+      descr = "Від #{tour.price_from}#{tour.currency_sym} за #{I18n.t(tour.price_type, :scope => [:tours, :price_type])} на #{tour.nights} ночей" 
       subtitle = ''
 
       if tour.tour_programs.any?
@@ -90,7 +90,7 @@ ActiveAdmin.register Tour do
       massage = [ 
         tour.title,
         "Від #{tour.price_from} #{tour.currency_sym}",
-        "Тривалість: #{tour.durations.map(&:count_of_night).join(', ')} ночей",
+        "Тривалість: #{tour.nights} ночей",
         "Виїзди із: #{tour.regions.map(&:name).join(', ')}"].join('
       ')
 
