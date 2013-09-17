@@ -7,7 +7,7 @@ module ApplicationHelper
 
     days.each_with_index do |(k,v),i|
       v.each { |key, val| 
-        arr[key-1][i] = val.join(", ")
+        arr[key-1][i] = (val.size > 4) && (val.last - val.first == val.size-1) ? "#{val.first} - #{val.last}" : val.join(',')
       }
     end
     arr.each_with_index do |i,ind| 
