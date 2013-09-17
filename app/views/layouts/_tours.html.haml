@@ -54,7 +54,7 @@
               - if temp = marshrut(tour.tour_programs)
                 .p= raw "#{t('tours.marshrut')}: #{temp}"
               .p= "#{t('tours.transport')}: #{tour.transports.map(&:title).join(', ')}"
-              .p= "#{t('tours.duration')}: #{tour.durations.map(&:count_of_night).join(', ')}"
+              .p= "#{t('tours.duration')}: #{tour.nights}"
               - if tour.food_types.any? 
                 - temp = tour.food_types.map{ |t| "<span class='label label-warning' data-toggle='tooltip' title='#{t.title}'>#{t.code.upcase}</span>" }.join(' ')
                 .p= raw "#{t('tours.food_type')}: #{temp}"
