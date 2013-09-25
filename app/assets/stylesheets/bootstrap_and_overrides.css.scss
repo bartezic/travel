@@ -193,6 +193,7 @@ body {
 .visas, .tour {
   table{
     background-color: white;
+    margin-bottom: 0px;
     th {
       font-size: 0.9em;
     }    
@@ -209,6 +210,12 @@ body {
   .b-share__handle {
     height: 26px;
   }
+}
+
+.tour dd {
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  padding: 5px;
 }
 
 .tour_program {

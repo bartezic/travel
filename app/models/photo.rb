@@ -26,10 +26,11 @@ class Photo < ActiveRecord::Base
       :thumb_250x => ['250x', :jpg]
     },
     :convert_options => { 
-      :medium => "-interlace Plane",
-      :small => "-interlace Plane",
-      :thumb => "-interlace Plane",
-      :small_thumb => "-interlace Plane" 
+      :thumb_130 => "-interlace Plane",
+      :thumb_370 => "-interlace Plane",
+      :thumb_770 => "-interlace Plane",
+      :thumb_150x => "-interlace Plane",
+      :thumb_250x => "-interlace Plane" 
     },
     :default_url => "/assets/ph/:attachment_:style.gif", 
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
