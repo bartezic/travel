@@ -29,7 +29,7 @@ class Region < ActiveRecord::Base
   end
 
   def geo_viewport
-    (parsed_geo['geometry']['bounds'] || parsed_geo['geometry']['viewport']) if parsed_geo && !parsed_geo.empty?
+    (parsed_geo['geometry']['bounds'] || parsed_geo['geometry']['viewport']) if parsed_geo
   end
 
   def static_map
@@ -37,7 +37,7 @@ class Region < ActiveRecord::Base
   end
 
   def parsed_geo
-    JSON.parse(geo) if geo
+    JSON.parse(geo) if geo && !geo.empty?
   end
   
   def geo_input
