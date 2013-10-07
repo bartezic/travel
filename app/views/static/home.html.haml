@@ -91,7 +91,7 @@
           - elsif region.gallery && region.gallery.photos.any?
             = image_tag(region.gallery.photos.first.asset(:thumb_130), { alt: region.gallery.photos.first.title, class: 'pull-left'})
           %h5.list-group-item-heading
-            = link_to region.name, [region.country, region]
+            = link_to region.name, region
             %small
               %em= link_to region.country.name, region.country
           %p.list-group-item-text= t 'home.region.tours', count: region.tour_programs.group_by(&:tour_id).count

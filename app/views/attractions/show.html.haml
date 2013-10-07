@@ -10,7 +10,7 @@
     %h2
       = @attraction.name
       %small
-        = link_to @attraction.region.name, [@attraction.region.country, @attraction.region]
+        = link_to @attraction.region.name, @attraction.region
         %small= raw "(#{link_to @attraction.region.country.name, @attraction.region.country})"
 
     - unless @attraction.description.empty?

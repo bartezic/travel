@@ -75,6 +75,7 @@ uk:
     tour_type: Тип
     departure: Виїзди із
     related: Схожі тури
+    random: Випадкові тури
     description: Опис
     price_inc: В ціну входить
     price_exc: Додатково оплачується

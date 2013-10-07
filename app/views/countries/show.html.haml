@@ -77,11 +77,11 @@
               - @country.regions.each do |region|
                 %li.media
                   - if region.photo
-                    = link_to image_tag(region.photo.asset(:thumb_370), { class: 'media-object', alt: region.photo.title }), [@country, region], { class: 'pull-left' }
+                    = link_to image_tag(region.photo.asset(:thumb_370), { class: 'media-object', alt: region.photo.title }), region, { class: 'pull-left' }
                   - elsif region.gallery && region.gallery.photos.any?
-                    = link_to image_tag(region.gallery.photos.first.asset(:thumb_370), { class: 'media-object', alt: region.gallery.photos.first.title }), [@country, region], { class: 'pull-left' }
+                    = link_to image_tag(region.gallery.photos.first.asset(:thumb_370), { class: 'media-object', alt: region.gallery.photos.first.title }), region, { class: 'pull-left' }
                   .media-body
-                    %h5.media-heading= link_to region.name, [@country, region]
+                    %h5.media-heading= link_to region.name, region
                     %p= raw region.description.truncate(350)
           - else
             %p.muted.text-center= t 'country.sorry.regions'        
@@ -91,12 +91,12 @@
               - @attractions.each do |attraction|
                 %li.media
                   - if attraction.gallery && attraction.gallery.photos.any?
-                    = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), [@country, attraction.region, attraction], {class: 'pull-left'}
+                    = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_150x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), attraction, {class: 'pull-left'}
                   .media-body
                     %h5.media-heading
-                      = link_to attraction.name, [@country, attraction.region, attraction]
+                      = link_to attraction.name, attraction
                       %small
-                        = link_to attraction.region.name, [@country, attraction.region]
+                        = link_to attraction.region.name, attraction.region
                     %p= raw attraction.description.truncate(350)
           - else
             %p.muted.text-center= t 'country.sorry.attractions'
@@ -105,12 +105,12 @@
             - @hotels.each do |hotel|
               %li.media
                 - if hotel.gallery && hotel.gallery.photos.any?
-                  = link_to image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title}), [@country, hotel.region, hotel], {class: 'pull-left'}
+                  = link_to image_tag(hotel.gallery.photos.first.asset(:thumb_150x), { alt: hotel.gallery.photos.first.title}), hotel, {class: 'pull-left'}
                 .media-body
                   %h5.media-heading
-                    = link_to hotel.name, [@country, hotel.region, hotel]
+                    = link_to hotel.name, hotel
                     %small
-                      = link_to hotel.region.name, [@country, hotel.region]
+                      = link_to hotel.region.name, hotel.region
                   %p= raw hotel.description
           - else
             %p.muted.text-center= t 'country.sorry.hotels'

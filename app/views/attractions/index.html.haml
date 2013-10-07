@@ -11,12 +11,12 @@
         - @attractions.each do |attraction|
           %li.media
             - if attraction.gallery && attraction.gallery.photos.any?
-              = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_250x), { class: 'media-object', alt: attraction.gallery.photos.first.title }), [attraction.region.country, attraction.region, attraction], {class: 'pull-left'}
+              = link_to image_tag(attraction.gallery.photos.first.asset(:thumb_250x), { class: 'media-object', alt: attraction.gallery.photos.first.title }),attraction, {class: 'pull-left'}
             .media-body
               %h4.media-heading
-                = link_to attraction.name, [attraction.region.country, attraction.region, attraction]
+                = link_to attraction.name, attraction
                 %small
-                  = link_to attraction.region.name, [attraction.region.country, attraction.region]
+                  = link_to attraction.region.name, attraction.region
                   %small
                     = raw "(#{link_to attraction.region.country.name, attraction.region.country})"
               %p

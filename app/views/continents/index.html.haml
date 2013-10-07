@@ -13,5 +13,5 @@
           %h5
             = link_to country.name, country, { class: "flag #{country.code}"}
             - country.regions.each do |region|
-              %small= link_to region.name, [country, region]
+              %small= link_to region.name, region
 
