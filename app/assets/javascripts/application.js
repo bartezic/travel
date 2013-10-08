@@ -367,7 +367,13 @@ $(function() {
     placement: 'top',
     trigger: 'hover',
     content: $('.popover-stat').removeClass('hidden').remove()
-  })
+  });
+
+  $('.toggle-countries span').click(function() {
+    $(this).addClass('hide');
+    $(this).siblings('span').removeClass('hide');
+    $('.cont-countries[data-id="' + $(this).closest('small').data('id') + '"]').toggleClass('hide');
+  });
 });
 
 $('ul.grid li a img').imagesLoaded(function() {

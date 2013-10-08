@@ -13,26 +13,34 @@
         %h4= t 'filters.search_by_params' 
         / Фільтр по місті виїзду
         .well.well-small 
-          %p.bold= t 'filters.regions'
+          .bold= t 'filters.regions'
           - Country.where(code: :ua).first.regions.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "from[]", value: f.id, checked: params[:from] && params[:from].include?(f.id.to_s) }= f.name
           / Фільтр по типі туру
-          %p.bold= t 'filters.tour_type'
+          .bold= t 'filters.tour_type'
           - TourType.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "tour_type[]", value: f.id, checked: params[:tour_type] && params[:tour_type].include?(f.id.to_s) }= f.title
           / Фільтр по типі пранспорту 
-          %p.bold= t 'filters.transport'
+          .bold= t 'filters.transport'
           - Transport.with_translations(locale).each do |f|
             %label.checkbox
               %input{ type: :checkbox, name: "transport[]", value: f.id, checked: params[:transport] && params[:transport].include?(f.id.to_s) }= f.title
           / Фільтр по країнах
           - if f2 
-            %p.bold= t 'filters.country'
-            - Country.with_translations(locale).each do |f|
-              %label.checkbox
-                %input{ type: :checkbox, name: "country[]", value: f.id, checked: params[:country] && params[:country].include?(f.id.to_s) }= f.name
+            .bold= t 'filters.continent'
+            - Continent.with_translations(locale).each do |continent|
+              %div
+                %i
+                  = continent.name
+                  %small.pull-right.toggle-countries{ data: { id: continent.slug } } 
+                    %span= t 'filters.show_counries'
+                    %span.hide= t 'filters.hide_counries'
+              .cont-countries.hide{ data: { id: continent.slug } } 
+                - continent.countries.with_translations(locale).each do |f|
+                  %label.checkbox
+                    %input{ type: :checkbox, name: "country[]", value: f.id, checked: params[:country] && params[:country].include?(f.id.to_s) }= f.name
 
   .col-lg-9
     - if @tours.any?

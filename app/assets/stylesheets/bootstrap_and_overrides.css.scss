@@ -295,6 +295,22 @@ ul.grid {
   }
 }
 
+input[type="radio"], input[type="checkbox"] {
+  margin: 2px 0 0;
+}
+.radio, .checkbox {
+  min-height: 19px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.toggle-countries {
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
 /* Panoramio */
 
 #div_attr_ex {

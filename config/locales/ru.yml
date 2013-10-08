@@ -60,6 +60,9 @@ ru:
     food_type: Питание
     country: Страна
     regions: Город выезда
+    continent: Континенты
+    show_counries: Показать страны
+    hide_counries: Cпрятать страны
   tours:
     title: Подобрать тур
     price: Цена
