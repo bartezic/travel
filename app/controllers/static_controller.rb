@@ -48,7 +48,7 @@ class StaticController < ApplicationController
   # returned array of Hash in format { region => tours_count }
   def popular_regions
     Region.includes(:tour_programs).inject({}){|mem, region| 
-      mem[region] = region.tour_programs.map(&:tour_id).uniq.size; 
+      mem[region] = (region.tour_programs.map(&:tour_id).uniq - unactive_ids).size; 
       mem
     }.sort_by(&:last).map(&:first).uniq.last(6).reverse
   end
@@ -56,8 +56,12 @@ class StaticController < ApplicationController
   # regions it is array of hash of popular regions in format { region => tours_count }
   def popular_countries
     Country.includes(:regions, :regions => :tour_programs).inject({}){|mem, country|
-      mem[country] = country.regions.map{ |region| region.tour_programs.map(&:tour_id) }.flatten.uniq.size
+      mem[country] = (country.regions.map{ |region| region.tour_programs.map(&:tour_id) }.flatten.uniq - unactive_ids).size
       mem
     }.sort_by(&:last).map(&:first).uniq.last(6).reverse
+  end
+
+  def unactive_ids
+    Tour.where(active: false).pluck(:id)
   end
 end
