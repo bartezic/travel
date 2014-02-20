@@ -24,6 +24,7 @@ Travel::Application.routes.draw do
   end
 
   match 'hot_tours' => 'static#hot_tours'
+  match 'partners' => 'static#partners'
   match 'contacts' => 'static#contacts'
   match 'visas' => 'static#visas'
   match 'home' => 'static#home'

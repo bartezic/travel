@@ -28,6 +28,13 @@ class StaticController < ApplicationController
     end
   end
 
+  def partners
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: {} }
+    end
+  end
+
   def hot_tours
     @hot_tours = HotTours.where(active: true).with_translations(I18n.locale)
 

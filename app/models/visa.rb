@@ -4,8 +4,5 @@ class Visa < ActiveRecord::Base
   belongs_to :country
 
   translates :description, :foreign_pas, :foreign_pas_duration, :foreign_pas_additional, :service_pas, :diplomatic_pas
-
-  active_admin_translates :description, :foreign_pas, :foreign_pas_duration, :foreign_pas_additional, :service_pas, :diplomatic_pas do
-    # validates_presence_of :description
-  end
+  active_admin_translates :description, :foreign_pas, :foreign_pas_duration, :foreign_pas_additional, :service_pas, :diplomatic_pas 
 end

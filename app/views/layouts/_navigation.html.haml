@@ -35,6 +35,7 @@
           %li.hidden-md{class: request.path == tours_path && 'active'}= link_to t('menu.tours'), tours_path
           %li.visible-md{class: request.path == tours_path && 'active'}= link_to t('menu.tours_sm'), tours_path
 
+          %li{class: request.path == partners_path && 'active'}= link_to t('menu.partners'), partners_path
           %li{class: request.path == hot_tours_path && 'active'}= link_to t('menu.hot_tours'), hot_tours_path
 
           %li.visible-md{class: request.path.include?('countries') && 'active'}= link_to t('menu.countries'), countries_path
@@ -43,7 +44,7 @@
           
           %li.hidden-md{class: request.path.include?('countries') && 'active'}= link_to t('menu.countries_of_world'), countries_path
           %li.hidden-md{class: request.path == visas_path && 'active'}= link_to t('menu.visas'), visas_path
-          %li.hidden-md= link_to t('menu.request_action'), "#myModal", 'data-toggle' => 'modal'
+          %li.hidden-md= link_to t('menu.request_action_sm'), "#myModal", 'data-toggle' => 'modal'
           
           %li{class: request.path == contacts_path && 'active'}= link_to "Контакти", contacts_path
           
