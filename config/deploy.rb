@@ -12,7 +12,7 @@ load "config/recipes/imagemagick"
 # load "config/recipes/check"
 # load "config/recipes/git"
 
-server "192.34.57.66", :web, :app, :db, primary: true
+server "146.185.155.142", :web, :app, :db, primary: true
 
 set :user, "deployer"
 set :application, "travel_mongrasse"
