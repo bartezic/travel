@@ -74,7 +74,7 @@
                 %em
                   = ', ' if i != 0
                   = link_to continent.name, continent
-          %p.list-group-item-text= t 'home.region.tours', count: (country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq.count - unactive_ids)
+          %p.list-group-item-text= t 'home.region.tours', count: (country.regions.includes(&:tour_programs).map{ |i| i.tour_programs.map(&:tour_id) }.flatten.uniq - unactive_ids).count
           %p.list-group-item-text= t 'home.region.regions', count: country.regions.count
           .clearfix
       .list-group-item
@@ -95,7 +95,7 @@
             = link_to region.name, region
             %small
               %em= link_to region.country.name, region.country
-          %p.list-group-item-text= t 'home.region.tours', count: (region.tour_programs.group_by(&:tour_id).count - unactive_ids)
+          %p.list-group-item-text= t 'home.region.tours', count: (region.tour_programs.map(&:tour_id).flatten.uniq - unactive_ids).count
           .clearfix
       .list-group-item
         %h4.list-group-item-heading
