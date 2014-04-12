@@ -5,4 +5,5 @@ class RequestAction < ActiveRecord::Base
    
   attr_accessible :adults, :budget, :childrens, :countries, :currency_id, :departure_date, :duration, 
                   :email, :name, :node, :phone, :response_type, :subscribe, :tour_type_ids, :transport_ids
+  attr_reader :capcha
 end

@@ -25,6 +25,7 @@ uk:
         currency: Валюта
         transports: Транспорт
         tour_types: Тип туру
+        capcha: Порахуйте
     hints:
       request_action:
         response_type: Як бажаєте отримати відповідь

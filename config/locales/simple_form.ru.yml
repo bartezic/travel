@@ -25,6 +25,7 @@ ru:
         currency: Валюта
         transports: Транспорт
         tour_types: Тип тура
+        capcha: Посчитайте
     hints:
       request_action:
         response_type: Как хотите получить ответ

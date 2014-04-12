@@ -320,8 +320,17 @@ $(function() {
         modal = $('#myModal'),
         modal2 = $('#myModal2'),
         form = modal.find('form'),
+        capcha = $('input#request_action_capcha'),
         success = modal2.find('.request-action-success'),
         failure = modal2.find('.request-action-failure');
+
+    if($('label[for="request_action_capcha"]').data('res') != capcha.val()){
+      alert(window.app.l.v_capcha_invalid)
+      capcha.closest('div').addClass('has-error')
+      return false
+    } else {
+      capcha.closest('div').removeClass('has-error')
+    }
 
     if($('#request_action_email').val() || $('#request_action_phone').val()){
       btn.attr('disabled', true);
@@ -372,6 +381,33 @@ $(function() {
     $(this).siblings('span').removeClass('hide');
     $('.cont-countries[data-id="' + $(this).closest('small').data('id') + '"]').toggleClass('hide');
   });
+
+  $('#myModal').on('show.bs.modal', function (e) {
+    var mathenticate = {
+      bounds: {
+        lower: 5,
+        upper: 50
+      },
+      first: 0,
+      second: 0,
+      generate: function() {
+        this.first = Math.floor(Math.random() * this.bounds.lower) + 1;
+        this.second = Math.floor(Math.random() * this.bounds.upper) + 1;
+      },
+      show: function() {
+        return this.first + ' + ' + this.second;
+      },
+      solve: function() {
+        return this.first + this.second;
+      }
+    };
+    mathenticate.generate();
+   
+    var $auth = $('label[for="request_action_capcha"]');
+        $auth.html($auth.text() + ': ' +  mathenticate.show() + ' = ');
+        $auth.data('res', mathenticate.solve())
+  })
+  
 });
 
 $('ul.grid li a img').imagesLoaded(function() {
