@@ -63,7 +63,7 @@ module Travel
     config.i18n.available_locales = [:uk, :ru]
     config.i18n.default_locale = :uk
     config.action_mailer.delivery_method = :smtp
-
+    # I18n.enforce_available_locales = false
   end
 
   ActionMailer::Base.smtp_settings = {

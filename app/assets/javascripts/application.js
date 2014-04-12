@@ -19,7 +19,6 @@
 //= require jquery.imagesloaded
 //= require photobox.min
 //= require localization
-//= require stroll.min
 
 //////////////////////////////////////////////////
 //          METHODS FOR LOCATION HASH           //
@@ -353,7 +352,6 @@ $(function() {
   $('.icon-arrow-right').removeClass('icon-arrow-right').addClass('glyphicon glyphicon-arrow-right');
   $('.icon-arrow-left').removeClass('icon-arrow-left').addClass('glyphicon glyphicon-arrow-left');
 
-  //stroll.bind('.country ul.media-list.stroll');
 
   $('.locales .locale').click(function(e) {
     if(!$(this).hasClass('active')){
@@ -386,5 +384,3 @@ $('ul.grid li a img').imagesLoaded(function() {
     $('ul.grid').photobox('a', { thumbs:true }, function(){});
   }
 });
-
-//window.open('https://www.facebook.com/dialog/oauth?client_id=256487544493099&display=popup&redirect_uri=http://mongrasse.com.ua/home','fb','resizable=yes,scrollbars=yes,width=500,height=500,left=200,top=200')
