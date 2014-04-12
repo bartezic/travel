@@ -29,6 +29,7 @@ class Tour < ActiveRecord::Base
   validates :price_type, inclusion: {in: PRICE_TYPES}
 
   scope :active,          where(active: true)
+  scope :archive,         lambda { |i| where(active: true) unless i }
   scope :recommended,     lambda { |i| where(recommended: true) if i }
   scope :with_days,       joins(:days)
   scope :with_from,       lambda { |ids| joins(:regions).where("regions.id IN (?)",           ids) unless ids.blank? }
@@ -57,7 +58,7 @@ class Tour < ActiveRecord::Base
 
   def self.search(params, ids = [])
     includes(:translations, {tour_programs: {regions: :translations}}).
-      active.
+      archive(params[:archive] == '1').
       recommended(params[:recommended]).
       with_transports(params[:transport]).
       with_tour_types(params[:tour_type]).

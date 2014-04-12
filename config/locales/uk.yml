@@ -65,6 +65,8 @@ uk:
     continent: Континенти
     show_counries: Показати країни
     hide_counries: Заховати країни
+    archive_title: Архівні тури
+    archive_body: Показувати не оновлені(без дат)
   tours:
     title: Підібрати тур
     price: Ціна
@@ -91,6 +93,7 @@ uk:
     total_tours: 'Всього %{count} турів'
     gallery: Галерея туру
     transport_description: Деталі переміщення
+    archive: Увага! Даний тур не оновлений, щоб дізнатись деталі звертайтесь до менеджерів.
     price_type:
       person: особу
       room: номер

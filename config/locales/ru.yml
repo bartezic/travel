@@ -64,6 +64,8 @@ ru:
     continent: Континенты
     show_counries: Показать страны
     hide_counries: Cпрятать страны
+    archive_title: Архивные туры
+    archive_body: Показывать не обновленные(без дат)
   tours:
     title: Подобрать тур
     price: Цена
@@ -90,6 +92,7 @@ ru:
     total_tours: 'Всего %{count} туров'
     gallery: Галерея тура
     transport_description: Детали перемещения
+    archive: Внимание! Данный тур не обновлен, чтобы узнать детали обращайтесь к менеджерам.
     price_type:
       person: человека
       room: номер

@@ -28,6 +28,10 @@
     %h2
       = @tour.title
       = raw tour_subtitle(@tour.tour_programs)
+    - unless @tour.active
+      .row
+        .col-lg-12
+          .text-danger= t('tours.archive')
     .row
       .col-lg-12
         .pull-fleft#ya-share

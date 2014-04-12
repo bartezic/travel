@@ -12,7 +12,7 @@
       %form.filters
         %h4= t 'filters.search_by_params' 
         / Фільтр по місті виїзду
-        .well.well-small 
+        .well.well-small
           .bold= t 'filters.regions'
           - Country.where(code: :ua).first.regions.with_translations(locale).each do |f|
             %label.checkbox
@@ -41,6 +41,9 @@
                 - continent.countries.with_translations(locale).each do |f|
                   %label.checkbox
                     %input{ type: :checkbox, name: "country[]", value: f.id, checked: params[:country] && params[:country].include?(f.id.to_s) }= f.name
+          .bold= t 'filters.archive_title'
+          %label.checkbox
+            %input{ type: :checkbox, name: "archive", value: 1, checked: params[:archive] }= t 'filters.archive_body'
 
   .col-lg-9
     - if @tours.any?
@@ -68,6 +71,8 @@
                 .p= raw "#{t('tours.food_type')}: #{temp}"
               .p= "#{t('tours.tour_type')}: #{tour.tour_types.map(&:title).join(', ')}"
               .p= raw "#{t('tours.departure')}: #{tour.regions.map{ |r| link_to r.name, r }.join(', ')}"
+              - unless tour.active
+                %p.text-danger= t('tours.archive')
       = paginate @tours
     - else
       %h4.muted.text-center= t 'search.sorry'

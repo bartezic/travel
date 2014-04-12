@@ -278,6 +278,11 @@ window.app.panoramio = {
 $(function() {
   window.app.panoramio.init();
   window.app.staticMap.init();
+
+  $('.locales .locale').click(function(){
+    Hashovka.setToKey('search','locale',$(this).data('locale'));
+    return false;
+  });
   
   $('#myCarousel').carousel({
     interval: 5000
