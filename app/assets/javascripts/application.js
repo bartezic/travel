@@ -23,6 +23,7 @@
 //////////////////////////////////////////////////
 //          METHODS FOR LOCATION HASH           //
 //////////////////////////////////////////////////
+
 Hashovka = {
   sep: '&',
   keyValSep: '=',
@@ -330,15 +331,16 @@ $(function() {
         failure = modal2.find('.request-action-failure');
 
     if($('label[for="request_action_capcha"]').data('res') != capcha.val()){
-      alert(window.app.l.v_capcha_invalid)
-      capcha.closest('div').addClass('has-error')
-      return false
+      alert(window.app.l.v_capcha_invalid);
+      capcha.closest('div').addClass('has-error');
+      return false;
     } else {
-      capcha.closest('div').removeClass('has-error')
+      capcha.closest('div').removeClass('has-error');
     }
 
     if($('#request_action_email').val() || $('#request_action_phone').val()){
       btn.attr('disabled', true);
+      capcha.attr('disabled', true);
       
       $.ajax({
         type: 'POST',
@@ -357,6 +359,7 @@ $(function() {
           failure.removeClass('hidden');
         }
         btn.attr('disabled', false);
+        capcha.attr('disabled', false);
       });
     } else {
       alert(window.app.l.v_email_or_phone)
@@ -409,9 +412,9 @@ $(function() {
     mathenticate.generate();
    
     var $auth = $('label[for="request_action_capcha"]');
-        $auth.html($auth.text() + ': ' +  mathenticate.show() + ' = ');
+        $auth.html($auth.data('text') + ': ' +  mathenticate.show() + ' = ');
         $auth.data('res', mathenticate.solve())
-  })
+  });
   
 });
 

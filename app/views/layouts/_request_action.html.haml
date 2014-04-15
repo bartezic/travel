@@ -32,7 +32,7 @@
             .datepicker
           = f.input :duration, input_html: {class: 'form-control'}
           = f.input :node, input_html: {rows: 4, class: 'form-control'}
-          = f.input :capcha, input_html: {class: 'form-control'}
+          = f.input :capcha, input_html: {class: 'form-control'}, label_html:{data: {text: t('simple_form.labels.request_action.capcha')}}
         /%p.muted= "* #{t('request_action.msg_3')}"
         %p.muted= t 'request_action.msg_4'
         %p.muted= t 'request_action.msg_5'

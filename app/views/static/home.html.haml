@@ -108,9 +108,10 @@
     %span#ALGOL_logo
     .clearfix
 
-:javascript
-  var alg = document.createElement('script'); 
-      alg.type = 'text/javascript'; 
-      alg.src = 'http://www.algol.com.ua/export/js/logo.php?a=20701&ac=7c4e05cc8eb6b642f26ca5a5abcecb97&s=3'; 
-  var algc = document.getElementById('ALGOL_logo'); 
-      algc.parentNode.insertBefore(alg, algc);
+- content_for :scripts do
+  :javascript
+    var alg = document.createElement('script'); 
+        alg.type = 'text/javascript'; 
+        alg.src = 'http://www.algol.com.ua/export/js/logo.php?a=20701&ac=7c4e05cc8eb6b642f26ca5a5abcecb97&s=3'; 
+    var algc = document.getElementById('ALGOL_logo'); 
+        algc.parentNode.insertBefore(alg, algc);
