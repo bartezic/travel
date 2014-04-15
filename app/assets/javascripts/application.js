@@ -276,7 +276,7 @@ window.app.panoramio = {
   }
 };
 
-$(function() {
+jQuery(function($) {
   window.app.panoramio.init();
   window.app.staticMap.init();
 
