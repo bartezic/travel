@@ -3,7 +3,7 @@ class RequestActionsController < InheritedResources::Base
     @request_action = RequestAction.new(params[:request_action])
 
     respond_to do |format|
-      if @request_action.save
+      if @request_action.save && (@request_action.email || @request_action.phone)
         AdminUser.all.each do |user|
           RequestActionsMailer.new_request(@request_action, user.email).deliver
         end
