@@ -39,7 +39,8 @@ group :assets do
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+  gem 'rspec-rails', '~> 2.0'
+  gem 'letter_opener'
 end
 
 gem 'jquery-rails'

@@ -66,6 +66,8 @@ module Travel
     # I18n.enforce_available_locales = false
   end
 
+  I18n.enforce_available_locales = false
+
   ActionMailer::Base.smtp_settings = {
     address:              "smtp.gmail.com",
     port:                 587,
